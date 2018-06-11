@@ -4,7 +4,7 @@ describe('Test1 dev branch', function() {
         cy.visit('https://www.google.com/')
         cy.get('#gws-output-pages-elements-homepage_additional_languages__als').contains('Google').click();
     })*/
-    it('Guides TC00 || Verify Global Text and element', function() {
+    it('Guides TC01 || Verify Global Text and element', function() {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable) => {
             return false
