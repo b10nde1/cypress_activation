@@ -44,4 +44,10 @@ describe('Test1 dev branch', function() {
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
     })
+    if('Guides TC02 || Verify Guide Pdf detail page',function (){
+        //Gestion d'erreur
+        Cypress.on('uncaught:exception', (err, runnable) => {
+            return false
+        })
+    })
 })
