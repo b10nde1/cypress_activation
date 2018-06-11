@@ -17,7 +17,7 @@ describe('Test1 dev branch', function() {
         cy.get('.section-social__title').contains('Do you know other parents who would like our Guides & Downloadables? Share this now:');
         //social icon section 
         cy.get('.js-share--facebook').contains('Facebook');
-        cy.get('.js-share--twitter').contains('Twittere',{force: true});
+        cy.get('.js-share--twitter').contains('Twitter');
         cy.get('.js-share--print').contains('Print');
     })
 })
