@@ -1,16 +1,13 @@
-describe('Test1 dev branch', function() {
-    /*it('Test google', function() {
-        cy.viewport(1366, 768)
-        cy.visit('https://www.google.com/')
-        cy.get('#gws-output-pages-elements-homepage_additional_languages__als').contains('Google').click();
-    })*/
-    it('Guides TC01 || Verify Global Text and element', function() {
+describe('Test1 dev branch',()=>{
+    beforeEach(() => {
         //Gestion d'erreur
-        Cypress.on('uncaught:exception', (err, runnable) => {
+        Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
         //resolution 
-        cy.viewport(1366, 768)
+        cy.viewport(1366, 768);
+    });
+    it('Guides TC01 || Verify Global Text and element',()=>{
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify Navigation menu
@@ -21,6 +18,8 @@ describe('Test1 dev branch', function() {
         cy.get('.c-breadcrumb').contains('Guides & Downloadables');
         //verify hero top banner title
         cy.get('.hero-top-banner__title').contains('Guides & Downloadables');
+        //verify data-action-detail
+        //cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables]').should('data-action-detail.value', 'GUIDES')
         //verify hero top banner text
         cy.get('.hero-top-banner__text').contains('These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
         //verify social title section
