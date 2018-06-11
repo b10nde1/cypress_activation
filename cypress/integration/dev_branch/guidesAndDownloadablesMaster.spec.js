@@ -1,16 +1,13 @@
-describe('Test1 dev branch', function() {
-    /*it('Test google', function() {
-        cy.viewport(1366, 768)
-        cy.visit('https://www.google.com/')
-        cy.get('#gws-output-pages-elements-homepage_additional_languages__als').contains('Google').click();
-    })*/
-    it('Guides TC01 || Verify Global Text and element', function() {
+describe('Guides and downloadables', () => {
+    beforeEach(() => {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable) => {
             return false
         })
         //resolution 
-        cy.viewport(1366, 768)
+        cy.viewport(1366, 768);
+    });
+    it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify Navigation menu
@@ -43,11 +40,8 @@ describe('Test1 dev branch', function() {
         cy.get('.btn--download-list-oasis').contains('Access video links').click();
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
-    })
-    if('Guides TC02 || Verify Guide Pdf detail page',function (){
-        //Gestion d'erreur
-        Cypress.on('uncaught:exception', (err, runnable) => {
-            return false
-        })
-    })
+    });
+    it('Guides TC02 || Verify Guide Pdf detail page',()=>{
+        cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
+    });
 })
