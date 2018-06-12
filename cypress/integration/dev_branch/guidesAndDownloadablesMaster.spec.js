@@ -45,6 +45,6 @@ describe('Guides and downloadables', () => {
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
     });
     it('Guides TC0£ || Verify Guide Video detail',()=>{
-
+        cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
     });
 })
