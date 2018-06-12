@@ -116,7 +116,7 @@ describe('Guides and downloadables', () => {
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
         //GA 
-        cy.get('#phmainbannerhero_1_VideoGuideCtaSection').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_UnlockVideoCta').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
         cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-youtube-link');
         cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
         cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_1').should('have.attr','data-youtube-link');
