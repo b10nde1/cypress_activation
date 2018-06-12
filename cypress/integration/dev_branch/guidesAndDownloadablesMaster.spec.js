@@ -7,7 +7,7 @@ describe('Guides and downloadables', () => {
         //resolution 
         cy.viewport(1366, 768);
     });
-    /*it('Guides TC01 || Verify Global Text and element', () => {
+    it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify GA in NavMenu
@@ -41,12 +41,8 @@ describe('Guides and downloadables', () => {
         cy.get('.guide-card__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
         cy.get('.guide-card__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks, to delivery, and bringing baby home.');
         //verify registration popin
-        cy.get('.btn--download-list-oasis').contains('Download for FREE').click();
-        cy.get('.ajs-body');
-        cy.get('.ajs-close').click();
-        cy.get('.btn--download-list-oasis').contains('Access video links').click();
-        cy.get('.ajs-body');
-        cy.get('.ajs-close').click();
+        checkCtaBtn('Download for FREE');
+        checkCtaBtn('Access video links');
         //closed box img should have alt text
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains('See more');
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains('See more');
@@ -76,9 +72,7 @@ describe('Guides and downloadables', () => {
         cy.get('#slick-slide04').click();
         cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Selecting Your Healthcare Provider');
         cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Prenatal Visit Calendar');
-        cy.get('.btn--download-list-oasis').contains('Download the full guide FOR FREE').click();
-        cy.get('.ajs-body');
-        cy.get('.ajs-close').click();
+        checkCtaBtn('Download the full guide FOR FREE');
         //GA 
         checkDataAttr(['#phmainbannerhero_1_DownloadFullGuide','#phmainbannerhero_1_DownloadFullGuide']
             ,['have.attr','have.attr']
@@ -86,7 +80,7 @@ describe('Guides and downloadables', () => {
             ,['pdf-guide_your-go-to-pregnancy-guide','guide-detail-page_download-the-full-guide-cta']);
         //verify social section
         checkSocialSection('Do you know other parents who would like our Pregnancy Guide? Share this now:');
-    });*/
+    });
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
         //verify meta
@@ -101,9 +95,7 @@ describe('Guides and downloadables', () => {
         cy.get('.hero-top-banner__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.');
         cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
         //Main
-        cy.get('.btn--download-list-oasis').contains('Unlock all videos FOR FREE').click();
-        cy.get('.ajs-body');
-        cy.get('.ajs-close').click();
+        checkCtaBtn('Unlock all videos FOR FREE');
         //GA 
         checkDataAttr(['#phmainbannerhero_1_UnlockVideoCta']
             ,['have.attr']
@@ -113,6 +105,11 @@ describe('Guides and downloadables', () => {
         //verify share section
         checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
     });
+    const checkCtaBtn=(argCtaText)=>{
+        cy.get('.btn--download-list-oasis').contains(argCtaText).click();
+        cy.get('.ajs-body');
+        cy.get('.ajs-close').click();
+    }
     const checkDataAttr=(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
         for(var compt=0;compt<argListGet.length;compt++){
             cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
