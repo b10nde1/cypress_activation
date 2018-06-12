@@ -98,5 +98,10 @@ describe('Guides and downloadables', () => {
     });
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
+        //verify meta
+        cy.get('head title').should('contain', 'Interactive Video Guides - Nurses Know | Pampers');
+        cy.get('head meta[name="description"]').should('have.attr','content',"Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.");
+        cy.get('head meta[property="og:title"]').should('have.attr','content','Interactive Guides Nurses Know');
+        cy.get('head meta[property="og:description"]').should('have.attr','content',"Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.");
     });
 })
