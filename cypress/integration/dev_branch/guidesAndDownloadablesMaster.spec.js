@@ -10,6 +10,8 @@ describe('Guides and downloadables', () => {
     it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
+        //verify GA in NavMenu
+        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]').should('have.attr','data-action-detail','GUIDES');
         //verify Navigation menu
         cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
         //verify title
@@ -25,8 +27,6 @@ describe('Guides and downloadables', () => {
         cy.get('.c-breadcrumb').contains('Guides & Downloadables');
         //verify hero top banner title
         cy.get('.hero-top-banner__title').contains('Guides & Downloadables');
-        //verify data-action-detail
-        //cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables]').should('data-action-detail.value', 'GUIDES')
         //verify hero top banner text
         cy.get('.hero-top-banner__text').contains('These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
         //verify social title section
@@ -34,8 +34,14 @@ describe('Guides and downloadables', () => {
         //social icon section 
         cy.get('.js-share--facebook').contains('Facebook');
         cy.get('.js-share--twitter').contains('Twitter');
-        //cy.get('.js-share--print').contains('Print');
-        //verify main element
+        cy.get('.js-share--print');
+        //verify GA 
+        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]').should('have.attr','data-action-detail','guide-landing-page_see-more-cta');
+        cy.get('a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]').should('have.attr','data-action-detail','guide-landing-page_download-for-free-cta');
+        cy.get('a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]').should('have.attr','data-vortex-scenario','pdf-guide_your-go-to-pregnancy-guide');
+        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]').should('have.attr','data-action-detail','guide-landing-page_see-more-cta');
+        cy.get('#phmainbannerhero_1_GuideRepeater_lnkCta_1').should('have.attr','data-action-detail','guide-landing-page_link-to-videos-cta');
+        cy.get('#phmainbannerhero_1_GuideRepeater_lnkCta_1').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
         //verify card title
         cy.get('.guide-card__title').contains('Your Go-To Pregnancy Guide');
         cy.get('.guide-card__title').contains('Video Guides: Nurses Know');
@@ -81,11 +87,14 @@ describe('Guides and downloadables', () => {
         cy.get('.btn--download-list-oasis').contains('Download the full guide FOR FREE').click();
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
+        //GA 
+        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-vortex-scenario','pdf-guide_your-go-to-pregnancy-guide');
+        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-action-detail','guide-detail-page_download-the-full-guide-cta');
         //verify share section
-        cy.get('.section-social__title').contains('Do you know other parents who would like our Guides & Downloadables? Share this now:');
         cy.get('.js-share--facebook').contains('Facebook');
         cy.get('.js-share--twitter').contains('Twitter');
-        cy.get('.js-share--print').contains('Print');
+        cy.get('.js-share--print');
+        cy.get('.section-social__title').contains('Do you know other parents who would like our Pregnancy Guide? Share this now:');
     });
     it('Guides TC0£ || Verify Guide Video detail',()=>{
 
