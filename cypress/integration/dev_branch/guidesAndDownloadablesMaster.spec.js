@@ -55,6 +55,9 @@ describe('Guides and downloadables', () => {
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
         cy.get('head title').should('contain', 'Your Go-To Pregnancy Guide | Pampers');
+        cy.get('head meta[name="descirption"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
+        cy.get('head meta[name="og:title"]').should('have.attr','content','Your Go-To Pregnancy Guide');
+        cy.get('head meta[name="og:description"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
     });
     it('Guides TC0£ || Verify Guide Video detail',()=>{
 
