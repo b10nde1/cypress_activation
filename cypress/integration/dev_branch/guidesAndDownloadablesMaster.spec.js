@@ -10,6 +10,8 @@ describe('Guides and downloadables', () => {
     it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
+        //verify GA in NavMenu
+        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]').should('have.attr','data-action-detail','GUIDES');
         //verify Navigation menu
         cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
         //verify title
@@ -90,7 +92,4 @@ describe('Guides and downloadables', () => {
     it('Guides TC0£ || Verify Guide Video detail',()=>{
 
     });
-    it('GA',()=>{
-
-    })
 })
