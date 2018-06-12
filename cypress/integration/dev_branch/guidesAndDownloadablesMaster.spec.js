@@ -105,13 +105,16 @@ describe('Guides and downloadables', () => {
         cy.get('.ajs-close').click();
         //GA 
         cy.get('#phmainbannerhero_1_UnlockVideoCta').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        for(var compt=0;compt<6;compt++){
-            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link');
-            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        }
+        checkDataYoutubeAndVortexScenario(6);
         //verify share section
         checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
     });
+    const checkDataYoutubeAndVortexScenario=(argNbElements)=>{
+        for(var compt=0;compt<argNbElements;compt++){
+            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link');
+            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        }
+    }
     const checkBreadcrumb=(arg)=>{
         for(var compt=0;compt<arg.length;compt++){
             cy.get('.c-breadcrumb').contains(arg[compt]);
