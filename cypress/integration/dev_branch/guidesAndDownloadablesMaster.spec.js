@@ -7,7 +7,7 @@ describe('Guides and downloadables', () => {
         //resolution 
         cy.viewport(1366, 768);
     });
-    /*it('Guides TC01 || Verify Global Text and element', () => {
+    it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify Navigation menu
@@ -52,7 +52,7 @@ describe('Guides and downloadables', () => {
         //closed box img should have alt text
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains('See more');
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains('See more');
-    });*/
+    });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
         //verify meta
@@ -68,7 +68,19 @@ describe('Guides and downloadables', () => {
         cy.get('.hero-top-banner__title').contains('Your Go-To Pregnancy Guide');
         cy.get('.hero-top-banner__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
         cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
-
+        //verify main
+        cy.get('.pregnancy-guide__header').contains('Everything you will get:');
+        cy.get('#slick-slide01').click();
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Your Go-To Pregnancy Guide');
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Pregnancy Milestones');
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Movement Tracker');
+        cy.get('.slick-next').click();
+        cy.get('#slick-slide04').click();
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Selecting Your Healthcare Provider');
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Prenatal Visit Calendar');
+        cy.get('.btn--download-list-oasis').contains('Download the full guide FOR FREE').click();
+        cy.get('.ajs-body');
+        cy.get('.ajs-close').click();
         //verify share section
         cy.get('.section-social__title').contains('Do you know other parents who would like our Guides & Downloadables? Share this now:');
         cy.get('.js-share--facebook').contains('Facebook');
