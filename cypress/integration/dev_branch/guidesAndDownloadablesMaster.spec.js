@@ -11,23 +11,19 @@ describe('Guides and downloadables', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify GA in NavMenu
-        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]').should('have.attr','data-action-detail','GUIDES');
+        checkDataAttr('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]','have.attr','data-action-detail','GUIDES');
         //verify Navigation menu
         cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
         //verify title
-        cy.get('head title').should('contain','Guides and Downloadables | Pampers');
-        //vetrify meta description
-        cy.get('head meta[name="description"]').should("have.attr", "content", "Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond.");
-        //verify Og title
-        cy.get('head meta[property="og:title"]').should('have.attr','content','Guides & Downloadables');
-        //verify og description
-        cy.get('head meta[property="og:description"]').should('have.attr','content','Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond.');
+        checkMetaInfo("Guides and Downloadables | Pampers"
+            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
+            ,"Guides & Downloadables"
+            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
+        );
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables']);
-        //verify hero top banner title
-        cy.get('.hero-top-banner__title').contains('Guides & Downloadables');
-        //verify hero top banner text
-        cy.get('.hero-top-banner__text').contains('These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
+        //verify hero top banner 
+        checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
         //verify GA 
         checkDataAttr(
             ['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]','#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
@@ -52,16 +48,15 @@ describe('Guides and downloadables', () => {
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
         //verify meta
-        cy.get('head title').should('contain', 'Your Go-To Pregnancy Guide | Pampers');
-        cy.get('head meta[name="description"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
-        cy.get('head meta[property="og:title"]').should('have.attr','content','Your Go-To Pregnancy Guide');
-        cy.get('head meta[property="og:description"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
+        checkMetaInfo('Your Go-To Pregnancy Guide | Pampers'
+            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
+            ,'Your Go-To Pregnancy Guide'
+            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
+        );
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables','Go-To Pregnancy Guide']);
         //verify hero banner
-        cy.get('.hero-top-banner__title').contains('Your Go-To Pregnancy Guide');
-        cy.get('.hero-top-banner__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
-        cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        checkBanner('Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
         //verify main
         cy.get('.pregnancy-guide__header').contains('Everything you will get:');
         cy.get('#slick-slide01').click();
@@ -84,16 +79,14 @@ describe('Guides and downloadables', () => {
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
         //verify meta
-        cy.get('head title').should('contain', 'Interactive Video Guides - Nurses Know | Pampers');
-        cy.get('head meta[name="description"]').should('have.attr','content',"Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.");
-        cy.get('head meta[property="og:title"]').should('have.attr','content','Interactive Guides Nurses Know');
-        cy.get('head meta[property="og:description"]').should('have.attr','content',"Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.");
+        checkMetaInfo('Interactive Video Guides - Nurses Know | Pampers'
+            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.'
+            ,'Interactive Guides Nurses Know'
+            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.');
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables','Interactive Guides: Nurses Know']);
         //verify hero banner
-        cy.get('.hero-top-banner__title').contains('Video Guide: Nurses Know');
-        cy.get('.hero-top-banner__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.');
-        cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        checkBanner('Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.');
         //Main
         checkCtaBtn('Unlock all videos FOR FREE');
         //GA 
@@ -105,6 +98,17 @@ describe('Guides and downloadables', () => {
         //verify share section
         checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
     });
+    const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
+        cy.get('head title').should('contain', argHeadTitle);
+        cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
+        cy.get('head meta[property="og:title"]').should('have.attr','content',argMetaOgTitle);
+        cy.get('head meta[property="og:description"]').should('have.attr','content',argMetaOgDescription);
+    }
+    const checkBanner=(argBannerTitle,argBannerDescription)=>{
+        cy.get('.hero-top-banner__title').contains(argBannerTitle);
+        cy.get('.hero-top-banner__text').contains(argBannerDescription);
+        cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+    }
     const checkCtaBtn=(argCtaText)=>{
         cy.get('.btn--download-list-oasis').contains(argCtaText).click();
         cy.get('.ajs-body');
