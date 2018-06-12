@@ -113,8 +113,19 @@ describe('Guides and downloadables', () => {
         cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
         
         //GA 
-        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-vortex-scenario','pdf-guide_your-go-to-pregnancy-guide');
-        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-action-detail','guide-detail-page_download-the-full-guide-cta');
+        cy.get('#phmainbannerhero_1_VideoGuideCtaSection').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-youtube-link');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_1').should('have.attr','data-youtube-link');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_1').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_2').should('have.attr','data-youtube-link');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_2').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_3').should('have.attr','data-youtube-link');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_3').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_4').should('have.attr','data-youtube-link');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_4').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_5').should('have.attr','data-youtube-link');
+        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_5').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
         //verify share section
         cy.get('.js-share--facebook').contains('Facebook');
         cy.get('.js-share--twitter').contains('Twitter');
