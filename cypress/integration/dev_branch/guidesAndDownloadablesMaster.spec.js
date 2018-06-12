@@ -111,7 +111,10 @@ describe('Guides and downloadables', () => {
         cy.get('.hero-top-banner__title').contains('Video Guide: Nurses Know');
         cy.get('.hero-top-banner__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.');
         cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
-        
+        //Main
+        cy.get('.btn--download-list-oasis').contains('Unlock all videos FOR FREE').click();
+        cy.get('.ajs-body');
+        cy.get('.ajs-close').click();
         //GA 
         cy.get('#phmainbannerhero_1_VideoGuideCtaSection').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
         cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-youtube-link');
