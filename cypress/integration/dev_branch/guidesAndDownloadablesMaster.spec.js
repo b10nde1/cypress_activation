@@ -7,7 +7,7 @@ describe('Guides and downloadables', () => {
         //resolution 
         cy.viewport(1366, 768);
     });
-    /*it('Guides TC01 || Verify Global Text and element', () => {
+    it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify GA in NavMenu
@@ -95,7 +95,7 @@ describe('Guides and downloadables', () => {
         cy.get('.js-share--twitter').contains('Twitter');
         cy.get('.js-share--print');
         cy.get('.section-social__title').contains('Do you know other parents who would like our Pregnancy Guide? Share this now:');
-    });*/
+    });
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
         //verify meta
