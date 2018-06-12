@@ -23,8 +23,7 @@ describe('Guides and downloadables', () => {
         //verify og description
         cy.get('head meta[property="og:description"]').should('have.attr','content','Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond.');
         //verify breadcrumb
-        cy.get('.c-breadcrumb').contains('Home');
-        cy.get('.c-breadcrumb').contains('Guides & Downloadables');
+        checkBreadcrumb(['Home','Guides & Downloadables']);
         //verify hero top banner title
         cy.get('.hero-top-banner__title').contains('Guides & Downloadables');
         //verify hero top banner text
@@ -63,9 +62,7 @@ describe('Guides and downloadables', () => {
         cy.get('head meta[property="og:title"]').should('have.attr','content','Your Go-To Pregnancy Guide');
         cy.get('head meta[property="og:description"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
         //verify breadcrumb
-        cy.get('.c-breadcrumb').contains('Home');
-        cy.get('.c-breadcrumb').contains('Guides & Downloadables');
-        cy.get('.c-breadcrumb').contains('Go-To Pregnancy Guide');
+        checkBreadcrumb(['Home','Guides & Downloadables','Go-To Pregnancy Guide']);
         //verify hero banner
         cy.get('.hero-top-banner__title').contains('Your Go-To Pregnancy Guide');
         cy.get('.hero-top-banner__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
@@ -97,9 +94,7 @@ describe('Guides and downloadables', () => {
         cy.get('head meta[property="og:title"]').should('have.attr','content','Interactive Guides Nurses Know');
         cy.get('head meta[property="og:description"]').should('have.attr','content',"Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.");
         //verify breadcrumb
-        cy.get('.c-breadcrumb').contains('Home');
-        cy.get('.c-breadcrumb').contains('Guides & Downloadables');
-        cy.get('.c-breadcrumb').contains('Interactive Guides: Nurses Know');
+        checkBreadcrumb(['Home','Guides & Downloadables','Interactive Guides: Nurses Know']);
         //verify hero banner
         cy.get('.hero-top-banner__title').contains('Video Guide: Nurses Know');
         cy.get('.hero-top-banner__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.');
@@ -117,6 +112,11 @@ describe('Guides and downloadables', () => {
         //verify share section
         checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
     });
+    const checkBreadcrumb=(arg)=>{
+        for(var compt=0;compt<arg.length;compt++){
+            cy.get('.c-breadcrumb').contains(arg[compt]);
+        }
+    }
     const checkSocialSection =(argSocialTitle)=>{
         cy.get('.js-share--facebook').contains('Facebook');
         cy.get('.js-share--twitter').contains('Twitter');
