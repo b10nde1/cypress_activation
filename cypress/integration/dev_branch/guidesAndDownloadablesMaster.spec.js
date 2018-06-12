@@ -87,7 +87,7 @@ describe('Guides and downloadables', () => {
         cy.get('.js-share--twitter').contains('Twitter');
         cy.get('.js-share--print').contains('Print');
     });
-    it('Guides TC0£ || Verify Guide Video detail',()=>{
+    it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
     });
 })
