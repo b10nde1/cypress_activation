@@ -29,12 +29,11 @@ describe('Guides and downloadables', () => {
         //verify hero top banner text
         cy.get('.hero-top-banner__text').contains('These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
         //verify GA 
-        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]').should('have.attr','data-action-detail','guide-landing-page_see-more-cta');
-        cy.get('a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]').should('have.attr','data-action-detail','guide-landing-page_download-for-free-cta');
-        cy.get('a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]').should('have.attr','data-vortex-scenario','pdf-guide_your-go-to-pregnancy-guide');
-        cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]').should('have.attr','data-action-detail','guide-landing-page_see-more-cta');
-        cy.get('#phmainbannerhero_1_GuideRepeater_lnkCta_1').should('have.attr','data-action-detail','guide-landing-page_link-to-videos-cta');
-        cy.get('#phmainbannerhero_1_GuideRepeater_lnkCta_1').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        checkDataAttr(
+            ['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]','#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
+            ,['have.attr','have.attr','have.attr','have.attr','have.attr','have.attr']
+            ,['data-action-detail','data-action-detail','data-vortex-scenario','data-action-detail','data-action-detail','data-vortex-scenario']
+            ,['guide-landing-page_see-more-cta','guide-landing-page_download-for-free-cta','pdf-guide_your-go-to-pregnancy-guide','guide-landing-page_see-more-cta','guide-landing-page_link-to-videos-cta','video-guide_nurses-know']);
         //verify card title
         cy.get('.guide-card__title').contains('Your Go-To Pregnancy Guide');
         cy.get('.guide-card__title').contains('Video Guides: Nurses Know');
@@ -81,8 +80,10 @@ describe('Guides and downloadables', () => {
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
         //GA 
-        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-vortex-scenario','pdf-guide_your-go-to-pregnancy-guide');
-        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-action-detail','guide-detail-page_download-the-full-guide-cta');
+        checkDataAttr(['#phmainbannerhero_1_DownloadFullGuide','#phmainbannerhero_1_DownloadFullGuide']
+            ,['have.attr','have.attr']
+            ,['data-vortex-scenario','data-action-detail']
+            ,['pdf-guide_your-go-to-pregnancy-guide','guide-detail-page_download-the-full-guide-cta']);
         //verify social section
         checkSocialSection('Do you know other parents who would like our Pregnancy Guide? Share this now:');
     });*/
@@ -104,11 +105,19 @@ describe('Guides and downloadables', () => {
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
         //GA 
-        cy.get('#phmainbannerhero_1_UnlockVideoCta').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        checkDataAttr(['#phmainbannerhero_1_UnlockVideoCta']
+            ,['have.attr']
+            ,['data-vortex-scenario']
+            ,['video-guide_nurses-know']);
         checkDataYoutubeAndVortexScenario(6);
         //verify share section
         checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
     });
+    const checkDataAttr=(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
+        for(var compt=0;compt<argListGet.length;compt++){
+            cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
+        }
+    }
     const checkDataYoutubeAndVortexScenario=(argNbElements)=>{
         for(var compt=0;compt<argNbElements;compt++){
             cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link');
