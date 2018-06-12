@@ -1,7 +1,7 @@
 describe('Guides and downloadables', () => {
     beforeEach(() => {
         //Gestion d'erreur
-        Cypress.on('uncaught:exception', (err, runnable) => {
+        Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
         //resolution 
@@ -14,10 +14,18 @@ describe('Guides and downloadables', () => {
         cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
         //verify title
         cy.get('head title').should('contain','Guides and Downloadables | Pampers');
+        //vetrify meta description
+        cy.get('head meta[name="description"]').should("have.attr", "content", "Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond.");
+        //verify Og title
+        cy.get('head meta[property="og:title"]').should('have.attr','content','Guides & Downloadables');
+        //verify og description
+        cy.get('head meta[property="og:description"]').should('have.attr','content','Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond.');
         //verify breadcrumb
         cy.get('.c-breadcrumb').contains('Guides & Downloadables');
         //verify hero top banner title
         cy.get('.hero-top-banner__title').contains('Guides & Downloadables');
+        //verify data-action-detail
+        //cy.get('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables]').should('data-action-detail.value', 'GUIDES')
         //verify hero top banner text
         cy.get('.hero-top-banner__text').contains('These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
         //verify social title section
@@ -40,9 +48,15 @@ describe('Guides and downloadables', () => {
         cy.get('.btn--download-list-oasis').contains('Access video links').click();
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
+        //closed box img should have alt text
+        cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains('See more');
+        cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains('See more');
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
         cy.get('head title').should('contain', 'Your Go-To Pregnancy Guide | Pampers');
+    });
+    it('Guides TC0£ || Verify Guide Video detail',()=>{
+
     });
 })
