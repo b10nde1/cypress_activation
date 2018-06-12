@@ -43,5 +43,6 @@ describe('Guides and downloadables', () => {
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
+        cy.get('head title').should('contain', 'Your Go-To Pregnancy Guide | Pampers');
     });
 })
