@@ -90,4 +90,7 @@ describe('Guides and downloadables', () => {
     it('Guides TC0£ || Verify Guide Video detail',()=>{
 
     });
+    it('GA',()=>{
+
+    })
 })
