@@ -87,11 +87,14 @@ describe('Guides and downloadables', () => {
         cy.get('.btn--download-list-oasis').contains('Download the full guide FOR FREE').click();
         cy.get('.ajs-body');
         cy.get('.ajs-close').click();
+        //GA 
+        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-vortex-scenario','pdf-guide_your-go-to-pregnancy-guide');
+        cy.get('#phmainbannerhero_1_DownloadFullGuide').should('have.attr','data-action-detail','guide-detail-page_download-the-full-guide-cta');
         //verify share section
-        cy.get('.section-social__title').contains('Do you know other parents who would like our Guides & Downloadables? Share this now:');
         cy.get('.js-share--facebook').contains('Facebook');
         cy.get('.js-share--twitter').contains('Twitter');
-        cy.get('.js-share--print').contains('Print');
+        cy.get('.js-share--print');
+        cy.get('.section-social__title').contains('Do you know other parents who would like our Pregnancy Guide? Share this now:');
     });
     it('Guides TC0£ || Verify Guide Video detail',()=>{
 
