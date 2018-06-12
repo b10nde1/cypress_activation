@@ -7,7 +7,7 @@ describe('Guides and downloadables', () => {
         //resolution 
         cy.viewport(1366, 768);
     });
-    it('Guides TC01 || Verify Global Text and element', () => {
+    /*it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify GA in NavMenu
@@ -95,7 +95,7 @@ describe('Guides and downloadables', () => {
         cy.get('.js-share--twitter').contains('Twitter');
         cy.get('.js-share--print');
         cy.get('.section-social__title').contains('Do you know other parents who would like our Pregnancy Guide? Share this now:');
-    });
+    });*/
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
         //verify meta
@@ -117,18 +117,10 @@ describe('Guides and downloadables', () => {
         cy.get('.ajs-close').click();
         //GA 
         cy.get('#phmainbannerhero_1_UnlockVideoCta').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-youtube-link');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_0').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_1').should('have.attr','data-youtube-link');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_1').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_2').should('have.attr','data-youtube-link');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_2').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_3').should('have.attr','data-youtube-link');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_3').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_4').should('have.attr','data-youtube-link');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_4').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_5').should('have.attr','data-youtube-link');
-        cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_5').should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        for(var compt=0;compt<6;compt++){
+            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link');
+            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        }
         //verify share section
         cy.get('.js-share--facebook').contains('Facebook');
         cy.get('.js-share--twitter').contains('Twitter');
