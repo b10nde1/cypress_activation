@@ -21,6 +21,7 @@ describe('Guides and downloadables', () => {
         //verify og description
         cy.get('head meta[property="og:description"]').should('have.attr','content','Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond.');
         //verify breadcrumb
+        cy.get('.c-breadcrumb').contains('Home');
         cy.get('.c-breadcrumb').contains('Guides & Downloadables');
         //verify hero top banner title
         cy.get('.hero-top-banner__title').contains('Guides & Downloadables');
@@ -54,6 +55,37 @@ describe('Guides and downloadables', () => {
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
+        //verify meta
+        cy.get('head title').should('contain', 'Your Go-To Pregnancy Guide | Pampers');
+        cy.get('head meta[name="description"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
+        cy.get('head meta[property="og:title"]').should('have.attr','content','Your Go-To Pregnancy Guide');
+        cy.get('head meta[property="og:description"]').should('have.attr','content',"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here.");
+        //verify breadcrumb
+        cy.get('.c-breadcrumb').contains('Home');
+        cy.get('.c-breadcrumb').contains('Guides & Downloadables');
+        cy.get('.c-breadcrumb').contains('Go-To Pregnancy Guide');
+        //verify hero banner
+        cy.get('.hero-top-banner__title').contains('Your Go-To Pregnancy Guide');
+        cy.get('.hero-top-banner__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
+        cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        //verify main
+        cy.get('.pregnancy-guide__header').contains('Everything you will get:');
+        cy.get('#slick-slide01').click();
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Your Go-To Pregnancy Guide');
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Pregnancy Milestones');
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Movement Tracker');
+        cy.get('.slick-next').click();
+        cy.get('#slick-slide04').click();
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Selecting Your Healthcare Provider');
+        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Prenatal Visit Calendar');
+        cy.get('.btn--download-list-oasis').contains('Download the full guide FOR FREE').click();
+        cy.get('.ajs-body');
+        cy.get('.ajs-close').click();
+        //verify share section
+        cy.get('.section-social__title').contains('Do you know other parents who would like our Guides & Downloadables? Share this now:');
+        cy.get('.js-share--facebook').contains('Facebook');
+        cy.get('.js-share--twitter').contains('Twitter');
+        cy.get('.js-share--print').contains('Print');
     });
     it('Guides TC0£ || Verify Guide Video detail',()=>{
 
