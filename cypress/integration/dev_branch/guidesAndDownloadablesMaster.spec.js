@@ -1,4 +1,24 @@
 describe('Guides and downloadables', () => {
+    //Config URLs
+    let confBaseUrl='https://www.pampers.ca/en-ca'; 
+    let confCategoryUrl='guides-and-downloadables';
+    let confGuideUrl='your-go-to-pregnancy-guide';
+    let confVideoUrl='interactive-guides-nurses-know';
+    //Config meta
+    let confMeta=[
+        ["Guides and Downloadables | Pampers"
+            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
+            ,"Guides & Downloadables"
+            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."]
+        ,['Your Go-To Pregnancy Guide | Pampers'
+            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
+            ,'Your Go-To Pregnancy Guide'
+            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."]
+        ,['Interactive Video Guides - Nurses Know | Pampers'
+            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.'
+            ,'Interactive Guides Nurses Know'
+            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.']
+        ];
     beforeEach(() => {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable)=> {
@@ -9,27 +29,27 @@ describe('Guides and downloadables', () => {
     });
     it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
-        cy.visit('https://www.pampers.ca/en-ca/');
+        cy.visit(confBaseUrl);
         //verify GA in NavMenu
-        checkDataAttr(['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]']
+        checkDataAttr(['a[href="'+confBaseUrl+'/'+confCategoryUrl+'"]']
             ,['have.attr']
             ,['data-action-detail']
             ,['GUIDES']);
         //verify Navigation menu
         cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
         //verify title
-        checkMetaInfo("Guides and Downloadables | Pampers"
-            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
-            ,"Guides & Downloadables"
-            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
-        );
+        checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables']);
         //verify hero top banner 
         checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!',false);
         //verify GA 
         checkDataAttr(
-            ['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]','#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
+            ['a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl+'"]'
+            ,'a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]'
+            ,'a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]'
+            ,'a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl+'"]'
+            ,'#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
             ,['have.attr','have.attr','have.attr','have.attr','have.attr','have.attr']
             ,['data-action-detail','data-action-detail','data-vortex-scenario','data-action-detail','data-action-detail','data-vortex-scenario']
             ,['guide-landing-page_see-more-cta','guide-landing-page_download-for-free-cta','pdf-guide_your-go-to-pregnancy-guide','guide-landing-page_see-more-cta','guide-landing-page_link-to-videos-cta','video-guide_nurses-know']);
@@ -49,13 +69,9 @@ describe('Guides and downloadables', () => {
         checkCtaBtn('Access video links');
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
-        cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
+        cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl);
         //verify meta
-        checkMetaInfo('Your Go-To Pregnancy Guide | Pampers'
-            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
-            ,'Your Go-To Pregnancy Guide'
-            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
-        );
+        checkMetaInfo(confMeta[1][0],confMeta[1][1],confMeta[1][2],confMeta[1][3]);
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables','Go-To Pregnancy Guide']);
         //verify hero banner
@@ -81,12 +97,9 @@ describe('Guides and downloadables', () => {
         checkCtaBtn('Download the full guide FOR FREE');
     });
     it('Guides TC03 || Verify Guide Video detail',()=>{
-        cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
+        cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl);
         //verify meta
-        checkMetaInfo('Interactive Video Guides - Nurses Know | Pampers'
-            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.'
-            ,'Interactive Guides Nurses Know'
-            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.');
+        checkMetaInfo(confMeta[2][0],confMeta[2][1],confMeta[2][2],confMeta[2][3]);
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables','Interactive Guides: Nurses Know']);
         //verify hero banner
@@ -102,6 +115,7 @@ describe('Guides and downloadables', () => {
         //Main
         checkCtaBtn('Unlock all videos FOR FREE');
     });
+    //List function
     const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
         cy.get('head title').should('contain', argHeadTitle);
         cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
