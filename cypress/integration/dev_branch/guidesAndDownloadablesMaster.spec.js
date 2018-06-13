@@ -19,6 +19,12 @@ describe('Guides and downloadables', () => {
             ,'Interactive Guides Nurses Know'
             ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.']
         ];
+    //Config breadcrumb
+    let confBreadcrumb=[
+        ['Home','Guides & Downloadables']
+        ,['Home','Guides & Downloadables','Go-To Pregnancy Guide']
+        ,['Home','Guides & Downloadables','Interactive Guides: Nurses Know']
+    ];
     beforeEach(() => {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable)=> {
@@ -40,7 +46,7 @@ describe('Guides and downloadables', () => {
         //verify title
         checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb
-        checkBreadcrumb(['Home','Guides & Downloadables']);
+        checkBreadcrumb(confBreadcrumb[0]);
         //verify hero top banner 
         checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!',false);
         //verify GA 
@@ -73,7 +79,7 @@ describe('Guides and downloadables', () => {
         //verify meta
         checkMetaInfo(confMeta[1][0],confMeta[1][1],confMeta[1][2],confMeta[1][3]);
         //verify breadcrumb
-        checkBreadcrumb(['Home','Guides & Downloadables','Go-To Pregnancy Guide']);
+        checkBreadcrumb(confBreadcrumb[1]);
         //verify hero banner
         checkBanner('Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.',true);
         //verify main
@@ -101,7 +107,7 @@ describe('Guides and downloadables', () => {
         //verify meta
         checkMetaInfo(confMeta[2][0],confMeta[2][1],confMeta[2][2],confMeta[2][3]);
         //verify breadcrumb
-        checkBreadcrumb(['Home','Guides & Downloadables','Interactive Guides: Nurses Know']);
+        checkBreadcrumb(confBreadcrumb[2]);
         //verify hero banner
         checkBanner('Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.',true);
         //GA 
