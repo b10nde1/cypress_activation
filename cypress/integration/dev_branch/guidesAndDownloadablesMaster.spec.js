@@ -1,5 +1,8 @@
 describe('Guides and downloadables', () => {
 //***************************************************************************************//
+//**Load Data**//
+
+//***************************************************************************************//
 //**Config**//
     //Config URLs
     let confBaseUrl='https://www.pampers.ca/en-ca'; 
@@ -167,53 +170,93 @@ describe('Guides and downloadables', () => {
 //***************************************************************************************//
 //**List Funtction**//
     const checkMainPageGuide=(argListCardTitle,argIdClickNextSlide)=>{
-        cy.get('#slick-slide01').click();
-        for(var compt=0;compt<argListCardTitle.length;compt++){
-            if(compt==argIdClickNextSlide){
-                cy.get('.slick-next').click();
-                cy.get('#slick-slide04').click();
+        try{
+            cy.get('#slick-slide01').click();
+            for(var compt=0;compt<argListCardTitle.length;compt++){
+                if(compt==argIdClickNextSlide){
+                    cy.get('.slick-next').click();
+                    cy.get('#slick-slide04').click();
+                }
+                cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains(argListCardTitle[compt]);
             }
-            cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains(argListCardTitle[compt]);
+        }
+        catch(ex){
+            console.log('checkMainPageGuide ::'+ex);
         }
     }
     const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
-        cy.get('head title').should('contain', argHeadTitle);
-        cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
-        cy.get('head meta[property="og:title"]').should('have.attr','content',argMetaOgTitle);
-        cy.get('head meta[property="og:description"]').should('have.attr','content',argMetaOgDescription);
+        try{
+            cy.get('head title').should('contain', argHeadTitle);
+            cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
+            cy.get('head meta[property="og:title"]').should('have.attr','content',argMetaOgTitle);
+            cy.get('head meta[property="og:description"]').should('have.attr','content',argMetaOgDescription);
+        }
+        catch(ex){
+            console.log('checkMetaInfo ::'+ex);
+        }
     }
     const checkBanner=(argBannerTitle,argBannerDescription,argIfPampersLogoIsPresent)=>{
-        cy.get('.hero-top-banner__title').contains(argBannerTitle);
-        cy.get('.hero-top-banner__text').contains(argBannerDescription);
-        if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        try{
+            cy.get('.hero-top-banner__title').contains(argBannerTitle);
+            cy.get('.hero-top-banner__text').contains(argBannerDescription);
+            if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        }
+        catch(ex){
+            console.log('checkBanner ::'+ex);
+        }
     }
     const checkCtaBtn=(argCtaText)=>{
-        cy.get('.btn--download-list-oasis').contains(argCtaText).click();
-        cy.get('.ajs-body');
-        document.getElementsByClassName("__ADORIC__1").display="none";
-        cy.get('.ajs-close').click();
+        try{
+            cy.get('.btn--download-list-oasis').contains(argCtaText).click();
+            cy.get('.ajs-body');
+            document.getElementsByClassName("__ADORIC__1").display="none";
+            cy.get('.ajs-close').click({force: true});
+        }
+        catch(ex){
+            console.log('checkCtaBtn ::'+ex);
+        }
     }
     const checkDataAttr=(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
-        for(var compt=0;compt<argListGet.length;compt++){
-            cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
+        try{
+            for(var compt=0;compt<argListGet.length;compt++){
+                cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
+            }
+        }
+        catch(ex){
+            console.log('checkDataAttr ::'+ex);
         }
     }
     const checkDataYoutubeAndVortexScenario=(argListYoutubeLink)=>{
-        for(var compt=0;compt<argListYoutubeLink.length;compt++){
-            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link',argListYoutubeLink[compt]);
-            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+        try{
+            for(var compt=0;compt<argListYoutubeLink.length;compt++){
+                cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link',argListYoutubeLink[compt]);
+                cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
+            }
+        }
+        catch(ex){
+            console.log('checkDataYoutubeAndVortexScenario ::'+ex);
         }
     }
     const checkBreadcrumb=(arg)=>{
-        for(var compt=0;compt<arg.length;compt++){
-            cy.get('.c-breadcrumb').contains(arg[compt]);
+        try{
+            for(var compt=0;compt<arg.length;compt++){
+                cy.get('.c-breadcrumb').contains(arg[compt]);
+            }
+        }
+        catch(ex){
+            console.log('checkBreadcrumb ::'+ex);
         }
     }
     const checkSocialSection =(argSocialTitle,argListSocialMedia)=>{
-        cy.get('.section-social__title').contains(argSocialTitle);
-        for(var compt=0;compt<argListSocialMedia.length;compt++){
-            cy.get('.js-share--'+argListSocialMedia[compt].toLowerCase()+'').should('have.attr','data-action-detail',argListSocialMedia[compt].toLowerCase());
+        try{
+            cy.get('.section-social__title').contains(argSocialTitle);
+            for(var compt=0;compt<argListSocialMedia.length;compt++){
+                cy.get('.js-share--'+argListSocialMedia[compt].toLowerCase()+'').should('have.attr','data-action-detail',argListSocialMedia[compt].toLowerCase());
+            }
+            cy.get('.js-share--print');
         }
-        cy.get('.js-share--print');
+        catch(ex){
+            console.log("checkSocialSection ::"+ex);
+        }
     }
 })
