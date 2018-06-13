@@ -1,4 +1,6 @@
 describe('Guides and downloadables', () => {
+    //***************************************************************************************//
+    //**Config**//
     //Config URLs
     let confBaseUrl='https://www.pampers.ca/en-ca'; 
     let confCategoryUrl='guides-and-downloadables';
@@ -25,6 +27,16 @@ describe('Guides and downloadables', () => {
         ,['Home','Guides & Downloadables','Go-To Pregnancy Guide']
         ,['Home','Guides & Downloadables','Interactive Guides: Nurses Know']
     ];
+    //Config Banner
+    let confBanner=[
+        ['Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!']
+        ,['Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.']
+        ,['Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.']
+    ];
+    //Config text
+    let ConfTranslationForGuideInNavMenu="GUIDES";
+    //***************************************************************************************//
+    //**Cypress**//
     beforeEach(() => {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable)=> {
@@ -42,13 +54,13 @@ describe('Guides and downloadables', () => {
             ,['data-action-detail']
             ,['GUIDES']);
         //verify Navigation menu
-        cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
+        cy.get('.js-menu-list').contains(ConfTranslationForGuideInNavMenu).contains('New').click();
         //verify title
         checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb
         checkBreadcrumb(confBreadcrumb[0]);
         //verify hero top banner 
-        checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!',false);
+        checkBanner(confBanner[0][0],confBanner[0][1],false);
         //verify GA 
         checkDataAttr(
             ['a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl+'"]'
@@ -81,7 +93,7 @@ describe('Guides and downloadables', () => {
         //verify breadcrumb
         checkBreadcrumb(confBreadcrumb[1]);
         //verify hero banner
-        checkBanner('Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.',true);
+        checkBanner(confBanner[1][0],confBanner[1][1],true);
         //verify main
         cy.get('.pregnancy-guide__header').contains('Everything you will get:');
         cy.get('#slick-slide01').click();
@@ -109,7 +121,7 @@ describe('Guides and downloadables', () => {
         //verify breadcrumb
         checkBreadcrumb(confBreadcrumb[2]);
         //verify hero banner
-        checkBanner('Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.',true);
+        checkBanner(confBanner[2][0],confBanner[2][1],true);
         //GA 
         checkDataAttr(['#phmainbannerhero_1_UnlockVideoCta']
             ,['have.attr']
@@ -121,7 +133,8 @@ describe('Guides and downloadables', () => {
         //Main
         checkCtaBtn('Unlock all videos FOR FREE');
     });
-    //List function
+    //***************************************************************************************//
+    //**List Funtction**//
     const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
         cy.get('head title').should('contain', argHeadTitle);
         cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
