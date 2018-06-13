@@ -136,6 +136,7 @@ describe('Guides and downloadables', () => {
     const checkCtaBtn=(argCtaText)=>{
         cy.get('.btn--download-list-oasis').contains(argCtaText).click();
         cy.get('.ajs-body');
+        document.getElementsByClassName("__ADORIC__1").display="none";
         cy.get('.ajs-close').click();
     }
     const checkDataAttr=(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
