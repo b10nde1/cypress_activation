@@ -11,7 +11,10 @@ describe('Guides and downloadables', () => {
         //open pampers
         cy.visit('https://www.pampers.ca/en-ca/');
         //verify GA in NavMenu
-        checkDataAttr('a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]','have.attr','data-action-detail','GUIDES');
+        checkDataAttr(['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]']
+            ,['have.attr']
+            ,['data-action-detail']
+            ,['GUIDES']);
         //verify Navigation menu
         cy.get('.js-menu-list').contains('GUIDES').contains('New').click();
         //verify title
@@ -23,7 +26,7 @@ describe('Guides and downloadables', () => {
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables']);
         //verify hero top banner 
-        checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!');
+        checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!',false);
         //verify GA 
         checkDataAttr(
             ['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]','#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
@@ -36,14 +39,14 @@ describe('Guides and downloadables', () => {
         //verify card description
         cy.get('.guide-card__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
         cy.get('.guide-card__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks, to delivery, and bringing baby home.');
-        //verify registration popin
-        checkCtaBtn('Download for FREE');
-        checkCtaBtn('Access video links');
         //closed box img should have alt text
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains('See more');
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains('See more');
         //verify social section
         checkSocialSection('Do you know other parents who would like our Guides & Downloadables? Share this now:');
+        //verify registration popin
+        checkCtaBtn('Download for FREE');
+        checkCtaBtn('Access video links');
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
@@ -56,7 +59,7 @@ describe('Guides and downloadables', () => {
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables','Go-To Pregnancy Guide']);
         //verify hero banner
-        checkBanner('Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
+        checkBanner('Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.',true);
         //verify main
         cy.get('.pregnancy-guide__header').contains('Everything you will get:');
         cy.get('#slick-slide01').click();
@@ -67,7 +70,6 @@ describe('Guides and downloadables', () => {
         cy.get('#slick-slide04').click();
         cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Selecting Your Healthcare Provider');
         cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Prenatal Visit Calendar');
-        checkCtaBtn('Download the full guide FOR FREE');
         //GA 
         checkDataAttr(['#phmainbannerhero_1_DownloadFullGuide','#phmainbannerhero_1_DownloadFullGuide']
             ,['have.attr','have.attr']
@@ -75,6 +77,8 @@ describe('Guides and downloadables', () => {
             ,['pdf-guide_your-go-to-pregnancy-guide','guide-detail-page_download-the-full-guide-cta']);
         //verify social section
         checkSocialSection('Do you know other parents who would like our Pregnancy Guide? Share this now:');
+        //verify cta btn
+        checkCtaBtn('Download the full guide FOR FREE');
     });
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
@@ -86,9 +90,7 @@ describe('Guides and downloadables', () => {
         //verify breadcrumb
         checkBreadcrumb(['Home','Guides & Downloadables','Interactive Guides: Nurses Know']);
         //verify hero banner
-        checkBanner('Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.');
-        //Main
-        checkCtaBtn('Unlock all videos FOR FREE');
+        checkBanner('Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.',true);
         //GA 
         checkDataAttr(['#phmainbannerhero_1_UnlockVideoCta']
             ,['have.attr']
@@ -97,6 +99,8 @@ describe('Guides and downloadables', () => {
         checkDataYoutubeAndVortexScenario(6);
         //verify share section
         checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
+        //Main
+        checkCtaBtn('Unlock all videos FOR FREE');
     });
     const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
         cy.get('head title').should('contain', argHeadTitle);
@@ -104,10 +108,10 @@ describe('Guides and downloadables', () => {
         cy.get('head meta[property="og:title"]').should('have.attr','content',argMetaOgTitle);
         cy.get('head meta[property="og:description"]').should('have.attr','content',argMetaOgDescription);
     }
-    const checkBanner=(argBannerTitle,argBannerDescription)=>{
+    const checkBanner=(argBannerTitle,argBannerDescription,argIfPampersLogoIsPresent)=>{
         cy.get('.hero-top-banner__title').contains(argBannerTitle);
         cy.get('.hero-top-banner__text').contains(argBannerDescription);
-        cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
     }
     const checkCtaBtn=(argCtaText)=>{
         cy.get('.btn--download-list-oasis').contains(argCtaText).click();
