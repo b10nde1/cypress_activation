@@ -1,4 +1,9 @@
 describe('Guides and downloadables', () => {
+    //Config URLs
+    let baseUrl='https://www.pampers.ca/en-ca'; 
+    let categoryUrl='guides-and-downloadables';
+    let guideUrl='your-go-to-pregnancy-guide';
+    let videoUrl='interactive-guides-nurses-know';
     beforeEach(() => {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable)=> {
@@ -9,9 +14,9 @@ describe('Guides and downloadables', () => {
     });
     it('Guides TC01 || Verify Global Text and element', () => {
         //open pampers
-        cy.visit('https://www.pampers.ca/en-ca/');
+        cy.visit(baseUrl);
         //verify GA in NavMenu
-        checkDataAttr(['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables"]']
+        checkDataAttr(['a[href="'+baseUrl+'/'+categoryUrl+'"]']
             ,['have.attr']
             ,['data-action-detail']
             ,['GUIDES']);
@@ -29,7 +34,11 @@ describe('Guides and downloadables', () => {
         checkBanner('Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!',false);
         //verify GA 
         checkDataAttr(
-            ['a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]','a[href="https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know"]','#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
+            ['a[href="'+baseUrl+'/'+categoryUrl+'/'+guideUrl+'"]'
+            ,'a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]'
+            ,'a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]'
+            ,'a[href="'+baseUrl+'/'+categoryUrl+'/'+videoUrl+'"]'
+            ,'#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
             ,['have.attr','have.attr','have.attr','have.attr','have.attr','have.attr']
             ,['data-action-detail','data-action-detail','data-vortex-scenario','data-action-detail','data-action-detail','data-vortex-scenario']
             ,['guide-landing-page_see-more-cta','guide-landing-page_download-for-free-cta','pdf-guide_your-go-to-pregnancy-guide','guide-landing-page_see-more-cta','guide-landing-page_link-to-videos-cta','video-guide_nurses-know']);
@@ -49,7 +58,7 @@ describe('Guides and downloadables', () => {
         checkCtaBtn('Access video links');
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
-        cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/your-go-to-pregnancy-guide');
+        cy.visit(baseUrl+'/'+categoryUrl+'/'+guideUrl);
         //verify meta
         checkMetaInfo('Your Go-To Pregnancy Guide | Pampers'
             ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
@@ -81,7 +90,7 @@ describe('Guides and downloadables', () => {
         checkCtaBtn('Download the full guide FOR FREE');
     });
     it('Guides TC03 || Verify Guide Video detail',()=>{
-        cy.visit('https://www.pampers.ca/en-ca/guides-and-downloadables/interactive-guides-nurses-know');
+        cy.visit(baseUrl+'/'+categoryUrl+'/'+videoUrl);
         //verify meta
         checkMetaInfo('Interactive Video Guides - Nurses Know | Pampers'
             ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.'
@@ -102,6 +111,7 @@ describe('Guides and downloadables', () => {
         //Main
         checkCtaBtn('Unlock all videos FOR FREE');
     });
+    //List function
     const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
         cy.get('head title').should('contain', argHeadTitle);
         cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
