@@ -1,6 +1,6 @@
 describe('Guides and downloadables', () => {
-    //***************************************************************************************//
-    //**Config**//
+//***************************************************************************************//
+//**Config**//
     //Config URLs
     let confBaseUrl='https://www.pampers.ca/en-ca'; 
     let confCategoryUrl='guides-and-downloadables';
@@ -56,8 +56,16 @@ describe('Guides and downloadables', () => {
         ,['Download the full guide FOR FREE']
         ,['Unlock all videos FOR FREE']
     ];
-    //***************************************************************************************//
-    //**Cypress**//
+    let confPageGuideH1='Everything you will get:';
+    let confPageGuideCarouselTitle=[
+        'Your Go-To Pregnancy Guide'
+        ,'Pregnancy Milestones'
+        ,'Movement Tracker'
+        ,'Selecting Your Healthcare Provider'
+        ,'Prenatal Visit Calendar'
+    ];
+//***************************************************************************************//
+//**Cypress**//
     beforeEach(() => {
         //Gestion d'erreur
         Cypress.on('uncaught:exception', (err, runnable)=> {
@@ -116,15 +124,8 @@ describe('Guides and downloadables', () => {
         //verify hero banner
         checkBanner(confBanner[1][0],confBanner[1][1],true);
         //verify main
-        cy.get('.pregnancy-guide__header').contains('Everything you will get:');
-        cy.get('#slick-slide01').click();
-        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Your Go-To Pregnancy Guide');
-        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Pregnancy Milestones');
-        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Movement Tracker');
-        cy.get('.slick-next').click();
-        cy.get('#slick-slide04').click();
-        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Selecting Your Healthcare Provider');
-        cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains('Prenatal Visit Calendar');
+        cy.get('.pregnancy-guide__header').contains(confPageGuideH1);
+        checkMainPageGuide(confPageGuideCarouselTitle,3);
         //GA 
         checkDataAttr(['#phmainbannerhero_1_DownloadFullGuide','#phmainbannerhero_1_DownloadFullGuide']
             ,['have.attr','have.attr']
@@ -154,8 +155,18 @@ describe('Guides and downloadables', () => {
         //Main
         checkCtaBtn(confCtaBtn[2][0]);
     });
-    //***************************************************************************************//
-    //**List Funtction**//
+//***************************************************************************************//
+//**List Funtction**//
+    const checkMainPageGuide=(argListCardTitle,argIdClickNextSlide)=>{
+        cy.get('#slick-slide01').click();
+        for(var compt=0;compt<argListCardTitle.length;compt++){
+            if(compt==argIdClickNextSlide){
+                cy.get('.slick-next').click();
+                cy.get('#slick-slide04').click();
+            }
+            cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains(argListCardTitle[compt]);
+        }
+    }
     const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
         cy.get('head title').should('contain', argHeadTitle);
         cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
