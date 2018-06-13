@@ -33,8 +33,29 @@ describe('Guides and downloadables', () => {
         ,['Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.']
         ,['Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.']
     ];
+    //Config cdn for pdf
+    let confPdfCdn="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1";
     //Config text
-    let ConfTranslationForGuideInNavMenu="GUIDES";
+    let confTranslationForGuideInNavMenu="GUIDES";
+    let confCardTitle=[
+        'Your Go-To Pregnancy Guide'
+        ,'Video Guides: Nurses Know'
+    ];
+    let confCardDescription=[
+        'The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.'
+        ,'These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks, to delivery, and bringing baby home.'
+    ];
+    let confTranslationForSeeMore='See more';
+    let confSocialSectionTitle=[
+        'Do you know other parents who would like our Guides & Downloadables? Share this now:'
+        ,'Do you know other parents who would like our Pregnancy Guide? Share this now:'
+        ,'Do you know other parents who would like our Video Guide: Nurses Know? Share this now:'
+    ];
+    let confCtaBtn=[
+        ['Download for FREE','Access video links']
+        ,['Download the full guide FOR FREE']
+        ,['Unlock all videos FOR FREE']
+    ];
     //***************************************************************************************//
     //**Cypress**//
     beforeEach(() => {
@@ -54,7 +75,7 @@ describe('Guides and downloadables', () => {
             ,['data-action-detail']
             ,['GUIDES']);
         //verify Navigation menu
-        cy.get('.js-menu-list').contains(ConfTranslationForGuideInNavMenu).contains('New').click();
+        cy.get('.js-menu-list').contains(confTranslationForGuideInNavMenu).contains('New').click();
         //verify title
         checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb
@@ -64,27 +85,27 @@ describe('Guides and downloadables', () => {
         //verify GA 
         checkDataAttr(
             ['a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl+'"]'
-            ,'a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]'
-            ,'a[href="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1"]'
+            ,'a[href='+confPdfCdn+']'
+            ,'a[href='+confPdfCdn+']'
             ,'a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl+'"]'
             ,'#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
             ,['have.attr','have.attr','have.attr','have.attr','have.attr','have.attr']
             ,['data-action-detail','data-action-detail','data-vortex-scenario','data-action-detail','data-action-detail','data-vortex-scenario']
             ,['guide-landing-page_see-more-cta','guide-landing-page_download-for-free-cta','pdf-guide_your-go-to-pregnancy-guide','guide-landing-page_see-more-cta','guide-landing-page_link-to-videos-cta','video-guide_nurses-know']);
         //verify card title
-        cy.get('.guide-card__title').contains('Your Go-To Pregnancy Guide');
-        cy.get('.guide-card__title').contains('Video Guides: Nurses Know');
+        cy.get('.guide-card__title').contains(confCardTitle[0]);
+        cy.get('.guide-card__title').contains(confCardTitle[1]);
         //verify card description
-        cy.get('.guide-card__text').contains('The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.');
-        cy.get('.guide-card__text').contains('These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks, to delivery, and bringing baby home.');
+        cy.get('.guide-card__text').contains(confCardDescription[0]);
+        cy.get('.guide-card__text').contains(confCardDescription[1]);
         //closed box img should have alt text
-        cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains('See more');
-        cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains('See more');
+        cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains(confTranslationForSeeMore);
+        cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains(confTranslationForSeeMore);
         //verify social section
-        checkSocialSection('Do you know other parents who would like our Guides & Downloadables? Share this now:');
+        checkSocialSection(confSocialSectionTitle[0]);
         //verify registration popin
-        checkCtaBtn('Download for FREE');
-        checkCtaBtn('Access video links');
+        checkCtaBtn(confCtaBtn[0][0]);
+        checkCtaBtn(confCtaBtn[0][1]);
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl);
@@ -110,9 +131,9 @@ describe('Guides and downloadables', () => {
             ,['data-vortex-scenario','data-action-detail']
             ,['pdf-guide_your-go-to-pregnancy-guide','guide-detail-page_download-the-full-guide-cta']);
         //verify social section
-        checkSocialSection('Do you know other parents who would like our Pregnancy Guide? Share this now:');
+        checkSocialSection(confSocialSectionTitle[1]);
         //verify cta btn
-        checkCtaBtn('Download the full guide FOR FREE');
+        checkCtaBtn(confCtaBtn[1][0]);
     });
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl);
@@ -129,9 +150,9 @@ describe('Guides and downloadables', () => {
             ,['video-guide_nurses-know']);
         checkDataYoutubeAndVortexScenario(6);
         //verify share section
-        checkSocialSection('Do you know other parents who would like our Video Guide: Nurses Know? Share this now:');
+        checkSocialSection(confSocialSectionTitle[2]);
         //Main
-        checkCtaBtn('Unlock all videos FOR FREE');
+        checkCtaBtn(confCtaBtn[2][0]);
     });
     //***************************************************************************************//
     //**List Funtction**//
