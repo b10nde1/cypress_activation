@@ -64,6 +64,15 @@ describe('Guides and downloadables', () => {
         ,'Selecting Your Healthcare Provider'
         ,'Prenatal Visit Calendar'
     ];
+    let confPageVideoListYoutubeLink=[
+        'https://www.youtube-nocookie.com/embed/61tvZboPFoA'
+        ,'https://www.youtube-nocookie.com/embed/qp-iFJp261U'
+        ,'https://www.youtube-nocookie.com/embed/igdmpV16alE'
+        ,'https://www.youtube-nocookie.com/embed/nmf1dpRNA-8'
+        ,'https://www.youtube-nocookie.com/embed/q0REE3y6-fU'
+        ,'https://www.youtube-nocookie.com/embed/6UXL70g5Z-4'
+    ];
+    let confSocialMediaIcon=['facebook','twitter'];
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
@@ -110,7 +119,7 @@ describe('Guides and downloadables', () => {
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains(confTranslationForSeeMore);
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains(confTranslationForSeeMore);
         //verify social section
-        checkSocialSection(confSocialSectionTitle[0]);
+        checkSocialSection(confSocialSectionTitle[0],confSocialMediaIcon);
         //verify registration popin
         checkCtaBtn(confCtaBtn[0][0]);
         checkCtaBtn(confCtaBtn[0][1]);
@@ -132,7 +141,7 @@ describe('Guides and downloadables', () => {
             ,['data-vortex-scenario','data-action-detail']
             ,['pdf-guide_your-go-to-pregnancy-guide','guide-detail-page_download-the-full-guide-cta']);
         //verify social section
-        checkSocialSection(confSocialSectionTitle[1]);
+        checkSocialSection(confSocialSectionTitle[1],confSocialMediaIcon);
         //verify cta btn
         checkCtaBtn(confCtaBtn[1][0]);
     });
@@ -149,9 +158,9 @@ describe('Guides and downloadables', () => {
             ,['have.attr']
             ,['data-vortex-scenario']
             ,['video-guide_nurses-know']);
-        checkDataYoutubeAndVortexScenario(6);
+        checkDataYoutubeAndVortexScenario(confPageVideoListYoutubeLink,6);
         //verify share section
-        checkSocialSection(confSocialSectionTitle[2]);
+        checkSocialSection(confSocialSectionTitle[2],confSocialMediaIcon);
         //Main
         checkCtaBtn(confCtaBtn[2][0]);
     });
@@ -189,9 +198,9 @@ describe('Guides and downloadables', () => {
             cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
         }
     }
-    const checkDataYoutubeAndVortexScenario=(argNbElements)=>{
-        for(var compt=0;compt<argNbElements;compt++){
-            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link');
+    const checkDataYoutubeAndVortexScenario=(argListYoutubeLink)=>{
+        for(var compt=0;compt<argListYoutubeLink.length;compt++){
+            cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link',argListYoutubeLink[compt]);
             cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
         }
     }
@@ -200,10 +209,11 @@ describe('Guides and downloadables', () => {
             cy.get('.c-breadcrumb').contains(arg[compt]);
         }
     }
-    const checkSocialSection =(argSocialTitle)=>{
-        cy.get('.js-share--facebook').contains('Facebook');
-        cy.get('.js-share--twitter').contains('Twitter');
-        cy.get('.js-share--print');
+    const checkSocialSection =(argSocialTitle,argListSocialMedia)=>{
         cy.get('.section-social__title').contains(argSocialTitle);
+        for(var compt=0;compt<argListSocialMedia.length;compt++){
+            cy.get('.js-share--'+argListSocialMedia[compt].toLowerCase()+'').should('have.attr','data-action-detail',argListSocialMedia[compt].toLowerCase());
+        }
+        cy.get('.js-share--print');
     }
 })
