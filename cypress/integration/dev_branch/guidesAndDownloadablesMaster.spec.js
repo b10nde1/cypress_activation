@@ -90,20 +90,20 @@ describe('Guides and downloadables', () => {
         //open pampers
         cy.visit(confBaseUrl);
         //verify GA in NavMenu
-        checkDataAttr(['a[href="'+confBaseUrl+'/'+confCategoryUrl+'"]']
+        cy.checkDataAttr(['a[href="'+confBaseUrl+'/'+confCategoryUrl+'"]']
             ,['have.attr']
             ,['data-action-detail']
             ,['GUIDES']);
         //verify Navigation menu
         cy.get('.js-menu-list').contains(confTranslationForGuideInNavMenu).contains('New').click();
         //verify title
-        checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
+        cy.checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb
-        checkBreadcrumb(confBreadcrumb[0]);
+        cy.checkBreadcrumb(confBreadcrumb[0]);
         //verify hero top banner 
-        checkBanner(confBanner[0][0],confBanner[0][1],false);
+        cy.checkBanner(confBanner[0][0],confBanner[0][1],false);
         //verify GA 
-        checkDataAttr(
+        cy.checkDataAttr(
             ['a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl+'"]'
             ,'a[href="'+confPdfCdn+'"]'
             ,'a[href="'+confPdfCdn+'"]'
@@ -122,141 +122,49 @@ describe('Guides and downloadables', () => {
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_0').contains(confTranslationForSeeMore);
         cy.get('#phmainbannerhero_1_GuideRepeater_divGuideCard_1').contains(confTranslationForSeeMore);
         //verify social section
-        checkSocialSection(confSocialSectionTitle[0],confSocialMediaIcon);
+        cy.checkSocialSection(confSocialSectionTitle[0],confSocialMediaIcon);
         //verify registration popin
-        checkCtaBtn(confCtaBtn[0][0]);
-        checkCtaBtn(confCtaBtn[0][1]);
+        cy.checkCtaBtn(confCtaBtn[0][0]);
+        cy.checkCtaBtn(confCtaBtn[0][1]);
     });
     it('Guides TC02 || Verify Guide Pdf detail page',()=>{
         cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl);
         //verify meta
-        checkMetaInfo(confMeta[1][0],confMeta[1][1],confMeta[1][2],confMeta[1][3]);
+        cy.checkMetaInfo(confMeta[1][0],confMeta[1][1],confMeta[1][2],confMeta[1][3]);
         //verify breadcrumb
-        checkBreadcrumb(confBreadcrumb[1]);
+        cy.checkBreadcrumb(confBreadcrumb[1]);
         //verify hero banner
-        checkBanner(confBanner[1][0],confBanner[1][1],true);
+        cy.checkBanner(confBanner[1][0],confBanner[1][1],true);
         //verify main
         cy.get('.pregnancy-guide__header').contains(confPageGuideH1);
-        checkMainPageGuide(confPageGuideCarouselTitle,3);
+        cy.checkMainPageGuide(confPageGuideCarouselTitle,3);
         //GA 
-        checkDataAttr(['#phmainbannerhero_1_DownloadFullGuide','#phmainbannerhero_1_DownloadFullGuide']
+        cy.checkDataAttr(['#phmainbannerhero_1_DownloadFullGuide','#phmainbannerhero_1_DownloadFullGuide']
             ,['have.attr','have.attr']
             ,['data-vortex-scenario','data-action-detail']
             ,['pdf-guide_your-go-to-pregnancy-guide','guide-detail-page_download-the-full-guide-cta']);
         //verify social section
-        checkSocialSection(confSocialSectionTitle[1],confSocialMediaIcon);
+        cy.checkSocialSection(confSocialSectionTitle[1],confSocialMediaIcon);
         //verify cta btn
-        checkCtaBtn(confCtaBtn[1][0]);
+        cy.checkCtaBtn(confCtaBtn[1][0]);
     });
     it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl);
         //verify meta
-        checkMetaInfo(confMeta[2][0],confMeta[2][1],confMeta[2][2],confMeta[2][3]);
+        cy.checkMetaInfo(confMeta[2][0],confMeta[2][1],confMeta[2][2],confMeta[2][3]);
         //verify breadcrumb
-        checkBreadcrumb(confBreadcrumb[2]);
+        cy.checkBreadcrumb(confBreadcrumb[2]);
         //verify hero banner
-        checkBanner(confBanner[2][0],confBanner[2][1],true);
+        cy.checkBanner(confBanner[2][0],confBanner[2][1],true);
         //GA 
-        checkDataAttr(['#phmainbannerhero_1_UnlockVideoCta']
+        cy.checkDataAttr(['#phmainbannerhero_1_UnlockVideoCta']
             ,['have.attr']
             ,['data-vortex-scenario']
             ,['video-guide_nurses-know']);
-        checkDataYoutubeAndVortexScenario(confPageVideoListYoutubeLink,6);
+        cy.checkDataYoutubeAndVortexScenario(confPageVideoListYoutubeLink,6);
         //verify share section
-        checkSocialSection(confSocialSectionTitle[2],confSocialMediaIcon);
+        cy.checkSocialSection(confSocialSectionTitle[2],confSocialMediaIcon);
         //Main
-        checkCtaBtn(confCtaBtn[2][0]);
+        cy.checkCtaBtn(confCtaBtn[2][0]);
     });
-//***************************************************************************************//
-//**List Funtction**//
-    const checkMainPageGuide=(argListCardTitle,argIdClickNextSlide)=>{
-        try{
-            cy.get('#slick-slide01').click();
-            for(var compt=0;compt<argListCardTitle.length;compt++){
-                if(compt==argIdClickNextSlide){
-                    cy.get('.slick-next').click();
-                    cy.get('#slick-slide04').click();
-                }
-                cy.get('.pregnancy-guide__slide').should('have.attr','data-slick-index','0').contains(argListCardTitle[compt]);
-            }
-        }
-        catch(ex){
-            console.log('checkMainPageGuide ::'+ex);
-        }
-    }
-    const checkMetaInfo=(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
-        try{
-            cy.get('head title').should('contain', argHeadTitle);
-            cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
-            cy.get('head meta[property="og:title"]').should('have.attr','content',argMetaOgTitle);
-            cy.get('head meta[property="og:description"]').should('have.attr','content',argMetaOgDescription);
-        }
-        catch(ex){
-            console.log('checkMetaInfo ::'+ex);
-        }
-    }
-    const checkBanner=(argBannerTitle,argBannerDescription,argIfPampersLogoIsPresent)=>{
-        try{
-            cy.get('.hero-top-banner__title').contains(argBannerTitle);
-            cy.get('.hero-top-banner__text').contains(argBannerDescription);
-            if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
-        }
-        catch(ex){
-            console.log('checkBanner ::'+ex);
-        }
-    }
-    const checkCtaBtn=(argCtaText)=>{
-        try{
-            cy.get('.btn--download-list-oasis').contains(argCtaText).click();
-            cy.get('.ajs-body');
-            document.getElementsByClassName("__ADORIC__1").display="none";
-            cy.get('.ajs-close').click({force: true});
-        }
-        catch(ex){
-            console.log('checkCtaBtn ::'+ex);
-        }
-    }
-    const checkDataAttr=(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
-        try{
-            for(var compt=0;compt<argListGet.length;compt++){
-                cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
-            }
-        }
-        catch(ex){
-            console.log('checkDataAttr ::'+ex);
-        }
-    }
-    const checkDataYoutubeAndVortexScenario=(argListYoutubeLink)=>{
-        try{
-            for(var compt=0;compt<argListYoutubeLink.length;compt++){
-                cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link',argListYoutubeLink[compt]);
-                cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-vortex-scenario','video-guide_nurses-know');
-            }
-        }
-        catch(ex){
-            console.log('checkDataYoutubeAndVortexScenario ::'+ex);
-        }
-    }
-    const checkBreadcrumb=(arg)=>{
-        try{
-            for(var compt=0;compt<arg.length;compt++){
-                cy.get('.c-breadcrumb').contains(arg[compt]);
-            }
-        }
-        catch(ex){
-            console.log('checkBreadcrumb ::'+ex);
-        }
-    }
-    const checkSocialSection =(argSocialTitle,argListSocialMedia)=>{
-        try{
-            cy.get('.section-social__title').contains(argSocialTitle);
-            for(var compt=0;compt<argListSocialMedia.length;compt++){
-                cy.get('.js-share--'+argListSocialMedia[compt].toLowerCase()+'').should('have.attr','data-action-detail',argListSocialMedia[compt].toLowerCase());
-            }
-            cy.get('.js-share--print');
-        }
-        catch(ex){
-            console.log("checkSocialSection ::"+ex);
-        }
-    }
 })
