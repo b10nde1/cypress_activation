@@ -85,8 +85,8 @@ describe('Guides and downloadables', () => {
         //verify GA 
         checkDataAttr(
             ['a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl+'"]'
-            ,'a[href='+confPdfCdn+']'
-            ,'a[href='+confPdfCdn+']'
+            ,'a[href="'+confPdfCdn+'"]'
+            ,'a[href="'+confPdfCdn+'"]'
             ,'a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl+'"]'
             ,'#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
             ,['have.attr','have.attr','have.attr','have.attr','have.attr','have.attr']
