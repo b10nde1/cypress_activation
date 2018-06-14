@@ -1,11 +1,11 @@
-describe('Guides and downloadables', () => {
 //***************************************************************************************//
 //**Load Data**//
-
+import dataFromJson from '../../fixtures/data.json';
+describe('Guides and downloadables', () => {
 //***************************************************************************************//
 //**Config**//
     //Config URLs
-    let confBaseUrl='https://www.pampers.ca/en-ca'; 
+    let confBaseUrl=''+dataFromJson.confBaseUrl+''; 
     let confCategoryUrl='guides-and-downloadables';
     let confGuideUrl='your-go-to-pregnancy-guide';
     let confVideoUrl='interactive-guides-nurses-know';
