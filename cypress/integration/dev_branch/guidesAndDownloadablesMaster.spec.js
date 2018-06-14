@@ -20,18 +20,9 @@ describe('Guides and downloadables', () => {
     let confVideoUrl=dataFromJson.confVideoUrl;
     //Config meta
     let confMeta=[
-        ["Guides and Downloadables | Pampers"
-            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
-            ,"Guides & Downloadables"
-            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."]
-        ,['Your Go-To Pregnancy Guide | Pampers'
-            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
-            ,'Your Go-To Pregnancy Guide'
-            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."]
-        ,['Interactive Video Guides - Nurses Know | Pampers'
-            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.'
-            ,'Interactive Guides Nurses Know'
-            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.']
+        alignTableFromJson(dataFromJson.confMetaLP.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confMetaGuideDetailPage.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confMetaVideoDetailPage.split('/*/'))
         ];
     //Config breadcrumb
     let confBreadcrumb=[alignTableFromJson(dataFromJson.confBreadcrumbLP.split('/*/'))
@@ -40,9 +31,9 @@ describe('Guides and downloadables', () => {
     ];
     //Config Banner
     let confBanner=[
-        ['Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!']
-        ,['Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.']
-        ,['Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.']
+        alignTableFromJson(dataFromJson.confBannerLP.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confBannerGuideDetailPage.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confBannerVideoDetailPage.split('/*/'))
     ];
     //Config cdn for pdf
     let confPdfCdn=dataFromJson.confPdfCdn;
