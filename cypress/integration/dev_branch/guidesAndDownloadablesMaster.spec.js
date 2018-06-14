@@ -1,81 +1,53 @@
-describe('Guides and downloadables', () => {
 //***************************************************************************************//
 //**Load Data**//
-
+import dataFromJson from '../../fixtures/data.json';
+describe('Guides and downloadables', () => {
+//***************************************************************************************//
+//**util**//
+    const alignTableFromJson=(argSplit)=>{
+        let result=new Array(argSplit.length);
+        for(var compt=0;compt<argSplit.length;compt++){
+            result[compt]=argSplit[compt];
+        }
+        return result;
+    };
 //***************************************************************************************//
 //**Config**//
     //Config URLs
-    let confBaseUrl='https://www.pampers.ca/en-ca'; 
-    let confCategoryUrl='guides-and-downloadables';
-    let confGuideUrl='your-go-to-pregnancy-guide';
-    let confVideoUrl='interactive-guides-nurses-know';
+    let confBaseUrl=''+dataFromJson.confBaseUrl+''; 
+    let confCategoryUrl=dataFromJson.confCategoryUrl;
+    let confGuideUrl=dataFromJson.confGuideUrl;
+    let confVideoUrl=dataFromJson.confVideoUrl;
     //Config meta
     let confMeta=[
-        ["Guides and Downloadables | Pampers"
-            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."
-            ,"Guides & Downloadables"
-            ,"Choose one of our great free guides and downloadables to help you navigate throughout your pregnancy and beyond."]
-        ,['Your Go-To Pregnancy Guide | Pampers'
-            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."
-            ,'Your Go-To Pregnancy Guide'
-            ,"With our ultimate pregnancy guide you'll have everything you need from nutritional tips to weight trackers. Download it here."]
-        ,['Interactive Video Guides - Nurses Know | Pampers'
-            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.'
-            ,'Interactive Guides Nurses Know'
-            ,'Hear expert advice from specialist nurses on everything from delivery to bringing your baby home. Find out more through our videos.']
+        alignTableFromJson(dataFromJson.confMetaLP.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confMetaGuideDetailPage.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confMetaVideoDetailPage.split('/*/'))
         ];
     //Config breadcrumb
-    let confBreadcrumb=[
-        ['Home','Guides & Downloadables']
-        ,['Home','Guides & Downloadables','Go-To Pregnancy Guide']
-        ,['Home','Guides & Downloadables','Interactive Guides: Nurses Know']
+    let confBreadcrumb=[alignTableFromJson(dataFromJson.confBreadcrumbLP.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confBreadcrumbGuidePage.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confBreadcrumbVideoPage.split('/*/'))
     ];
     //Config Banner
     let confBanner=[
-        ['Guides & Downloadables','These super-handy guides and downloadables will help you navigate through topics such as your pregnancy, your baby’s development, and so much more!']
-        ,['Your Go-To Pregnancy Guide','The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.']
-        ,['Video Guide: Nurses Know','These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks to delivery, and bringing baby home.']
+        alignTableFromJson(dataFromJson.confBannerLP.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confBannerGuideDetailPage.split('/*/'))
+        ,alignTableFromJson(dataFromJson.confBannerVideoDetailPage.split('/*/'))
     ];
     //Config cdn for pdf
-    let confPdfCdn="https://cdn.multibrand3.pgsitecore.com/en-CA/-/media/Files/Pampers/Pregnancy Guide.pdf?v=1";
+    let confPdfCdn=dataFromJson.confPdfCdn;
     //Config text
-    let confTranslationForGuideInNavMenu="GUIDES";
-    let confCardTitle=[
-        'Your Go-To Pregnancy Guide'
-        ,'Video Guides: Nurses Know'
-    ];
-    let confCardDescription=[
-        'The important things you need to know about the nine months after conception, including a milestone infographic, fetal movement tracker, prenatal visit calendar, and tips on how to select your healthcare provider.'
-        ,'These videos contain expert advice from nurses specialized in pregnancy and postpartum care: from what happens when your water breaks, to delivery, and bringing baby home.'
-    ];
-    let confTranslationForSeeMore='See more';
-    let confSocialSectionTitle=[
-        'Do you know other parents who would like our Guides & Downloadables? Share this now:'
-        ,'Do you know other parents who would like our Pregnancy Guide? Share this now:'
-        ,'Do you know other parents who would like our Video Guide: Nurses Know? Share this now:'
-    ];
-    let confCtaBtn=[
-        ['Download for FREE','Access video links']
-        ,['Download the full guide FOR FREE']
-        ,['Unlock all videos FOR FREE']
-    ];
-    let confPageGuideH1='Everything you will get:';
-    let confPageGuideCarouselTitle=[
-        'Your Go-To Pregnancy Guide'
-        ,'Pregnancy Milestones'
-        ,'Movement Tracker'
-        ,'Selecting Your Healthcare Provider'
-        ,'Prenatal Visit Calendar'
-    ];
-    let confPageVideoListYoutubeLink=[
-        'https://www.youtube-nocookie.com/embed/61tvZboPFoA'
-        ,'https://www.youtube-nocookie.com/embed/qp-iFJp261U'
-        ,'https://www.youtube-nocookie.com/embed/igdmpV16alE'
-        ,'https://www.youtube-nocookie.com/embed/nmf1dpRNA-8'
-        ,'https://www.youtube-nocookie.com/embed/q0REE3y6-fU'
-        ,'https://www.youtube-nocookie.com/embed/6UXL70g5Z-4'
-    ];
-    let confSocialMediaIcon=['facebook','twitter'];
+    let confTranslationForGuideInNavMenu=dataFromJson.confTranslationForGuideInNavMenu;
+    let confCardTitle=alignTableFromJson(dataFromJson.confCardTitle.split('/*/'));
+    let confCardDescription=alignTableFromJson(dataFromJson.confCardDescription.split('/*/'));
+    let confTranslationForSeeMore=dataFromJson.confTranslationForSeeMore;
+    let confSocialSectionTitle=[dataFromJson.confSocialSectionTitleLP,dataFromJson.confSocialSectionTitleGuideDetailPage,dataFromJson.confSocialSectionTitleVideoDetailPage];
+    let confCtaBtn=[alignTableFromJson(dataFromJson.confCtaBtnLP.split('/*/')),[dataFromJson.confCtaBtnGuide],[dataFromJson.confCtaBtnVideo]];
+    let confPageGuideH1=dataFromJson.confPageGuideH1;
+    let confPageGuideCarouselTitle=alignTableFromJson(dataFromJson.confPageGuideCarouselTitle.split('/*/'));
+    let confPageVideoListYoutubeLink=alignTableFromJson(dataFromJson.confPageVideoListYoutubeLink.split('/*/'));
+    let confSocialMediaIcon=alignTableFromJson(dataFromJson.confSocialMediaIcon.split('/*/'));
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
