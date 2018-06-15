@@ -1,6 +1,6 @@
 //***************************************************************************************//
 //**List Funtction Guides**//
-Cypress.Commands.add('checkMainPageGuide',(argListCardTitle,argIdClickNextSlide)=>{
+Cypress.Commands.add('checkGuideMainPageGuide',(argListCardTitle,argIdClickNextSlide)=>{
     try{
         cy.get('#slick-slide01').click();
         for(var compt=0;compt<argListCardTitle.length;compt++){
@@ -12,20 +12,20 @@ Cypress.Commands.add('checkMainPageGuide',(argListCardTitle,argIdClickNextSlide)
         }
     }
     catch(ex){
-        console.log('checkMainPageGuide ::'+ex);
+        console.log('checkGuideMainPageGuide ::'+ex);
     }
 });
-Cypress.Commands.add('checkBanner',(argBannerTitle,argBannerDescription,argIfPampersLogoIsPresent)=>{
+Cypress.Commands.add('checkGuideBanner',(argBannerTitle,argBannerDescription,argIfPampersLogoIsPresent)=>{
     try{
         cy.get('.hero-top-banner__title').contains(argBannerTitle);
         cy.get('.hero-top-banner__text').contains(argBannerDescription);
         if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
     }
     catch(ex){
-        console.log('checkBanner ::'+ex);
+        console.log('checkGuideBanner ::'+ex);
     }
 });
-Cypress.Commands.add('checkCtaBtn',(argCtaText)=>{
+Cypress.Commands.add('checkGuideCtaBtn',(argCtaText)=>{
     try{
         cy.get('.btn--download-list-oasis').contains(argCtaText).click();
         cy.get('.ajs-body');
@@ -33,20 +33,20 @@ Cypress.Commands.add('checkCtaBtn',(argCtaText)=>{
         cy.get('.ajs-close').click({force: true});
     }
     catch(ex){
-        console.log('checkCtaBtn ::'+ex);
+        console.log('checkGuideCtaBtn ::'+ex);
     }
 });
-Cypress.Commands.add('checkDataAttr',(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
+Cypress.Commands.add('checkGuideDataAttr',(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
     try{
         for(var compt=0;compt<argListGet.length;compt++){
             cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
         }
     }
     catch(ex){
-        console.log('checkDataAttr ::'+ex);
+        console.log('checkGuideDataAttr ::'+ex);
     }
 });
-Cypress.Commands.add('checkDataYoutubeAndVortexScenario',(argListYoutubeLink)=>{
+Cypress.Commands.add('checkGuideDataYoutubeAndVortexScenario',(argListYoutubeLink)=>{
     try{
         for(var compt=0;compt<argListYoutubeLink.length;compt++){
             cy.get('#phmainbannerhero_1_VideoGuideRepeater_lnkWatchVideo_'+compt).should('have.attr','data-youtube-link',argListYoutubeLink[compt]);
@@ -54,32 +54,32 @@ Cypress.Commands.add('checkDataYoutubeAndVortexScenario',(argListYoutubeLink)=>{
         }
     }
     catch(ex){
-        console.log('checkDataYoutubeAndVortexScenario ::'+ex);
+        console.log('checkGuideDataYoutubeAndVortexScenario ::'+ex);
     }
 });
-Cypress.Commands.add('checkBreadcrumb',(arg)=>{
+Cypress.Commands.add('checkGuideBreadcrumb',(arg)=>{
     try{
         for(var compt=0;compt<arg.length;compt++){
             cy.get('.c-breadcrumb').contains(arg[compt]);
         }
     }
     catch(ex){
-        console.log('checkBreadcrumb ::'+ex);
+        console.log('checkGuideBreadcrumb ::'+ex);
     }
 });
-Cypress.Commands.add('checkSocialSection',(argSocialTitle,argListSocialMedia)=>{
+Cypress.Commands.add('checkGuideSocialSection',(argSocialTitle,argListSocialMedia)=>{
     try{
         cy.get('.section-social__title').contains(argSocialTitle);
         for(var compt=0;compt<argListSocialMedia.length;compt++){
             cy.get('.js-share--'+argListSocialMedia[compt].toLowerCase()+'').should('have.attr','data-action-detail',argListSocialMedia[compt].toLowerCase());
+            if(argListSocialMedia[compt]=='print')cy.get('.js-share--print');
         }
-        cy.get('.js-share--print');
     }
     catch(ex){
-        console.log("checkSocialSection ::"+ex);
+        console.log("checkGuideSocialSection ::"+ex);
     }
 });
-Cypress.Commands.add('checkMetaInfo',(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
+Cypress.Commands.add('checkGuideMetaInfo',(argHeadTitle,argMetaDescription,argMetaOgTitle,argMetaOgDescription)=>{
     try{
         cy.get('head title').should('contain', argHeadTitle);
         cy.get('head meta[name="description"]').should('have.attr','content',argMetaDescription);
@@ -87,6 +87,6 @@ Cypress.Commands.add('checkMetaInfo',(argHeadTitle,argMetaDescription,argMetaOgT
         cy.get('head meta[property="og:description"]').should('have.attr','content',argMetaOgDescription);
     }
     catch(ex){
-        console.log('checkMetaInfo ::'+ex);
+        console.log('checkGuideMetaInfo ::'+ex);
     }
 });
