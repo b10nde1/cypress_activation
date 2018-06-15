@@ -27,6 +27,9 @@ describe('Product Pure', () => {
         ,[]
         ,[]
     ];
+    let confTitle=dataFromJson.confTitle;
+    let confImgAlt=alignTableFromJson(dataFromJson.confImgAlt.split('/*/'));
+    let confShortText=dataFromJson.confShortText;
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
@@ -37,19 +40,21 @@ describe('Product Pure', () => {
         //resolution 
         cy.viewport(1366, 768);
     });
-    it('Product Pure TC01 || Verify Hub',()=>{
+    /*it('Product Pure TC01 || Verify Hub',()=>{
         cy.visit(confBaseUrl);
         cy.get('.js-menu-list').contains(confTranslationForProduct).click();
         //verify if Product Pure is present in each hub
         cy.checkProductPureDataHub(confHubThumbnail,confHubProdcutOasisText);
-    });
+    });*/
     it('Product Pure TC02 || Verify Product Pure LP',()=>{
+        //remove this cy.visit when activate tc01
+        cy.visit('https://www.pampers.com/en-us/diapers-wipes/newborn-products');
         cy.get('.l-main__container').children().contains(confHubProdcutOasisText).click({force:true});
         //verify meta
         cy.checkGuideMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb and banner
         cy.checkGuideBreadcrumb(confBreadcrumb[0]);
-
+        cy.checkProductPureBanner(confTitle,confImgAlt,confShortText);
         //verify introduction
 
         //verify video section

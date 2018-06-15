@@ -9,3 +9,9 @@ Cypress.Commands.add('checkProductPureDataHub',(argHubThumbnail,argHubProdcutOas
         cy.get('.box-product-oasis__text').contains(argHubProdcutOasisText);
     }
 });
+Cypress.Commands.add('checkProductPureBanner',(argTitle,argImgAlt,argShortText)=>{
+    cy.get('.pure-top-landing__content').contains(argTitle);
+    cy.get('.pure-top-landing__image').children('picture').children('img').should('have.attr','alt',argImgAlt[0]);
+    cy.get('.pure-top-landing__protection').children('img').should('have.attr','alt',argImgAlt[1]);
+    cy.get('.pure-top-landing__protection').contains(argShortText);
+});
