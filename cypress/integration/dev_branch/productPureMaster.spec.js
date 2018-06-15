@@ -30,6 +30,11 @@ describe('Product Pure', () => {
     let confTitle=dataFromJson.confTitle;
     let confImgAlt=alignTableFromJson(dataFromJson.confImgAlt.split('/*/'));
     let confShortText=dataFromJson.confShortText;
+    let confPresentationTitle=dataFromJson.confPresentationTitle;
+    let confPresentationDescription=dataFromJson.confPresentationDescription;
+    let confPresentationImgAlt=dataFromJson.confPresentationImgAlt;
+    let confPresentationBtn=alignTableFromJson(dataFromJson.confPresentationBtn.split('/*/'));
+    let confPresentationAdditionalText=dataFromJson.confPresentationAdditionalText;
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
@@ -55,10 +60,10 @@ describe('Product Pure', () => {
         //verify breadcrumb and banner
         cy.checkGuideBreadcrumb(confBreadcrumb[0]);
         cy.checkProductPureBanner(confTitle,confImgAlt,confShortText);
-        //verify introduction
-
+        //verify presentation
+        cy.checkProductPurePresentaiton(confPresentationTitle,confPresentationDescription,confPresentationImgAlt,confPresentationBtn,confPresentationAdditionalText);
         //verify video section
-
+        
         //verify testimonial section
 
         //verify certification section

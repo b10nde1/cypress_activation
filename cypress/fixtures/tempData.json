@@ -9,5 +9,10 @@
   "confBreadcrumdLP":"Home/*/Products/*/Pampers Pure Collection",
   "confTitle":"Pure Collection",
   "confImgAlt":"Pampers Pure Collection/*/0% Chlorine bleaching fragrances parabens latex",
-  "confShortText":"100% Pampers Protection"
+  "confShortText":"100% Pampers Protection",
+  "confPresentationTitle":"Pure Protection that works",
+  "confPresentationDescription":"Diapers and Wipes crafted with premium cotton, plant-based and other thoughtfully selected materials. All with the dryness & protection you trust from Pampers.",
+  "confPresentationImgAlt":"Pampers Pure Collection",
+  "confPresentationBtn":"Discover Wipes/*/Discover Diapers",
+  "confPresentationAdditionalText":"*Natural Rubber"
 }
