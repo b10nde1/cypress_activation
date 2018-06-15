@@ -15,7 +15,6 @@ describe('Guides and downloadables', () => {
 //**Config**//
     let confBaseUrl=dataFromJson.confBaseUrl;
     let confTranslationForProduct=dataFromJson.confTranslationForProduct;
-    let confHubDataActionDetail=dataFromJson.confHubDataActionDetail;
     let confHubThumbnail=dataFromJson.confHubThumbnail;
     let confHubProdcutOasisText=dataFromJson.confHubProdcutOasisText;
 //***************************************************************************************//
@@ -28,16 +27,16 @@ describe('Guides and downloadables', () => {
         //resolution 
         cy.viewport(1366, 768);
     });
-    it('Product Pure TC01 || Verify Product Hub',()=>{
+    it('Product Pure TC01 || Verify Hub',()=>{
         cy.visit(confBaseUrl);
         cy.get('.js-menu-list').contains(confTranslationForProduct).click();
         //verify if Product Pure is present in each hub
-        cy.checkDataHub(confHubDataActionDetail,confHubThumbnail,confHubProdcutOasisText);
+        cy.checkDataHub(confHubThumbnail,confHubProdcutOasisText);
     });
-    /*it('Product Pure TC02 || Verify Product Pure LP',()=>{
-
+    it('Product Pure TC02 || Verify Product Pure LP',()=>{
+        cy.get('.l-main__container').children().contains(confHubProdcutOasisText).click({force:true});
     });
-    it('Product Pure TC03 || Verify Wipes',()=>{
+    /*it('Product Pure TC03 || Verify Wipes',()=>{
 
     });
     it('Product Pure TC04 || Verify Diapers',()=>{
