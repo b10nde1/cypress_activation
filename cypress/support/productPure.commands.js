@@ -38,3 +38,16 @@ Cypress.Commands.add('checkProductPurePresentaiton',(argTitle,argDescription,arg
         console.log("checkProductPurePresentaiton ::"+ex);
     }
 });
+Cypress.Commands.add('checkVideoSection',(argHeartIconAlt,argTitle,argDescription,argWatchText,argVideoAlt,argFooterText)=>{
+    try{
+        cy.get('.pure-arch__icon').should('have.attr','alt',argHeartIconAlt);
+        cy.get('.pure-video.pure__container').children('h2').contains(argTitle);
+        cy.get('.pure__description.js-pure-read-more.ddd-truncated').should('have.attr','title',argDescription);
+        cy,get('.pure-video__pure-play ').children('span').contains(argWatchText);
+        cy.get('.pure-video__image').children('picture').children('img').should('have.attr','alt',argVideoAlt);
+        cy.get('.pure-video__textBot').contains(argFooterText);
+    }
+    catch(ex){
+        console.log(ex);
+    }
+});

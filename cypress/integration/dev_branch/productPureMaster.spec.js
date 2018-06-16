@@ -35,7 +35,13 @@ describe('Product Pure', () => {
     let confPresentationImgAlt=dataFromJson.confPresentationImgAlt;
     let confPresentationBtn=alignTableFromJson(dataFromJson.confPresentationBtn.split('/*/'));
     let confPresentationAdditionalText=dataFromJson.confPresentationAdditionalText;
-//***************************************************************************************//
+    let confHearIconAlt=dataFromJson.confHearIconAlt;
+    let confVideoSectionTitle=dataFromJson.confVideoSectionTitle;
+    let confVideoSectionDescription=dataFromJson.confVideoSectionDescription;
+    let confVideoSectionFooterText=dataFromJson.confVideoSectionFooterText;
+    let confVideoSectionWatchText=dataFromJson.confVideoSectionWatchText;
+    let confVideoSectionVideoAlt=dataFromJson.confVideoSectionVideoAlt;
+    //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
         //Gestion d'erreur
@@ -63,7 +69,7 @@ describe('Product Pure', () => {
         //verify presentation
         cy.checkProductPurePresentaiton(confPresentationTitle,confPresentationDescription,confPresentationImgAlt,confPresentationBtn,confPresentationAdditionalText);
         //verify video section
-        
+        cy.checkVideoSection(confHearIconAlt,confVideoSectionTitle,confVideoSectionDescription,confVideoSectionWatchText,confVideoSectionVideoAlt,confVideoSectionFooterText);
         //verify testimonial section
 
         //verify certification section
