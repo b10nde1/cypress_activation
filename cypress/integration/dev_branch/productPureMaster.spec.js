@@ -54,6 +54,9 @@ describe('Product Pure', () => {
     let confTestimonialSectionTitle=dataFromJson.confTestimonialSectionTitle;
     let confTestimonialSectionAdditionalText=dataFromJson.confTestimonialSectionAdditionalText;
     let confTestimonialSectionContent=alignTestimonialFromJson(dataFromJson.confTestimonialSectionContent.split('],['));
+    let confCertificationSectionTitle=dataFromJson.confCertificationSectionTitle;
+    let confCertificationSectionContentImgAlt=dataFromJson.confCertificationSectionContentImgAlt.split('/*/');
+    let confCertificationSectionContentImgDescription=dataFromJson.confCertificationSectionContentImgDescription.split('/*/');
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
@@ -86,7 +89,7 @@ describe('Product Pure', () => {
         //verify testimonial section
         cy.checkProductPureTestimonialSection(confTestimonialSectionTitle,confTestimonialSectionContent,confTestimonialSectionAdditionalText);
         //verify certification section
-
+        cy.checkProductPureCertificationSection(confCertificationSectionTitle,confCertificationSectionContentImgAlt,confCertificationSectionContentImgDescription);
         //verify Buy section
 
         //verify parallax section

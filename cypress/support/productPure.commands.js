@@ -68,3 +68,18 @@ Cypress.Commands.add('checkProductPureTestimonialSection',(argTitle,argTestimoni
         console.log("checkProductPureTestimonialSection ::"+ex);
     }
 });
+Cypress.Commands.add('checkProductPureCertificationSection',(argTitle,argCertificatAltImg,argCertificatDescpImg)=>{
+    try{
+        cy.get('.pure-endorsement.pure__container').children('span.pure-endorsement__title').contains(argTitle);
+        let divClass=".pure-endorsement__slide.js-endorsement-slide.slick-slide.slick-current.slick-center";
+        cy.get(".pure-endorsement__slide.js-endorsement-slide.slick-slide").children('img').should('have.attr','alt',argCertificatAltImg[0]).click();
+        for(var compt=0;compt<argCertificatAltImg.length;compt++){
+            cy.get(divClass).should('have.attr','aria-describedby','slick-slide1'+compt+'').children('img').should('have.attr','alt',argCertificatAltImg[compt]);
+            cy.get('.pure-endorsement.pure__container').children('span.pure-endorsement__text.js-endorsement-text-display').contains(argCertificatDescpImg[compt]);
+            if(compt+1!=argCertificatAltImg.length)cy.get(".pure-endorsement__slide.js-endorsement-slide.slick-slide").should('have.attr','aria-describedby','slick-slide1'+(compt+1)+'').children('img').should('have.attr','alt',argCertificatAltImg[compt+1]).click();
+        }
+    }
+    catch(ex){
+        console.log("checkProductPureCertificationSection ::"+ex);
+    }
+});
