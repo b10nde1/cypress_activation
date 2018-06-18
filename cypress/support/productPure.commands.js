@@ -38,7 +38,7 @@ Cypress.Commands.add('checkProductPurePresentaiton',(argTitle,argDescription,arg
         console.log("checkProductPurePresentaiton ::"+ex);
     }
 });
-Cypress.Commands.add('checkVideoSection',(argHeartIconAlt,argTitle,argDescription,argWatchText,argVideoAlt,argFooterText)=>{
+Cypress.Commands.add('checkProductPureVideoSection',(argHeartIconAlt,argTitle,argDescription,argWatchText,argVideoAlt,argFooterText)=>{
     try{
         cy.get('.pure-arch__icon').should('have.attr','alt',argHeartIconAlt);
         cy.get('.pure-video.pure__container').children('h2').contains(argTitle);
@@ -48,6 +48,23 @@ Cypress.Commands.add('checkVideoSection',(argHeartIconAlt,argTitle,argDescriptio
         cy.get('.pure-video__textBot').contains(argFooterText);
     }
     catch(ex){
-        console.log(ex);
+        console.log("checkProductPureVideoSection ::"+ex);
+    }
+});
+Cypress.Commands.add('checkProductPureTestimonialSection',(argTitle,argTestimonialContent,argAdditionalText)=>{
+    try{
+        cy.get('#testimonials').contains(argTitle);
+        let divClass=".pure-testimonial__slide.slick-slide.slick-current.slick-active";
+        for(var compt=0;compt<argTestimonialContent.length;compt++){
+            cy.get(divClass).should('have.attr','aria-describedby','slick-slide0'+compt+'').children('div.pure-testimonial__content').children('div.pure-testimonial__heading').contains(argTestimonialContent[compt][0]);
+            cy.get(divClass).should('have.attr','aria-describedby','slick-slide0'+compt+'').children('div.pure-testimonial__content').children('div.pure__stars');
+            cy.get(divClass).should('have.attr','aria-describedby','slick-slide0'+compt+'').children('div.pure-testimonial__content').children('p.pure-testimonial__review').contains(argTestimonialContent[compt][1]);
+            cy.get(divClass).should('have.attr','aria-describedby','slick-slide0'+compt+'').children('div.pure-testimonial__content').children('span.pure-testimonial__meta').contains(argTestimonialContent[compt][2]);
+            if(compt+1!=argTestimonialContent.length)cy.get(".slick-next.slick-arrow").contains("Next").click();
+        }
+        cy.get('.pure-additional-text').children('p').contains(argAdditionalText);
+    }
+    catch(ex){
+        console.log("checkProductPureTestimonialSection ::"+ex);
     }
 });

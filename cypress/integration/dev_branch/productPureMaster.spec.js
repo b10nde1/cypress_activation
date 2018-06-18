@@ -11,6 +11,16 @@ describe('Product Pure', () => {
         }
         return result;
     };
+    const alignTestimonialFromJson=(argTableTestimonialContent)=>{
+        let result=new Array(argTableTestimonialContent.length);
+        for(var compt=0;compt<argTableTestimonialContent.length;compt++){
+            result[compt]=alignTableFromJson(argTableTestimonialContent[compt].split('/*/'));
+            result[compt][0]=result[compt][0].replace("[","");
+            result[compt][2]=result[compt][2].replace("]","");
+            result[compt][0]="\""+result[compt][0]+"\"*";
+        }
+        return result;
+    };
 //***************************************************************************************//
 //**Config**//
     let confBaseUrl=dataFromJson.confBaseUrl;
@@ -41,7 +51,10 @@ describe('Product Pure', () => {
     let confVideoSectionFooterText=dataFromJson.confVideoSectionFooterText;
     let confVideoSectionWatchText=dataFromJson.confVideoSectionWatchText;
     let confVideoSectionVideoAlt=dataFromJson.confVideoSectionVideoAlt;
-    //***************************************************************************************//
+    let confTestimonialSectionTitle=dataFromJson.confTestimonialSectionTitle;
+    let confTestimonialSectionAdditionalText=dataFromJson.confTestimonialSectionAdditionalText;
+    let confTestimonialSectionContent=alignTestimonialFromJson(dataFromJson.confTestimonialSectionContent.split('],['));
+//***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
         //Gestion d'erreur
@@ -69,9 +82,9 @@ describe('Product Pure', () => {
         //verify presentation
         cy.checkProductPurePresentaiton(confPresentationTitle,confPresentationDescription,confPresentationImgAlt,confPresentationBtn,confPresentationAdditionalText);
         //verify video section
-        cy.checkVideoSection(confHearIconAlt,confVideoSectionTitle,confVideoSectionDescription,confVideoSectionWatchText,confVideoSectionVideoAlt,confVideoSectionFooterText);
+        cy.checkProductPureVideoSection(confHearIconAlt,confVideoSectionTitle,confVideoSectionDescription,confVideoSectionWatchText,confVideoSectionVideoAlt,confVideoSectionFooterText);
         //verify testimonial section
-
+        cy.checkProductPureTestimonialSection(confTestimonialSectionTitle,confTestimonialSectionContent,confTestimonialSectionAdditionalText);
         //verify certification section
 
         //verify Buy section
@@ -81,7 +94,7 @@ describe('Product Pure', () => {
         //verify footer banner
 
         //verify share section
-        cy.checkGuideSocialSection(confSocialSectionTitle[0],confSocialMediaIcon);
+        cy.checkGuideSocialSection(confSocialSectionTitle,confSocialMediaIcon);
     });
     /*it('Product Pure TC03 || Verify Wipes',()=>{
 
