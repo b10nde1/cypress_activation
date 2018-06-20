@@ -1,7 +1,7 @@
 {
-    "name": "November Ajax",
-    "version": "2.5",
-    "description": "NovemberAjax is an solution for Categories/Sub-categories",
+    "name": "Kraken",
+    "version": "1",
+    "description": "Kraken verify maping for categories and sub categories",
     "permissions":["tabCapture","tabs","activeTab","declarativeContent","storage"],
     "background":{
         "scripts":["background.js"],
