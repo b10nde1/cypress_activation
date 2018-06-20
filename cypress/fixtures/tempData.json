@@ -26,5 +26,9 @@
   "confTestimonialSectionAdditionalText":"*Consumers received free product to try and review",
   "confCertificationSectionTitle":"CERTIFICATIONS",
   "confCertificationSectionContentImgAlt":"cotton enhanced logo/*/skin health alliance logo/*/green-e logo/*/cotton leads logo",
-  "confCertificationSectionContentImgDescription":"Qualified for the Cotton Incorporated cotton enhanced™ seal./*/Independently reviewed and accredited as skin safe by the Skin Health Alliance./*/Made with 100% certified renewable electricity./*/The Cotton LEADS™ program offers cotton users the confidence and knowledge that their cotton is responsibly produced and identified."
+  "confCertificationSectionContentImgDescription":"Qualified for the Cotton Incorporated cotton enhanced™ seal./*/Independently reviewed and accredited as skin safe by the Skin Health Alliance./*/Made with 100% certified renewable electricity./*/The Cotton LEADS™ program offers cotton users the confidence and knowledge that their cotton is responsibly produced and identified.",
+  "confBinSectionImgAlt":"Pampers Pure Collection",
+  "confBinSectionElement":"Buy Wipes/*/Buy Diapers",
+  "confFooterBannerHref":"https://www.pampers.com/en-us/rewards",
+  "confFooterBannerAltImg":"Pampers loyalty program"
 }

@@ -82,3 +82,23 @@ Cypress.Commands.add('checkProductPureCertificationSection',(argTitle,argCertifi
         console.log("checkProductPureCertificationSection ::"+ex);
     }
 });
+Cypress.Commands.add('checkProductPureBinSection',(argImgAl,argBinElt)=>{
+    try{
+        cy.get('#phmainproductcollection_0_ctl14_BuySectionPh').children('div.pure-presentation__image').children('img').contains(argImgAl);
+        for(var compt=0;compt<argBinElt.length;compt+){
+            cy.get('#phmainproductcollection_0_ctl14_BuySectionPh').children('div.pure-presentation__btn'),contains(argBinElt[compt]);
+        }
+    }
+    catch(ex){
+        console.log('checkProductPureBinSection ::'+ex);
+    }
+});
+Cypress.Commands.add('checkProductPureFooterBanner',(argHref,argAltImg)=>{
+    try{
+        cy.get('#phmainproductcollection_1_IncentiveSpotlightBanner').should('have.attr','href',argHref);
+        cy.get('#phmainproductcollection_1_IncentiveSpotlightBanner').children('div.overlay-oasis').children('picture.c-hero__picture').children('img.c-hero__image').should('have.attr','alt',argAltImg);
+    }
+    catch(ex){
+        console.log("checkProductPureFooterBanner ::"+ex);
+    }
+});
