@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        button {
+          height: 30px;
+          width: 30px;
+          outline: none;
+        }
+        .footer_proximity{
+          text-align: center;
+          font-size: 7px;
+        }
+        .checkbox_option{
+          text-align:center;
+          margin-bottom: 10px;
+        }
+        .input_key{
+          width: 100%;
+        }
+      </style>
+    </head>
+    <body>
+      <h1 align="center">NovemberAjax</h1>      
+      <div class="checkbox_option">
+        <div>
+          Open result
+          <input type="radio" name="optionOpenUrls" value="optionOpenUrlsOn" id="optionOpenUrlsOn" >ON
+          <input type="radio" name="optionOpenUrls" value="optionOpenUrlsOff" id="optionOpenUrlsOff" checked>Off
+        </div>
+        <div>
+          Link Label
+          <input type="checkbox" name="optionLinkLabel" value="optionLinkLabel" id="optionLinkLabel">
+          Data Action Detail
+          <input type="checkbox" name="optionDataActionDetail" value="optionDataActionDetail" id="optionDataActionDetail">
+        </div>
+      </div>
+      <input class="input_key" type="text" placeholder="key" name='searchKey' id="searchKey">
+      <br/><br/>
+      <input type="file" accept="txt/*" name="htmlFile" id="htmlFile">
+      <p>Total Urls : <i id="total-count"></i></p>
+      <div id="list-urls"></div>
+      <div id="code-to-scan" style="visibility:hidden;display:none"></div>
+      <a href="options.html"><p class='footer_proximity'>Proximity BBDO Mauritius</p></a>
+      <script src='popup.js'></script>
+    </body>
+  </html>
