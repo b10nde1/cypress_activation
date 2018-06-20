@@ -68,6 +68,7 @@ Cypress.Commands.add('checkProductPureTestimonialSection',(argTitle,argTestimoni
         console.log("checkProductPureTestimonialSection ::"+ex);
     }
 });
+//checkProductPureCertificationSection not ready
 Cypress.Commands.add('checkProductPureCertificationSection',(argTitle,argCertificatAltImg,argCertificatDescpImg)=>{
     try{
         cy.get('.pure-endorsement.pure__container').children('span.pure-endorsement__title').contains(argTitle);
