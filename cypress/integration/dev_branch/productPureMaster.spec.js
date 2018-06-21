@@ -63,10 +63,10 @@ describe('Product Pure', () => {
     let confFooterBannerAltImg=dataFromJson.confFooterBannerAltImg;
     let confParallaxSectionTitle=dataFromJson.confParallaxSectionTitle;
     let confParallaxSectionDescription=dataFromJson.confParallaxSectionDescription;
-    let confParallaxSectionArgItem=;
+    let confParallaxSectionArgItem=alignTestimonialFromJson(dataFromJson.confParallaxSectionArgItem.split('],['));
     let confParallaxSectionBg=alignTableFromJson(dataFromJson.confParallaxSectionBg.split('/*/'));
     let confParallaxSectionAdditionalText=dataFromJson.confParallaxSectionAdditionalText;
-    let confParallaxSectionItemPlus=;
+    let confParallaxSectionItemPlus=alignTestimonialFromJson(dataFromJson.confParallaxSectionItemPlus.split('],['));
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
