@@ -85,7 +85,7 @@ Cypress.Commands.add('checkProductPureCertificationSection',(argTitle,argCertifi
 });
 Cypress.Commands.add('checkProductPureBinSection',(argImgAl,argBinElt)=>{
     try{
-        cy.get('#phmainproductcollection_0_ctl14_BuySectionPh').children('div.pure-presentation__image').children('img').contains(argImgAl);
+        cy.get('#phmainproductcollection_0_ctl14_BuySectionPh').children('div.pure-presentation__image').children('img').should('have.attr','alt',argImgAl);
         for(var compt=0;compt<argBinElt.length;compt++){
             cy.get('#phmainproductcollection_0_ctl14_BuySectionPh').children('div.pure-presentation__btn'),contains(argBinElt[compt]);
         }

@@ -81,6 +81,7 @@ describe('Product Pure', () => {
         //remove this cy.visit when activate tc01
         cy.visit('https://www.pampers.com/en-us/diapers-wipes/newborn-products');
         cy.get('.l-main__container').children().contains(confHubProdcutOasisText).click({force:true});
+        /*
         //verify meta
         cy.checkGuideMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb and banner
@@ -96,6 +97,7 @@ describe('Product Pure', () => {
         //cy.checkProductPureCertificationSection(confCertificationSectionTitle,confCertificationSectionContentImgAlt,confCertificationSectionContentImgDescription);
         //verify Buy section
         cy.checkProductPureBinSection(confBinSectionImgAlt,confBinSectionElement);
+        */
         //verify parallax section
 
         //verify footer banner
