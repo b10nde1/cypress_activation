@@ -103,3 +103,27 @@ Cypress.Commands.add('checkProductPureFooterBanner',(argHref,argAltImg)=>{
         console.log("checkProductPureFooterBanner ::"+ex);
     }
 });
+Cypress.Commands.add('checkProductPureParallaxSection',(argTitle,argDescription,argItem,argBg,argAdditionalText,argItemPlus)=>{
+    try{
+        cy.get('.pure-source.pure__container').children('h2.pure__title').contains(argTitle);
+        cy.get('.pure-source.pure__container').children('h2').children('p.pure__description').contains(argDescription);
+        for(var compt=0;compt<argItem.length;compt++){
+            cy.get('.pure-source__item').children('div.parallax-banner').children('picture.parallax-banner__picture').should('have.attr','alt',argItem[compt][0]);
+            cy.get('.pure-source__item').children('div.pure-source__text').children('div.pure-source__description').children('h2').contains(argItem[compt][1]);
+            cy.get('.pure-source__item').children('div.pure-source__text').children('div.pure-source__description').children('p.js-pure-read-more.ddd-truncated').should('have.attr','title',argItem[compt][2]);
+        }
+        cy.get('.parallax-banner__img.js-parallax-banner.background default').should('have.attr','alt',argBg[0]);
+        cy.get('.parallax-banner__img.js-parallax-banner.background reverse').should('have.attr','alt',argBg[1]);
+        if(argItemPlus!=null){
+            for(var compt=0;compt<argItemPlus.length;compt++){
+                cy.get('.pure-source__item.pure-source__item--icon').children('div.pure-source__description').children('img').should('have.attr','alt',argItemPlus[compt][0]);
+                cy.get('.pure-source__item.pure-source__item--icon').children('div.pure-source__description').children('h2').contains(argItemPlus[compt][1]);
+                cy.get('.pure-source__item.pure-source__item--icon').children('div.pure-source__description').children('p').contains(argItemPlus[compt][2]);
+            }
+        }
+        cy.get('.pure-additional-text').contains(argAdditionalText);
+    }
+    catch(ex){
+        console.log("checkProductPureParallaxSection ::"+ex);
+    }
+});

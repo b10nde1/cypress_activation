@@ -61,6 +61,12 @@ describe('Product Pure', () => {
     let confBinSectionElement=alignTableFromJson(dataFromJson.confBinSectionElement);
     let confFooterBannerHref=dataFromJson.confFooterBannerHref;
     let confFooterBannerAltImg=dataFromJson.confFooterBannerAltImg;
+    let confParallaxSectionTitle=dataFromJson.confParallaxSectionTitle;
+    let confParallaxSectionDescription=dataFromJson.confParallaxSectionDescription;
+    let confParallaxSectionArgItem=;
+    let confParallaxSectionBg=alignTableFromJson(dataFromJson.confParallaxSectionBg.split('/*/'));
+    let confParallaxSectionAdditionalText=dataFromJson.confParallaxSectionAdditionalText;
+    let confParallaxSectionItemPlus=;
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
@@ -98,8 +104,8 @@ describe('Product Pure', () => {
         //verify Buy section
         cy.checkProductPureBinSection(confBinSectionImgAlt,confBinSectionElement);
         */
-        //verify parallax section
-
+        //verify parallax section 
+        cy.checkProductPureParallaxSection(confParallaxSectionTitle,confParallaxSectionDescription,confParallaxSectionArgItem,confParallaxSectionBg,confParallaxSectionAdditionalText,confParallaxSectionItemPlus);
         //verify footer banner
         cy.checkProductPureFooterBanner(confFooterBannerHref,confFooterBannerAltImg);
         //verify share section
