@@ -1,6 +1,6 @@
 //***************************************************************************************//
 //**Load Data**//
-import dataFromJson from '../../fixtures/data.json';
+import dataFromJson from '../../fixtures/data/dataGuide.json';
 describe('Guides and downloadables', () => {
 //***************************************************************************************//
 //**util**//
