@@ -143,5 +143,5 @@ describe('Guides and downloadables', () => {
         cy.checkGuideSocialSection(confSocialSectionTitle[2],confSocialMediaIcon);
         //Main
         cy.checkGuideCtaBtn(confCtaBtn[2][0]);
-    });
+    });*/
 })
