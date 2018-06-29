@@ -19,7 +19,7 @@ Cypress.Commands.add('checkBanner',(argBannerTitle,argBannerDescription,argIfPam
     try{
         cy.get('.hero-top-banner__title').contains(argBannerTitle);
         cy.get('.hero-top-banner__text').contains(argBannerDescription);
-        if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt','Pampers Logo');
+        if(argIfPampersLogoIsPresent==true)cy.get('.hero-top-banner__logo').should('have.attr','alt',' ');
     }
     catch(ex){
         console.log('checkBanner ::'+ex);
@@ -39,7 +39,7 @@ Cypress.Commands.add('checkCtaBtn',(argCtaText)=>{
 Cypress.Commands.add('checkDataAttr',(argListGet,argListShouldAttr,argShouldData,argShouldValue)=>{
     try{
         for(var compt=0;compt<argListGet.length;compt++){
-            cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
+            if(argListGet[compt]!=null)cy.get(argListGet[compt]).should(argListShouldAttr[compt],argShouldData[compt],argShouldValue[compt]);
         }
     }
     catch(ex){

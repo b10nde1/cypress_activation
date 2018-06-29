@@ -17,23 +17,24 @@ describe('Guides and downloadables', () => {
     let confBaseUrl=''+dataFromJson.confBaseUrl+''; 
     let confCategoryUrl=dataFromJson.confCategoryUrl;
     let confGuideUrl=dataFromJson.confGuideUrl;
-    let confVideoUrl=dataFromJson.confVideoUrl;
+    //'a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl+'"]'
+    let confVideoUrl=null;
     //Config meta
+    //let confMeta=[alignTableFromJson(dataFromJson.confMetaLP.split('/*/')),alignTableFromJson(dataFromJson.confMetaGuideDetailPage.split('/*/')),alignTableFromJson(dataFromJson.confMetaVideoDetailPage.split('/*/'))];
     let confMeta=[
         alignTableFromJson(dataFromJson.confMetaLP.split('/*/'))
         ,alignTableFromJson(dataFromJson.confMetaGuideDetailPage.split('/*/'))
-        ,alignTableFromJson(dataFromJson.confMetaVideoDetailPage.split('/*/'))
-        ];
+    ];
     //Config breadcrumb
+    //let confBreadcrumb=[alignTableFromJson(dataFromJson.confBreadcrumbLP.split('/*/')),alignTableFromJson(dataFromJson.confBreadcrumbGuidePage.split('/*/')),alignTableFromJson(dataFromJson.confBreadcrumbVideoPage.split('/*/'))];
     let confBreadcrumb=[alignTableFromJson(dataFromJson.confBreadcrumbLP.split('/*/'))
         ,alignTableFromJson(dataFromJson.confBreadcrumbGuidePage.split('/*/'))
-        ,alignTableFromJson(dataFromJson.confBreadcrumbVideoPage.split('/*/'))
     ];
     //Config Banner
+    //let confBanner=[alignTableFromJson(dataFromJson.confBannerLP.split('/*/')),alignTableFromJson(dataFromJson.confBannerGuideDetailPage.split('/*/')),alignTableFromJson(dataFromJson.confBannerVideoDetailPage.split('/*/'))];
     let confBanner=[
         alignTableFromJson(dataFromJson.confBannerLP.split('/*/'))
         ,alignTableFromJson(dataFromJson.confBannerGuideDetailPage.split('/*/'))
-        ,alignTableFromJson(dataFromJson.confBannerVideoDetailPage.split('/*/'))
     ];
     //Config cdn for pdf
     let confPdfCdn=dataFromJson.confPdfCdn;
@@ -42,12 +43,15 @@ describe('Guides and downloadables', () => {
     let confCardTitle=alignTableFromJson(dataFromJson.confCardTitle.split('/*/'));
     let confCardDescription=alignTableFromJson(dataFromJson.confCardDescription.split('/*/'));
     let confTranslationForSeeMore=dataFromJson.confTranslationForSeeMore;
-    let confSocialSectionTitle=[dataFromJson.confSocialSectionTitleLP,dataFromJson.confSocialSectionTitleGuideDetailPage,dataFromJson.confSocialSectionTitleVideoDetailPage];
-    let confCtaBtn=[alignTableFromJson(dataFromJson.confCtaBtnLP.split('/*/')),[dataFromJson.confCtaBtnGuide],[dataFromJson.confCtaBtnVideo]];
+    //let confSocialSectionTitle=[dataFromJson.confSocialSectionTitleLP,dataFromJson.confSocialSectionTitleGuideDetailPage,dataFromJson.confSocialSectionTitleVideoDetailPage];
+    let confSocialSectionTitle=[dataFromJson.confSocialSectionTitleLP,dataFromJson.confSocialSectionTitleGuideDetailPage];
+    //let confCtaBtn=[alignTableFromJson(dataFromJson.confCtaBtnLP.split('/*/')),[dataFromJson.confCtaBtnGuide],[dataFromJson.confCtaBtnVideo]];
+    let confCtaBtn=[alignTableFromJson(dataFromJson.confCtaBtnLP.split('/*/')),[dataFromJson.confCtaBtnGuide]];
     let confPageGuideH1=dataFromJson.confPageGuideH1;
     let confPageGuideCarouselTitle=alignTableFromJson(dataFromJson.confPageGuideCarouselTitle.split('/*/'));
-    let confPageVideoListYoutubeLink=alignTableFromJson(dataFromJson.confPageVideoListYoutubeLink.split('/*/'));
+    //let confPageVideoListYoutubeLink=alignTableFromJson(dataFromJson.confPageVideoListYoutubeLink.split('/*/'));
     let confSocialMediaIcon=alignTableFromJson(dataFromJson.confSocialMediaIcon.split('/*/'));
+    let confJsMenuSticker=dataFromJson.confJsMenuSticker;
 //***************************************************************************************//
 //**Cypress**//
     beforeEach(() => {
@@ -67,19 +71,19 @@ describe('Guides and downloadables', () => {
             ,['data-action-detail']
             ,['GUIDES']);
         //verify Navigation menu
-        cy.get('.js-menu-list').contains(confTranslationForGuideInNavMenu).contains('New').click();
+        cy.get('.js-menu-list').contains(confTranslationForGuideInNavMenu).contains(confJsMenuSticker).click();
         //verify title
         cy.checkMetaInfo(confMeta[0][0],confMeta[0][1],confMeta[0][2],confMeta[0][3]);
         //verify breadcrumb
         cy.checkBreadcrumb(confBreadcrumb[0]);
         //verify hero top banner 
         cy.checkBanner(confBanner[0][0],confBanner[0][1],false);
-        //verify GA 
+        //verify GA both video and Guide Pdf
         cy.checkDataAttr(
             ['a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confGuideUrl+'"]'
             ,'a[href="'+confPdfCdn+'"]'
             ,'a[href="'+confPdfCdn+'"]'
-            ,'a[href="'+confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl+'"]'
+            ,confVideoUrl
             ,'#phmainbannerhero_1_GuideRepeater_lnkCta_1','#phmainbannerhero_1_GuideRepeater_lnkCta_1']
             ,['have.attr','have.attr','have.attr','have.attr','have.attr','have.attr']
             ,['data-action-detail','data-action-detail','data-vortex-scenario','data-action-detail','data-action-detail','data-vortex-scenario']
@@ -120,7 +124,7 @@ describe('Guides and downloadables', () => {
         //verify cta btn
         cy.checkCtaBtn(confCtaBtn[1][0]);
     });
-    it('Guides TC03 || Verify Guide Video detail',()=>{
+    /*it('Guides TC03 || Verify Guide Video detail',()=>{
         cy.visit(confBaseUrl+'/'+confCategoryUrl+'/'+confVideoUrl);
         //verify meta
         cy.checkMetaInfo(confMeta[2][0],confMeta[2][1],confMeta[2][2],confMeta[2][3]);
@@ -138,5 +142,5 @@ describe('Guides and downloadables', () => {
         cy.checkSocialSection(confSocialSectionTitle[2],confSocialMediaIcon);
         //Main
         cy.checkCtaBtn(confCtaBtn[2][0]);
-    });
+    });*/
 })
