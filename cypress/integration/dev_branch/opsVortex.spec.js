@@ -1,7 +1,7 @@
 //***************************************************************************************//
 //**Load Data**//
 import dataFromJson from '../../fixtures/opsVortex.json';
-describe('Guides and downloadables', () => {
+describe('Screenshot', () => {
 //***************************************************************************************//
 //**util**//
     const alignTableFromJson=(argSplit)=>{
@@ -45,10 +45,17 @@ describe('Guides and downloadables', () => {
             return false
         })
         //resolution 
-        cy.viewport(2900, 2200);
+        cy.viewport(1600, 1200);
     });
-    it('VortexChecking || Verify Vortex Popin - Header ', () => {
+    /*it('VortexChecking || Verify Vortex Popin - Header ', () => {
         cy.visit(market[1]);
         cy.checkVortexPopInHeader(market[0]);
-    });
+    });*/
+    for(var compt=0;compt<listMarkets.length;compt++){
+        let temp=compt;
+        it('Test Author Article',()=>{
+            cy.visit(listMarkets[temp][1]);
+            cy.checkVortexOpenAndTakeScreenShot(listMarkets[temp][0]);
+        });
+    }
 })
