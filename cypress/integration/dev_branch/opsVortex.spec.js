@@ -45,7 +45,7 @@ describe('Guides and downloadables', () => {
             return false
         })
         //resolution 
-        cy.viewport(1900, 1200);
+        cy.viewport(2900, 2200);
     });
     it('VortexChecking || Verify Vortex Popin - Header ', () => {
         cy.visit(market[1]);
