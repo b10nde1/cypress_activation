@@ -1,0 +1,4 @@
+{
+    "run":"us-en",
+    "markets":"[us-en/*/https://www.pampers.com/en-us],[fr/*/https://www.pampers.fr]"
+}
