@@ -6,3 +6,11 @@ Cypress.Commands.add('checkArticleV2Breadcrumb',()=>{
         console.log('checkArticleV2Breadcrumb ::'+ex);
     }
 });
+Cypress.Commands.add('checkArticleV2Title',()=>{
+    try{
+        cy.get('.article-oasis__title');
+    }
+    catch(ex){
+        console.log('checkArticleV2Title ::'+ex);
+    }
+});

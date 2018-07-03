@@ -33,10 +33,14 @@ describe('Screenshot', () => {
             cy.checkArticleV2Breadcrumb();
         });
         //verify element title is present
-
+        it('Article V2 verify element Title is present '+listMarkets[temp][0]+'',()=>{
+            cy.checkArticleV2Title();
+        });
         //verify element author name is present
         //both header and footer
-
+        it('',()=>{
+            
+        });
         //verify element read time section is present
 
         //verift element like section is present
