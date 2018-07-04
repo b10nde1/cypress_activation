@@ -58,3 +58,11 @@ Cypress.Commands.add('checkArticleV2ProgressBar',()=>{
         console.log('checkArticleV2ProgressBar ::'+ex);
     }
 });
+Cypress.Commands.add('checkVortexArticleV2Report',(argUrls)=>{
+    try{
+        
+    }
+    catch(ex){
+        console.log('checkVortexArticleV2Report ::'+ex);
+    }
+});
