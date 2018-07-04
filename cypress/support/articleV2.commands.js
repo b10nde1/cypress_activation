@@ -58,11 +58,17 @@ Cypress.Commands.add('checkArticleV2ProgressBar',()=>{
         console.log('checkArticleV2ProgressBar ::'+ex);
     }
 });
-Cypress.Commands.add('checkVortexArticleV2Report',(argUrls)=>{
+Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
     try{
-        
+        let tempResult='';
+        for(var compt=0;compt<argUrls.length;compt++){
+            let tempTitle='\nTitle-TC'+compt+' :: "'+argUrls[compt][0]+'",\n';
+            let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
+            tempResult+=tempTitle+tempUrl;
+        }
+        cy.writeFile('cypress/report/articleV2/articlev2Id'+argReportId+'.json','{'+tempResult+'}');
     }
     catch(ex){
-        console.log('checkVortexArticleV2Report ::'+ex);
+        console.log('checkArticleV2Report ::'+ex);
     }
 });
