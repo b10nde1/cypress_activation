@@ -13,7 +13,7 @@ Cypress.Commands.add("checkVortexUtiltakeScreenShot",(argTitle,argIfForVortexPop
 const checkVortexUtilPrepareTitle=(argMarket,argFunction)=>{
     try{
         let tempDate = new Date();
-        let result = tempDate.toDateString()+'-'+argMarket+'-'+argFunction;
+        let result = tempDate.toDateString()+'-'+argMarket+'-'+argFunction+tempDate.getTime();
         return result;
     }
     catch(ex){
