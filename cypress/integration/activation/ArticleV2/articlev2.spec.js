@@ -53,7 +53,6 @@ describe('Screenshot', () => {
             cy.checkArticleV2ProgressBar();
         });
     }
-    //report json with tcid+article name + url
     it('Report id :: articlev2Id'+reportId+'',()=>{
         cy.checkArticleV2Report(listUrls,reportId);
     });
