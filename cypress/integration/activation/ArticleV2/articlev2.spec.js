@@ -32,29 +32,21 @@ describe('Screenshot', () => {
         it('TC'+temp+'-1 Article V2 verify element braedcrumb vocabulary is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2Breadcrumb();
         });
-        //verify element title is present
         it('TC'+temp+'-2 Article V2 verify element Title class is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2Title();
         });
-        //verify element author name is present
-        //both header and footer
         it('TC'+temp+'-3 Article V2 verify data action detail for element author name ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2AuthorName();
         });
-        //verify element read time section is present
         it('TC'+temp+'-4 Article V2 Verify CSS class for element date and time ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2DateAndTimeInfo();
         });
-        //verify element share and print is present
         it('TC'+temp+'-5 Article V2 Verify both Share section and print icon are present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2ShareSection();
         });
-        //verift element like section is present
         it('TC'+temp+'-6 Article V2 Verify element like icon is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2LikeIcon();
         });
-        //verify element progressbar is present
-        //check div.child(progress).should.max="100"
         it('TC'+temp+'-7 Article V2 Verify element progressbar is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2ProgressBar();
         });
