@@ -16,39 +16,47 @@ describe('Screenshot', () => {
         }
         return result;
     };
-    let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['));
+    let listUrls=getTable2DFromJson(dataFromJson.urls.split('],['));
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
         cy.viewport(1600, 1200);
     });
-    for(var compt=0;compt<listMarkets.length;compt++){
+    for(var compt=0;compt<listUrls.length;compt++){
         let temp=compt;
-        it('Article V2 take screenshot'+listMarkets[temp][0]+'',()=>{
-            cy.visit(listMarkets[temp][1]);
-            cy.checkVortexOpenAndTakeScreenShot(listMarkets[temp][0]);
+        it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
+            cy.visit(listUrls[temp][1]);
+            cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
         });
-        it('Article V2 verify element braedcrumb is present '+listMarkets[temp][0]+'',()=>{
+        it('TC'+temp+'-1 Article V2 verify element braedcrumb vocabulary is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2Breadcrumb();
         });
         //verify element title is present
-        it('Article V2 verify element Title is present '+listMarkets[temp][0]+'',()=>{
+        it('TC'+temp+'-2 Article V2 verify element Title class is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2Title();
         });
         //verify element author name is present
         //both header and footer
-        it('',()=>{
-            
+        it('TC'+temp+'-3 Article V2 verify data action detail for element author name ::'+listUrls[temp][0]+'',()=>{
+            cy.checkArticleV2AuthorName();
         });
         //verify element read time section is present
-
+        it('TC'+temp+'-4 Article V2 Verify CSS class for element date and time ::'+listUrls[temp][0]+'',()=>{
+            cy.checkArticleV2DateAndTimeInfo();
+        });
+        //verify element share and print is present
+        it('TC'+temp+'-5 Article V2 Verify both Share section and print icon are present ::'+listUrls[temp][0]+'',()=>{
+            cy.checkArticleV2ShareSection();
+        });
         //verift element like section is present
-
+        it('TC'+temp+'-6 Article V2 Verify element like icon is present ::'+listUrls[temp][0]+'',()=>{
+            cy.checkArticleV2LikeIcon();
+        });
         //verify element progressbar is present
         //check div.child(progress).should.max="100"
-
-        //verify element print is present
-
+        it('TC'+temp+'-7 Article V2 Verify element progressbar is present ::'+listUrls[temp][0]+'',()=>{
+            cy.checkArticleV2ProgressBar();
+        });
     }
 })
