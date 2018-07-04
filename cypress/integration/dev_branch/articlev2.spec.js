@@ -17,6 +17,8 @@ describe('Screenshot', () => {
         return result;
     };
     let listUrls=getTable2DFromJson(dataFromJson.urls.split('],['));
+    let dateReport=new Date();
+    let reportId=dateReport.getTime();
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -59,4 +61,8 @@ describe('Screenshot', () => {
             cy.checkArticleV2ProgressBar();
         });
     }
+    //report json with tcid+article name + url
+    it('Report id :: articlev2Id'+reportId+'',()=>{
+        cy.checkArticleV2Report(listUrls,reportId);
+    });
 })
