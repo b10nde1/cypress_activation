@@ -68,6 +68,10 @@ describe('Screenshot', () => {
             cy.checkArticleV2ProgressBar();
         });
     }
+    //check if list of new article are present in sitemap.xml
+    it('Verify sitemap.xml',()=>{
+        cy.checkArticleV2Sitemap(listUrls);
+    });
     //report json with tcid+article name + url
     it('Report id :: articlev2Id'+reportId+'',()=>{
         cy.checkArticleV2Report(listUrls,reportId);
