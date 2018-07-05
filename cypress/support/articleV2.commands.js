@@ -17,7 +17,7 @@ Cypress.Commands.add('checkArticleV2PageInfo',(argTitle)=>{
     }
 });
 
-Cypress.Commands.add('checkArticleV2Title',()=>{
+Cypress.Commands.add('checkArticleV2Title',(argTitle)=>{
     try{
         cy.get('.article-oasis__title');
         cy.get('.article-oasis__title').contains(argTitle);
@@ -93,21 +93,19 @@ Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
 
 const getBaseUrl=(argUrl)=>{
     try{
-        console.log('getBaseUrl Start');
         let result=null;
         let tempData=argUrl.split('/');
-        let tempBase=tempData[0]
-        result=tempBase;
+        let tempBase=tempData[2]
+        result='https://'+tempBase;
         let listDoubleLang=['/en-us/','/es-us/','/ar-sa/','/en-sa/','/fr-ca/','/en-ca/','/en-eg/','/ar-eg/','/fr-be/','/nl-be/'];
         for(var compt=0;compt<listDoubleLang.length;listDoubleLang++){
             let tempStatus=argUrl.search(listDoubleLang[compt]);
             if(tempStatus>0){
-                result+=tempData[1];
+                result+='/'+tempData[3];
                 break;
             }
         }
         if(result===null)throw "getBaseUrl Error->unable to get baseUrl value==null "
-        console.log('getBaseUrl End');
         return result;
     }
     catch(ex){
@@ -117,11 +115,9 @@ const getBaseUrl=(argUrl)=>{
 
 const getSiteMapUrl=(argUrl)=>{
     try{
-        console.log('getSiteMapUrl Start');
         let result=getBaseUrl(argUrl);
         if(result===null)throw "getSiteMapUrl Error->unable to get Sitemap url value==null"
         let sitemap=result+'/sitemap.xml';
-        console.log('getSiteMapUrl End');
         return sitemap;
     }
     catch(ex){
@@ -152,6 +148,7 @@ Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
         console.log('checkArticleV2Sitemap Start');
         let baseUrl=getSiteMapUrl(argListData[0][1]);
+        console.log('Base Url for sitemap.xml '+baseUrl);
         let tempResultStatus= new Array(argListData.length);
         let request=new XMLHttpRequest();
         request.addEventListener('load',addEvent);
