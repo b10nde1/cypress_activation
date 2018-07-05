@@ -6,9 +6,10 @@ Cypress.Commands.add('checkArticleV2Breadcrumb',()=>{
         console.log('checkArticleV2Breadcrumb ::'+ex);
     }
 });
-Cypress.Commands.add('checkArticleV2Title',()=>{
+Cypress.Commands.add('checkArticleV2Title',(argTitle)=>{
     try{
         cy.get('.article-oasis__title');
+        cy.get('.article-oasis__title').contains(argTitle);
     }
     catch(ex){
         console.log('checkArticleV2Title ::'+ex);

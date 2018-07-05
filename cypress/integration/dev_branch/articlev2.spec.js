@@ -36,7 +36,7 @@ describe('Screenshot', () => {
         });
         //verify element title is present
         it('TC'+temp+'-2 Article V2 verify element Title class is present ::'+listUrls[temp][0]+'',()=>{
-            cy.checkArticleV2Title();
+            cy.checkArticleV2Title(listUrls[temp][0]);
         });
         //verify element author name is present
         //both header and footer
