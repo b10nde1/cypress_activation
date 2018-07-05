@@ -10,6 +10,7 @@ Cypress.Commands.add('checkArticleV2Title',(argTitle)=>{
     try{
         cy.get('.article-oasis__title');
         cy.get('.article-oasis__title').contains(argTitle);
+        cy.get('head meta[name="og:title"]').should('have.attr','content',argTitle);
     }
     catch(ex){
         console.log('checkArticleV2Title ::'+ex);
