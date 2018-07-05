@@ -27,16 +27,23 @@ describe('Screenshot', () => {
     });
     for(var compt=0;compt<listUrls.length;compt++){
         let temp=compt;
-        it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
+        //open Url
+        //check og title and url
+        it('TC'+temp+'-Check Page Info ::'+listUrls[temp][0]+'',()=>{
             cy.visit(listUrls[temp][1]);
+            cy.checkArticleV2PageInfo(listUrls[temp]);
+        });
+        //take screenshot
+        it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
             cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
         });
+        //verify if element breadcumb contains itemptype data-vocabulary.org/breadcrumb
         it('TC'+temp+'-1 Article V2 verify element braedcrumb vocabulary is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkArticleV2Breadcrumb();
         });
         //verify element title is present
         it('TC'+temp+'-2 Article V2 verify element Title class is present ::'+listUrls[temp][0]+'',()=>{
-            cy.checkArticleV2Title(listUrls[temp][0]);
+            cy.checkArticleV2Title();
         });
         //verify element author name is present
         //both header and footer

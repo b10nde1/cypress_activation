@@ -6,11 +6,19 @@ Cypress.Commands.add('checkArticleV2Breadcrumb',()=>{
         console.log('checkArticleV2Breadcrumb ::'+ex);
     }
 });
-Cypress.Commands.add('checkArticleV2Title',(argTitle)=>{
+Cypress.Commands.add('checkArticleV2PageInfo',(argTitle)=>{
+    try{
+        cy.get('head meta[property="og:title"]').should('have.attr','content',argTitle[0]);
+        cy.get('head meta[property="og:url"]').should('have.attr','content',argTitle[1]);
+    }
+    catch(ex){
+        console.log('checkArticleV2PageInfo ::'+ex);
+    }
+});
+Cypress.Commands.add('checkArticleV2Title',()=>{
     try{
         cy.get('.article-oasis__title');
         cy.get('.article-oasis__title').contains(argTitle);
-        cy.get('head meta[name="og:title"]').should('have.attr','content',argTitle);
     }
     catch(ex){
         console.log('checkArticleV2Title ::'+ex);
