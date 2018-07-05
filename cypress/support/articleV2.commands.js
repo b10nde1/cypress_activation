@@ -93,6 +93,7 @@ Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
 
 const getBaseUrl=(argUrl)=>{
     try{
+        console.log('getBaseUrl Start');
         let result=null;
         let tempData=argUrl.split('/');
         let tempBase=tempData[0]
@@ -106,7 +107,8 @@ const getBaseUrl=(argUrl)=>{
             }
         }
         if(result===null)throw "getBaseUrl Error->unable to get baseUrl value==null "
-        else {return result}
+        console.log('getBaseUrl End');
+        return result;
     }
     catch(ex){
         console.log('getBaseUrl ::'+ex);
@@ -115,9 +117,11 @@ const getBaseUrl=(argUrl)=>{
 
 const getSiteMapUrl=(argUrl)=>{
     try{
+        console.log('getSiteMapUrl Start');
         let result=getBaseUrl(argUrl);
         if(result===null)throw "getSiteMapUrl Error->unable to get Sitemap url value==null"
         let sitemap=result+'/sitemap.xml';
+        console.log('getSiteMapUrl End');
         return sitemap;
     }
     catch(ex){
@@ -129,6 +133,7 @@ const addEvent=()=>consoel.log(this.responseText)
 
 const reportForSitemap=(argListStatus,argReportId)=>{
     try{
+        console.log('reportForSitemap Start');
         let tempResult='';
         for(var compt=0;compt<argListStatus.length;compt++){
             let tempStatus='\nStatus ::'+argListStatus[compt][0]+'\n';
@@ -136,6 +141,7 @@ const reportForSitemap=(argListStatus,argReportId)=>{
             tempResult=tempStatus+' => '+tempUrl;
         }
         cy.writeFile('cypress/report/articleV2/statusSitemapXmlArticlev2Id'+argReportId+'','{'+tempResult+'}');
+        console.log('reportForSitemap End');
     }
     catch(ex){
         console.log('reportForSitemap ::'+ex);
@@ -144,6 +150,7 @@ const reportForSitemap=(argListStatus,argReportId)=>{
 
 Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
+        console.log('checkArticleV2Sitemap Start');
         let baseUrl=getSiteMapUrl(argListData[0][1]);
         let tempResultStatus= new Array(argListData.length);
         let request=new XMLHttpRequest();
@@ -161,6 +168,7 @@ Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
             }
         }
         reportForSitemap(tempResultStatus,argReportId);
+        console.log('checkArticleV2Sitemap End');
     }
     catch(ex){
         console.log('checkArticleV2Sitemap ::'+ex);
