@@ -84,7 +84,7 @@ Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
             let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
             tempResult+=tempTitle+tempUrl;
         }
-        cy.writeFile('cypress/report/articleV2/articlev2Id'+argReportId+'.json','{'+tempResult+'}');
+        cy.writeFile('cypress/report/articleV2/screenshotArticlev2Id'+argReportId+'.json','{'+tempResult+'}');
     }
     catch(ex){
         console.log('checkArticleV2Report ::'+ex);
@@ -97,7 +97,7 @@ const getBaseUrl=(argUrl)=>{
         let tempData=argUrl.split('/');
         let tempBase=tempData[0]
         result=tempBase;
-        let listDoubleLang=['en-us','es-us','ar-sa','en-sa','fr-ca','en-ca','en-eg','ar-eg','fr-be','nl-be'];
+        let listDoubleLang=['/en-us/','/es-us/','/ar-sa/','/en-sa/','/fr-ca/','/en-ca/','/en-eg/','/ar-eg/','/fr-be/','/nl-be/'];
         for(var compt=0;compt<listDoubleLang.length;listDoubleLang++){
             let tempStatus=argUrl.search(listDoubleLang[compt]);
             if(tempStatus>0){
@@ -127,21 +127,22 @@ const getSiteMapUrl=(argUrl)=>{
 
 const addEvent=()=>consoel.log(this.responseText)
 
-const reportForSitemap=(argListStatus)=>{
+const reportForSitemap=(argListStatus,argReportId)=>{
     try{
         let tempResult='';
         for(var compt=0;compt<argListStatus.length;compt++){
-            let tempStatus
-            let tempUrl
-            tempResult=tempStatus+''+tempUrl;
+            let tempStatus='\nStatus ::'+argListStatus[compt][0]+'\n';
+            let tempUrl='\nLink ::'+argListStatus[compt][1]+'\n';
+            tempResult=tempStatus+' => '+tempUrl;
         }
+        cy.writeFile('cypress/report/articleV2/statusSitemapXmlArticlev2Id'+argReportId+'','{'+tempResult+'}');
     }
     catch(ex){
         console.log('reportForSitemap ::'+ex);
     }
 };
 
-Cypress.Commands.add('checkArticleV2Sitemap',(argListData)=>{
+Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
         let baseUrl=getSiteMapUrl(argListData[0][1]);
         let tempResultStatus= new Array(argListData.length);
@@ -159,7 +160,7 @@ Cypress.Commands.add('checkArticleV2Sitemap',(argListData)=>{
                 }
             }
         }
-        reportForSitemap(tempResultStatus);
+        reportForSitemap(tempResultStatus,argReportId);
     }
     catch(ex){
         console.log('checkArticleV2Sitemap ::'+ex);

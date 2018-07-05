@@ -31,7 +31,7 @@ describe('Screenshot', () => {
         //check og title and url
         it('TC'+temp+'-Check Page Info ::'+listUrls[temp][0]+'',()=>{
             cy.visit(listUrls[temp][1]);
-            cy.checkArticleV2PageInfo(listUrls[temp]);
+            cy.checkArticleV2PageInfo(listUrls[temp],reportId);
         });
         //take screenshot
         it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
