@@ -152,14 +152,6 @@ const reportForSitemap=(argListStatus,argReportId)=>{
     }
 };
 
-const getKeys = (obj)=>{
-    let keys = [];
-    for(var key in obj){
-       keys.push(key);
-    }
-    return keys;
- }
-
 Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
         console.log('checkArticleV2Sitemap');
