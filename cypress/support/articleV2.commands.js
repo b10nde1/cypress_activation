@@ -160,7 +160,6 @@ Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
         let xmlDocument=(request.responseXML).getElementsByTagName('loc');
         console.log('Total New Ulrs '+tempResultStatus.length);
         console.log('Total Sitemap Ulrs '+xmlDocument.length);
-        //
         let test=xmlDocument[0];
         for(var comptArticle=0;comptArticle<tempResultStatus.length;comptArticle++){
             tempResultStatus[comptArticle][0]='KO';
