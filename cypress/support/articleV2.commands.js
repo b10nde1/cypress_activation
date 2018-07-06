@@ -125,47 +125,53 @@ const getSiteMapUrl=(argUrl)=>{
     }
 };
 
-const addEvent=()=>consoel.log(this.responseText)
-
 const reportForSitemap=(argListStatus,argReportId)=>{
     try{
-        console.log('reportForSitemap Start');
         let tempResult='';
         for(var compt=0;compt<argListStatus.length;compt++){
-            let tempStatus='\nStatus ::'+argListStatus[compt][0]+'\n';
-            let tempUrl='\nLink ::'+argListStatus[compt][1]+'\n';
-            tempResult=tempStatus+' => '+tempUrl;
+            let tempStatus='\nStatus :: '+argListStatus[compt][0]+' => Link :: '+argListStatus[compt][1]+'\n';
+            tempResult+=tempStatus;
         }
-        cy.writeFile('cypress/report/articleV2/statusSitemapXmlArticlev2Id'+argReportId+'','{'+tempResult+'}');
-        console.log('reportForSitemap End');
+        console.log(tempResult);
+        cy.writeFile('cypress/report/articleV2/statusSitemapXmlArticlev2Id'+argReportId+'.json','{'+tempResult+'}');
     }
     catch(ex){
         console.log('reportForSitemap ::'+ex);
     }
 };
 
+const getKeys = (obj)=>{
+    let keys = [];
+    for(var key in obj){
+       keys.push(key);
+    }
+    return keys;
+ }
+
 Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
-        console.log('checkArticleV2Sitemap Start');
+        console.log('checkArticleV2Sitemap');
         let baseUrl=getSiteMapUrl(argListData[0][1]);
         console.log('Base Url for sitemap.xml '+baseUrl);
-        let tempResultStatus= new Array(argListData.length);
+        let tempResultStatus=argListData;
         let request=new XMLHttpRequest();
-        request.addEventListener('load',addEvent);
-        request.open('GET',baseUrl);
+        request.open('GET',baseUrl,false);
         request.send();
         let xmlDocument=(request.responseXML).getElementsByTagName('loc');
-        for(var comptArticle=0;comptArticle<argListData.length;comptArticle++){
-            tempResultStatus[comptArticle][1]=argListData[comptArticle][1];
+        console.log('Total New Ulrs '+tempResultStatus.length);
+        console.log('Total Sitemap Ulrs '+xmlDocument.length);
+        //
+        let test=xmlDocument[0];
+        for(var comptArticle=0;comptArticle<tempResultStatus.length;comptArticle++){
             tempResultStatus[comptArticle][0]='KO';
             for(var comptXml=0;comptXml<xmlDocument.length;comptXml++){
-                if(argListData[comptArticle][1]===xmlDocument[comptXml]){
+                let tempXmlUrl=xmlDocument[comptXml].innerHTML;
+                if(tempResultStatus[comptArticle][1]===tempXmlUrl){
                     tempResultStatus[comptArticle][0]='OK';
                 }
             }
         }
         reportForSitemap(tempResultStatus,argReportId);
-        console.log('checkArticleV2Sitemap End');
     }
     catch(ex){
         console.log('checkArticleV2Sitemap ::'+ex);
