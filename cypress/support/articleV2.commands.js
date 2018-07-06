@@ -6,14 +6,27 @@ Cypress.Commands.add('checkArticleV2Breadcrumb',()=>{
         console.log('checkArticleV2Breadcrumb ::'+ex);
     }
 });
-Cypress.Commands.add('checkArticleV2Title',()=>{
+
+Cypress.Commands.add('checkArticleV2PageInfo',(argTitle)=>{
+    try{
+        cy.get('head meta[property="og:title"]').should('have.attr','content',argTitle[0]);
+        cy.get('head meta[property="og:url"]').should('have.attr','content',argTitle[1]);
+    }
+    catch(ex){
+        console.log('checkArticleV2PageInfo ::'+ex);
+    }
+});
+
+Cypress.Commands.add('checkArticleV2Title',(argTitle)=>{
     try{
         cy.get('.article-oasis__title');
+        cy.get('.article-oasis__title').contains(argTitle);
     }
     catch(ex){
         console.log('checkArticleV2Title ::'+ex);
     }
 });
+
 Cypress.Commands.add('checkArticleV2AuthorName',()=>{
     try{
         cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisheaderinformation_0_AuthorLink').should('have.attr','data-action-detail','author-page_author_view-detail-link');
@@ -23,6 +36,7 @@ Cypress.Commands.add('checkArticleV2AuthorName',()=>{
         console.log('checkArticleV2AuthorName ::'+ex);
     }
 });
+
 Cypress.Commands.add('checkArticleV2DateAndTimeInfo',()=>{
     try{
         cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisheaderinformation_0_ReadTimeSection').should('have.class','article-oasis__details--item');
@@ -31,6 +45,7 @@ Cypress.Commands.add('checkArticleV2DateAndTimeInfo',()=>{
         console.log('checkArticleV2DateAndTimeInfo ::'+ex);
     }
 });
+
 Cypress.Commands.add('checkArticleV2ShareSection',()=>{
     try{
         cy.get('.js-article-share-desktop');
@@ -40,6 +55,7 @@ Cypress.Commands.add('checkArticleV2ShareSection',()=>{
         console.log('checkArticleV2ShareSection ::'+ex);
     }
 });
+
 Cypress.Commands.add('checkArticleV2LikeIcon',()=>{
     try{
         cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_LikeButton');
@@ -50,6 +66,7 @@ Cypress.Commands.add('checkArticleV2LikeIcon',()=>{
         console.log('checkArticleV2LikeIcon ::'+ex);
     }
 });
+
 Cypress.Commands.add('checkArticleV2ProgressBar',()=>{
     try{
         cy.get('.article-oasis__progressbar').children('progress').should('have.attr','max');
@@ -58,6 +75,7 @@ Cypress.Commands.add('checkArticleV2ProgressBar',()=>{
         console.log('checkArticleV2ProgressBar ::'+ex);
     }
 });
+
 Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
     try{
         let tempResult='';
@@ -66,9 +84,95 @@ Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
             let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
             tempResult+=tempTitle+tempUrl;
         }
-        cy.writeFile('cypress/report/articleV2/articlev2Id'+argReportId+'.json','{'+tempResult+'}');
+        cy.writeFile('cypress/report/articleV2/screenshotArticlev2Id'+argReportId+'.json','{'+tempResult+'}');
     }
     catch(ex){
         console.log('checkArticleV2Report ::'+ex);
+    }
+});
+
+const getBaseUrl=(argUrl)=>{
+    try{
+        let result=null;
+        let tempData=argUrl.split('/');
+        let tempBase=tempData[2]
+        result='https://'+tempBase;
+        let listDoubleLang=['/en-us/','/es-us/','/ar-sa/','/en-sa/','/fr-ca/','/en-ca/','/en-eg/','/ar-eg/','/fr-be/','/nl-be/'];
+        for(var compt=0;compt<listDoubleLang.length;listDoubleLang++){
+            let tempStatus=argUrl.search(listDoubleLang[compt]);
+            if(tempStatus>0){
+                result+='/'+tempData[3];
+                break;
+            }
+        }
+        if(result===null)throw "getBaseUrl Error->unable to get baseUrl value==null "
+        return result;
+    }
+    catch(ex){
+        console.log('getBaseUrl ::'+ex);
+    }
+};
+
+const getSiteMapUrl=(argUrl)=>{
+    try{
+        let result=getBaseUrl(argUrl);
+        if(result===null)throw "getSiteMapUrl Error->unable to get Sitemap url value==null"
+        let sitemap=result+'/sitemap.xml';
+        return sitemap;
+    }
+    catch(ex){
+        console.log('getSiteMapUrl ::'+ex);
+    }
+};
+
+const reportForSitemap=(argListStatus,argReportId)=>{
+    try{
+        let tempResult='';
+        for(var compt=0;compt<argListStatus.length;compt++){
+            let tempStatus='\nStatus :: '+argListStatus[compt][0]+' => Link :: '+argListStatus[compt][1]+'\n';
+            tempResult+=tempStatus;
+        }
+        console.log(tempResult);
+        cy.writeFile('cypress/report/articleV2/statusSitemapXmlArticlev2Id'+argReportId+'.json','{'+tempResult+'}');
+    }
+    catch(ex){
+        console.log('reportForSitemap ::'+ex);
+    }
+};
+
+const getKeys = (obj)=>{
+    let keys = [];
+    for(var key in obj){
+       keys.push(key);
+    }
+    return keys;
+ }
+
+Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
+    try{
+        console.log('checkArticleV2Sitemap');
+        let baseUrl=getSiteMapUrl(argListData[0][1]);
+        console.log('Base Url for sitemap.xml '+baseUrl);
+        let tempResultStatus=argListData;
+        let request=new XMLHttpRequest();
+        request.open('GET',baseUrl,false);
+        request.send();
+        let xmlDocument=(request.responseXML).getElementsByTagName('loc');
+        console.log('Total New Ulrs '+tempResultStatus.length);
+        console.log('Total Sitemap Ulrs '+xmlDocument.length);
+        let test=xmlDocument[0];
+        for(var comptArticle=0;comptArticle<tempResultStatus.length;comptArticle++){
+            tempResultStatus[comptArticle][0]='KO';
+            for(var comptXml=0;comptXml<xmlDocument.length;comptXml++){
+                let tempXmlUrl=xmlDocument[comptXml].innerHTML;
+                if(tempResultStatus[comptArticle][1]===tempXmlUrl){
+                    tempResultStatus[comptArticle][0]='OK';
+                }
+            }
+        }
+        reportForSitemap(tempResultStatus,argReportId);
+    }
+    catch(ex){
+        console.log('checkArticleV2Sitemap ::'+ex);
     }
 });
