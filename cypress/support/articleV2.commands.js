@@ -125,11 +125,23 @@ const getSiteMapUrl=(argUrl)=>{
     }
 };
 
+const getDisplayNameItem=(argUrl)=>{
+    try{
+        let urlSplit=argUrl.split('/');
+        let displayNameWithDash=urlSplit[(urlSplit.length-1)];
+        let result=displayNameWithDash.replace('-',' ');
+        return result;
+    }
+    catch(ex){
+        console.log('getDisplayNameItem ::'+ex);
+    }
+};
+
 const reportForSitemap=(argListStatus,argReportId)=>{
     try{
         let tempResult='';
         for(var compt=0;compt<argListStatus.length;compt++){
-            let tempStatus='\nStatus :: '+argListStatus[compt][0]+' => Link :: '+argListStatus[compt][1]+'\n';
+            let tempStatus='{\nStatus :: '+argListStatus[compt][0]+' || Display Name (Item) :: '+getDisplayNameItem(argListStatus[compt][1])+' || Link :: '+argListStatus[compt][1]+'\n}\n';
             tempResult+=tempStatus;
         }
         console.log(tempResult);
