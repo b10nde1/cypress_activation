@@ -1,6 +1,7 @@
 //unable to get <a>
 Cypress.Commands.add('checkOutbrainV2ClosedBox',()=>{
     try{
+        cy.wait(6000);
         cy.get('.outbrain_container a').should(($a) => {expect($a).to.have.length(3)});
     }
     catch(ex){
@@ -26,6 +27,7 @@ Cypress.Commands.add('checkOutbrainV2FooterText',(argFooterText)=>{
 });
 Cypress.Commands.add('checkOutbrainV2Popin',()=>{
     try{
+        cy.wait(6000);
         cy.get('.ob-api-what.ob-one-line').click({force:true});
         //unable to get .mainContent -> need to wait outbrain js 
         cy.get('.mainContentContainer').children('div.logo');
