@@ -42,15 +42,15 @@ describe('Outbrain',()=>{
         for(var compt=0;compt<listUrls.length;compt++){
             let temp=compt;
             //take screenshot on mobile
-                it('MobileVersion-'+temp+' :: '+listUrls[temp][0]+'',()=>{
-                    cy.viewport(320, 480);
-                    cy.visit(listUrls[temp][1]);
-                    cy.checkVortexOpenAndTakeScreenShot('MobileVersion-'+temp+'-'+listUrls[temp][0]+'');
-                });
-            }
+            it('MobileVersion-'+temp+' :: '+listUrls[temp][0]+'',()=>{
+                cy.viewport(320, 480);
+                cy.visit(listUrls[temp][1]);
+                cy.checkVortexOpenAndTakeScreenShot('MobileVersion-'+temp+'-'+listUrls[temp][0]+'');
+            });
+        }
     }
     //report json for screenshot with tcid+article name + url
     it('Report id :: articlev2Id'+reportId+'',()=>{
-        cy.checkArticleV2Report(listUrls,reportId);
+        cy.checkGlobalReport(listUrls,reportId);
     });
 });
