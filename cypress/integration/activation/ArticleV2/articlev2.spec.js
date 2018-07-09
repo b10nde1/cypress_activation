@@ -73,7 +73,7 @@ describe('Article V2', () => {
         }
     }
     it('Report id :: articlev2Id'+reportId+'',()=>{
-        cy.checkArticleV2Report(listUrls,reportId);
+        cy.checkGlobalScreenShotReport('articleV2',listUrls,reportId);
     });
     it('Verify sitemap.xml',()=>{
         cy.checkArticleV2Sitemap(listUrls,reportId);
