@@ -1,5 +1,5 @@
 import dataFromJson from '../../../fixtures/data/articlev2.json';
-describe('Screenshot', () => {
+describe('Article V2', () => {
     const alignTableFromJson=(argSplit)=>{
         let result=new Array(argSplit.length);
         for(var compt=0;compt<argSplit.length;compt++){
@@ -62,9 +62,9 @@ describe('Screenshot', () => {
             });
         }
     }
-    for(var compt=0;compt<listUrls.length;compt++){
-        let temp=compt;
-        if(confScreenShotMobile){
+    if(confScreenShotMobile){
+        for(var compt=0;compt<listUrls.length;compt++){
+            let temp=compt;
             it('MobileVersion-'+temp+' :: '+listUrls[temp][0]+'',()=>{
                 cy.viewport(320, 480);
                 cy.visit(listUrls[temp][1]);
@@ -73,7 +73,7 @@ describe('Screenshot', () => {
         }
     }
     it('Report id :: articlev2Id'+reportId+'',()=>{
-        cy.checkArticleV2Report(listUrls,reportId);
+        cy.checkGlobalScreenShotReport('articleV2',listUrls,reportId);
     });
     it('Verify sitemap.xml',()=>{
         cy.checkArticleV2Sitemap(listUrls,reportId);

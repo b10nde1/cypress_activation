@@ -1,5 +1,5 @@
 import dataFromJson from '../../fixtures/data/articlev2.json';
-describe('Screenshot', () => {
+describe('Article V2', () => {
     const alignTableFromJson=(argSplit)=>{
         let result=new Array(argSplit.length);
         for(var compt=0;compt<argSplit.length;compt++){
@@ -75,10 +75,10 @@ describe('Screenshot', () => {
             });
         }
     }
-    for(var compt=0;compt<listUrls.length;compt++){
-        let temp=compt;
-        //take screenshot on mobile
-        if(confScreenShotMobile){
+    if(confScreenShotMobile){
+        for(var compt=0;compt<listUrls.length;compt++){
+            let temp=compt;
+            //take screenshot on mobile
             it('MobileVersion-'+temp+' :: '+listUrls[temp][0]+'',()=>{
                 cy.viewport(320, 480);
                 cy.visit(listUrls[temp][1]);
@@ -88,7 +88,7 @@ describe('Screenshot', () => {
     }
     //report json for screenshot with tcid+article name + url
     it('Report id :: articlev2Id'+reportId+'',()=>{
-        cy.checkArticleV2Report(listUrls,reportId);
+        cy.checkGlobalScreenShotReport('articleV2',listUrls,reportId);
     });
     //check if list of new article are present in sitemap.xml
     it('Verify sitemap.xml',()=>{
