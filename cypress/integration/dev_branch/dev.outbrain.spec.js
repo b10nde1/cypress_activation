@@ -56,7 +56,9 @@ describe('Outbrain V2',()=>{
         it('TC'+temp+'-4 Outbrain V2 verify title is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2H2Title(confH2Title);
         });
+        */
     }
+    /*
     if(confScreenShotMobile){
         for(var compt=0;compt<listUrls.length;compt++){
             let temp=compt;
