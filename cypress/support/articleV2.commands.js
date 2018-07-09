@@ -80,7 +80,7 @@ Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
     try{
         let tempResult='';
         for(var compt=0;compt<argUrls.length;compt++){
-            let tempTitle='\nTitle-TC'+compt+' :: "'+argUrls[compt][0]+'",\n';
+            let tempTitle='\nTitle-'+compt+' :: "'+argUrls[compt][0]+'",\n';
             let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
             tempResult+=tempTitle+tempUrl;
         }
@@ -151,14 +151,6 @@ const reportForSitemap=(argListStatus,argReportId)=>{
         console.log('reportForSitemap ::'+ex);
     }
 };
-
-const getKeys = (obj)=>{
-    let keys = [];
-    for(var key in obj){
-       keys.push(key);
-    }
-    return keys;
- }
 
 Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
