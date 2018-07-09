@@ -76,21 +76,6 @@ Cypress.Commands.add('checkArticleV2ProgressBar',()=>{
     }
 });
 
-Cypress.Commands.add('checkArticleV2Report',(argUrls,argReportId)=>{
-    try{
-        let tempResult='';
-        for(var compt=0;compt<argUrls.length;compt++){
-            let tempTitle='\nTitle-'+compt+' :: "'+argUrls[compt][0]+'",\n';
-            let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
-            tempResult+=tempTitle+tempUrl;
-        }
-        cy.writeFile('cypress/report/articleV2/screenshotArticlev2Id'+argReportId+'.json','{'+tempResult+'}');
-    }
-    catch(ex){
-        console.log('checkArticleV2Report ::'+ex);
-    }
-});
-
 const getBaseUrl=(argUrl)=>{
     try{
         let result=null;
@@ -151,6 +136,21 @@ const reportForSitemap=(argListStatus,argReportId)=>{
         console.log('reportForSitemap ::'+ex);
     }
 };
+
+Cypress.Commands.add('checkGlobalScreenShotReport',(argModule,argUrls,argReportId)=>{
+    try{
+        let tempResult='';
+        for(var compt=0;compt<argUrls.length;compt++){
+            let tempTitle='\nTitle-'+compt+' :: "'+argUrls[compt][0]+'",\n';
+            let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
+            tempResult+=tempTitle+tempUrl;
+        }
+        cy.writeFile('cypress/report/'+argModule+'/screenshot'+argModule+'Id'+argReportId+'.json','{'+tempResult+'}');
+    }
+    catch(ex){
+        console.log('checkGlobalScreenShotReport ::'+ex);
+    }
+});
 
 Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
     try{
