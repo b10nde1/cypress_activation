@@ -25,11 +25,11 @@ describe('Article V2', () => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
+        cy.viewport(1600, 1200);
     });
     for(var compt=0;compt<listUrls.length;compt++){
         let temp=compt;
         it('Open URL for :: '+listUrls[temp][0]+'',()=>{
-            cy.viewport(1600, 1200);
             cy.visit(listUrls[temp][1]);
         });
         it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
