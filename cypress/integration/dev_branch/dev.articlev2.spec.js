@@ -25,13 +25,13 @@ describe('Article V2', () => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
+        cy.viewport(1600, 1200);
     });
     for(var compt=0;compt<listUrls.length;compt++){
         let temp=compt;
         //open Url
         //check og title and url
         it('Open URL for :: '+listUrls[temp][0]+'',()=>{
-            cy.viewport(1600, 1200);
             cy.visit(listUrls[temp][1]);
         });
         //take screenshot
@@ -93,5 +93,9 @@ describe('Article V2', () => {
     //check if list of new article are present in sitemap.xml
     it('Verify sitemap.xml',()=>{
         cy.checkArticleV2Sitemap(listUrls,reportId);
+    });
+    //download sitemap.xml
+    it('Download Sitemap.xml',()=>{
+        cy.checkArticleV2DownloadSitemapXML(listUrls);
     });
 })
