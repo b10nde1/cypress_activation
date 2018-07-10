@@ -36,30 +36,23 @@ describe('Outbrain V2',()=>{
             cy.viewport(1600, 1200);
             cy.visit(listUrls[temp][1]);
         });
-        /*
         //take screenshot
         it('TC'+temp+'-0 Outbrain V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
             cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
         });
-        */
         it('TC'+temp+'-1 Outbrain V2 verify element closed box ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2ClosedBox();
         });
-        /*
         it('TC'+temp+'-2 Outbrain V2 verify footer text ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2FooterText(confRecommendedByText);
         });
-        */
         it('TC'+temp+'-3 Outbrain V2 verify Popin ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2Popin();
         });
-        /*
         it('TC'+temp+'-4 Outbrain V2 verify title is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2H2Title(confH2Title);
         });
-        */
     }
-    /*
     if(confScreenShotMobile){
         for(var compt=0;compt<listUrls.length;compt++){
             let temp=compt;
@@ -75,5 +68,4 @@ describe('Outbrain V2',()=>{
     it('Report id :: OutbrainV2id'+reportId+'',()=>{
         cy.checkGlobalScreenShotReport('outbrainV2',listUrls,reportId);
     });
-    */
 });

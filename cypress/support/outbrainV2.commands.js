@@ -1,4 +1,3 @@
-//unable to get <a>
 Cypress.Commands.add('checkOutbrainV2ClosedBox',()=>{
     try{
         cy.wait(6000);
@@ -27,10 +26,9 @@ Cypress.Commands.add('checkOutbrainV2FooterText',(argFooterText)=>{
 });
 Cypress.Commands.add('checkOutbrainV2Popin',()=>{
     try{
-        cy.wait(6000);
         cy.get('.ob-api-what.ob-one-line').click({force:true});
-        //unable to get .mainContent -> need to wait outbrain js 
-        cy.get('.mainContentContainer').children('div.logo');
+        cy.wait(6000);
+        cy.get('#ob_iframe_modal').should('have.attr','class','ob_iframe_modal');
         cy.get('.ob_modal_close').click({force:true});
 
     }
