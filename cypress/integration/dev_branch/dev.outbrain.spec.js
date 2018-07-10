@@ -39,7 +39,7 @@ describe('Outbrain V2',()=>{
         //take screenshot
         it('TC'+temp+'-0 Outbrain V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
             cy.wait(6000);
-            cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
+            cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0],'.c-suggestion-v2.js-outbrain-v2');
         });
         //verify 3 closed box are present
         it('TC'+temp+'-1 Outbrain V2 verify element closed box ::'+listUrls[temp][0]+'',()=>{
@@ -60,7 +60,7 @@ describe('Outbrain V2',()=>{
     }
     //screenshot on mobiles
     if(confScreenShotMobile){
-        for(var compt=0;compt<listUrls.length;compt++){
+        for(var compt=0;compt<1/*listUrls.length*/;compt++){
             let temp=compt;
             //take screenshot on mobile
             it('MobileVersion-Outbrain-'+temp+' :: '+listUrls[temp][0]+'',()=>{
