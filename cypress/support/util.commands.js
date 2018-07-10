@@ -7,9 +7,15 @@ Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl,argTestTitle)=
         let request=new XMLHttpRequest();
         request.open('GET',baseUrl,false);
         request.send();
-        let xmlDocument=(request.responseXML).innerHTML;
+        let xmlDocument=(request.responseXML);
+        var oSerializer = new XMLSerializer();
+        var sXML = oSerializer.serializeToString(xmlDocument);
         let dateDownload=new Date();
-        cy.writeFile('cypress/download/'+argTestTitle+'/'+argTestTitle+'-Id'+dateDownload.getTime()+'.xml',''+xmlDocument+'');
+        let path='cypress/download/'+argTestTitle+'/';
+        let title=argTestTitle+'-Id'+dateDownload.getTime()+'.xml';
+        console.log('Path :'+path);
+        console.log('Title :'+title);
+        cy.writeFile(''+path+title+'',''+sXML+'');
     }
     catch(ex){
         console.log('checkUtilDownloadSitemapXML ::'+ex);

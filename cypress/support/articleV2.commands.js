@@ -184,7 +184,7 @@ Cypress.Commands.add('checkArticleV2Sitemap',(argListData,argReportId)=>{
 Cypress.Commands.add('checkArticleV2DownloadSitemapXML',(argListData)=>{
     try{
         let baseUrl=getSiteMapUrl(argListData[0][1]);
-        cy.checkUtilDownloadSitemapXML(argListData,'articleV2');
+        cy.checkUtilDownloadSitemapXML(baseUrl,'articleV2');
     }
     catch(ex){
         console.log('checkArticleV2DownloadSitemapXML ::'+ex);
