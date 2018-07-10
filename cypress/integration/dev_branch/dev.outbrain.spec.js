@@ -26,6 +26,7 @@ describe('Outbrain V2',()=>{
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
+        cy.viewport(1600, 1200);
     });
     for(var compt=0;compt<listUrls.length;compt++){
         let temp=compt;
