@@ -32,20 +32,11 @@ Cypress.Commands.add('checkVortexPopInHeader',(argMarket)=>{
     }
 });
 
-Cypress.Commands.add('checkVortexOpenAndTakeScreenShot',(argElmnt)=>{
+Cypress.Commands.add('checkVortexOpenAndTakeScreenShot',(argElmnt,argCssSection)=>{
     try{
         let title=checkVortexUtilPrepareTitle(argElmnt,'full_page');
-        cy.checkVortexUtiltakeScreenShot(title,false);
-    }
-    catch(ex){
-        console.log("checkVortexOpenAndTakeScreenShot ::"+ex);
-    }
-});
-//in case specific css section
-Cypress.Commands.add('checkVortexOpenAndTakeScreenShot',(argElmnt,argSection)=>{
-    try{
-        let title=checkVortexUtilPrepareTitle(argElmnt,'full_page');
-        cy.checkVortexUtiltakeScreenShot(title,true,argSection);
+        if(argCssSection)cy.checkVortexUtiltakeScreenShot(title,true,argCssSection);
+        else cy.checkVortexUtiltakeScreenShot(title,false);
     }
     catch(ex){
         console.log("checkVortexOpenAndTakeScreenShot ::"+ex);
