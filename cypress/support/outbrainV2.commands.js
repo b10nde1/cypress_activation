@@ -10,7 +10,7 @@ Cypress.Commands.add('checkOutbrainV2ClosedBox',()=>{
 const preparOutbrainRecommendedText=(argText)=>{
     try{
         let textLowerCase=argText.toLowerCase();
-        return textLowerCase.charAt[0].toUpperCase()+textLowerCase.slice(1);
+        return textLowerCase.charAt(0).toUpperCase()+textLowerCase.slice(1);
     }
     catch(ex){
         console.log("preparOutbrainRecommendedText ::"+ex);
@@ -18,15 +18,15 @@ const preparOutbrainRecommendedText=(argText)=>{
 };
 Cypress.Commands.add('checkOutbrainV2FooterText',(argFooterText)=>{
     try{
-        cy.get('.ob-api-what.ob-one-line').children('span').containspreparOutbrainRecommendedText((argFooterText));
+        cy.get('.ob-api-what.ob-one-line').children('span').contains(preparOutbrainRecommendedText(argFooterText));
     }
     catch(ex){
         console.log('checkOutbrainV2FooterText ::'+ex);
     }
 });
-Cypress.Commands.add('checkOutbrainV2Popin',()=>{
+Cypress.Commands.add('checkOutbrainV2Popin',(argText)=>{
     try{
-        cy.get('.ob-api-what.ob-one-line').click({force:true});
+        cy.get('.ob-api-what.ob-one-line').children('span.ob-text').contains(preparOutbrainRecommendedText(argText)).click({force:true});
         cy.wait(6000);
         cy.get('#ob_iframe_modal').should('have.attr','class','ob_iframe_modal');
         cy.get('.ob_modal_close').click({force:true});

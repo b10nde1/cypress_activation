@@ -28,7 +28,7 @@ describe('Outbrain V2',()=>{
         })
         cy.viewport(1600, 1200);
     });
-    for(var compt=0;compt<listUrls.length;compt++){
+    for(var compt=0;compt<1/*listUrls.length*/;compt++){
         let temp=compt;
         //open Url
         //check og title and url
@@ -38,6 +38,7 @@ describe('Outbrain V2',()=>{
         });
         //take screenshot
         it('TC'+temp+'-0 Outbrain V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
+            cy.wait(6000);
             cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
         });
         //verify 3 closed box are present
@@ -50,14 +51,14 @@ describe('Outbrain V2',()=>{
         });
         //verify Outbrain Popin
         it('TC'+temp+'-3 Outbrain V2 verify Popin ::'+listUrls[temp][0]+'',()=>{
-            cy.checkOutbrainV2Popin();
+            cy.checkOutbrainV2Popin(confRecommendedByText);
         });
         //Verify h1 for outbrain section 
         it('TC'+temp+'-4 Outbrain V2 verify title is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2H2Title(confH2Title);
         });
     }
-    //screenshot on mobile
+    //screenshot on mobiles
     if(confScreenShotMobile){
         for(var compt=0;compt<listUrls.length;compt++){
             let temp=compt;
