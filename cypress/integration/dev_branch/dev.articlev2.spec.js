@@ -94,4 +94,8 @@ describe('Article V2', () => {
     it('Verify sitemap.xml',()=>{
         cy.checkArticleV2Sitemap(listUrls,reportId);
     });
+    //download sitemap.xml
+    it('Download Sitemap.xml',()=>{
+        cy.checkArticleV2DownloadSitemapXML(listUrls);
+    });
 })
