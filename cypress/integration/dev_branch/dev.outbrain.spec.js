@@ -40,19 +40,24 @@ describe('Outbrain V2',()=>{
         it('TC'+temp+'-0 Outbrain V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
             cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
         });
+        //verify 3 closed box are present
         it('TC'+temp+'-1 Outbrain V2 verify element closed box ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2ClosedBox();
         });
+        //verify footer text
         it('TC'+temp+'-2 Outbrain V2 verify footer text ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2FooterText(confRecommendedByText);
         });
+        //verify Outbrain Popin
         it('TC'+temp+'-3 Outbrain V2 verify Popin ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2Popin();
         });
+        //Verify h1 for outbrain section 
         it('TC'+temp+'-4 Outbrain V2 verify title is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2H2Title(confH2Title);
         });
     }
+    //screenshot on mobile
     if(confScreenShotMobile){
         for(var compt=0;compt<listUrls.length;compt++){
             let temp=compt;
