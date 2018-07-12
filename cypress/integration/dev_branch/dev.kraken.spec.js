@@ -19,19 +19,24 @@ describe('Screenshot', () => {
     let confDevice=getTable2DFromJson(dataFromJson.device.split('],['),',');
     let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
-        let confWidth=confDevice[comptDevice][0];
-        let confHeight=confDevice[comptDevice][1];
+        let confWidth=Number(confDevice[comptDevice][0]);
+        let confHeight=Number(confDevice[comptDevice][1]);
         beforeEach(() => {
             Cypress.on('uncaught:exception', (err, runnable)=> {
                 return false
             })
-            cy.viewport(confWidth, confHeight);
+            /*
+            if(confWidth[comptDevice][0]==='1600' && confHeight[comptDevice][1]==='1200')cy.viewport(1600, 1200);
+            if(confWidth[comptDevice][0]==='320' && confHeight[comptDevice][1]==='480')cy.viewport(320, 480);
+            */
+
+           cy.viewport(confWidth,confHeight);
         });
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
-            it('Kraken '+listMarkets[temp][0]+'',()=>{
+            it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
                 cy.visit(listMarkets[temp][1]);
-                cy.checkVortexOpenAndTakeScreenShot(confWidth+'*'+confHeight+'-'+listMarkets[temp][0]);
+                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
     }
