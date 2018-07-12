@@ -25,16 +25,12 @@ describe('Screenshot', () => {
             Cypress.on('uncaught:exception', (err, runnable)=> {
                 return false
             })
-            /*
-            if(confWidth[comptDevice][0]==='1600' && confHeight[comptDevice][1]==='1200')cy.viewport(1600, 1200);
-            if(confWidth[comptDevice][0]==='320' && confHeight[comptDevice][1]==='480')cy.viewport(320, 480);
-            */
-
-           cy.viewport(confWidth,confHeight);
         });
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
             it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+                console.log('=======>'+confWidth+' X '+confHeight);
+                cy.viewport(confWidth,confHeight);
                 cy.visit(listMarkets[temp][1]);
                 cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
