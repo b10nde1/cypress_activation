@@ -36,7 +36,7 @@ describe('Article V2', () => {
         });
         //take screenshot
         it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
-            cy.checkVortexOpenAndTakeScreenShot('TC'+temp+' '+listUrls[temp][0]);
+            cy.checkVortexOpenAndTakeScreenShot('ArticleV2-Desktop-'+temp+' '+listUrls[temp][0]);
         });
         if(confVerifyArticleV2Element){
             //verify page info
@@ -82,7 +82,7 @@ describe('Article V2', () => {
             it('MobileVersion-'+temp+' :: '+listUrls[temp][0]+'',()=>{
                 cy.viewport(320, 480);
                 cy.visit(listUrls[temp][1]);
-                cy.checkVortexOpenAndTakeScreenShot('MobileVersion-'+temp+'-'+listUrls[temp][0]+'');
+                cy.checkVortexOpenAndTakeScreenShot('ArcitleV2-Mobile-'+temp+'-'+listUrls[temp][0]+'');
             });
         }
     }
