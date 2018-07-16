@@ -24,3 +24,11 @@ temp_data/Guides/FULLKITS/FULLKITS/SA_Guides_Fullkit_070618\.xlsx
 temp_data/Guides/FULLKITS/FULLKITS/TR_Guides_Fullkit_130618\.xlsx
 
 chromeTools/
+
+cypress/download/articleV2/
+
+cypress/report/articleV2/
+
+cypress/screenshots/archive/AR-CM/
+
+cypress/screenshots/archive/BR-CM/
