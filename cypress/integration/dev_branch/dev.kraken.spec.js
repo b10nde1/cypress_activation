@@ -31,8 +31,8 @@ describe('Screenshot', () => {
             it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.viewport(confWidth,confHeight);
-                cy.visit(listMarkets[temp][1]);
-                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+                //cy.visit(listMarkets[temp][1]);
+                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
     }
