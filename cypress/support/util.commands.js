@@ -1,3 +1,45 @@
+const setCookie=(cname, cvalue, exdays)=>{
+    try{
+        let dateCookie = new Date();
+        dateCookie.setTime(dateCookie.getTime()+(exdays*24*60*60*1000));
+        let expires = "expires="+ dateCookie.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    catch(ex){
+        console.log('setCookie ::'+ex);
+    }
+}
+
+const getCookie=(cname)=>{
+    try{
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let decodedCkieSplt = decodedCookie.split(';');
+        for(var compt=0; compt<decodedCkieSplt.length; compt++) {
+            var temp = decodedCkieSplt[compt];
+            while (temp.charAt(0) == ' ') {
+                temp=temp.substring(1);
+            }
+            if (temp.indexOf(name) == 0) {
+                return temp.substring(name.length, temp.length);
+            }
+        }
+        return "";
+    }
+    catch(ex){
+        console.log('getCookie ::'+ex);
+    }
+}
+
+const saveRequest=(argUrl,argStatusCode)=>{
+    try{
+        
+    }
+    catch(ex){
+        console.log('saveRequest ::'+ex);
+    }
+}
+
 const utilSendRequest =(argUrl)=>{
     try{
         let request=new XMLHttpRequest();
@@ -17,6 +59,7 @@ const utilStatusCode =(argUrl)=>{
         console.log("utilStatusCode type of argUrl ::"+typeOfArgUrl);
         if(typeOfArgUrl!=='object')throw ('Error utilStatusCode || XMLHttpRequest')
         console.log("utilStatusCode status code ::"+request.status);
+        saveRequest(argUrl,request.status);
         if(request.status!==500 || request.status!==404) return true
         return false;
     }
