@@ -12,11 +12,12 @@ const utilSendRequest =(argUrl)=>{
 
 const utilStatusCode =(argUrl)=>{
     try{
-        let typeOfArgUrl=typeof utilSendRequest(argUrl);
+        let request=utilSendRequest(argUrl);
+        let typeOfArgUrl=typeof request;
         console.log("utilStatusCode type of argUrl ::"+typeOfArgUrl);
-        if(typeOfArgUrl!=='XMLHttpRequest')throw ('Error utilStatusCode || XMLHttpRequest')
-        console.log("utilStatusCode status code ::"+typeOfArgUrl.status);
-        if(typeOfArgUrl.status!==500 || typeOfArgUrl.status!==404) return true
+        if(typeOfArgUrl!=='object')throw ('Error utilStatusCode || XMLHttpRequest')
+        console.log("utilStatusCode status code ::"+request.status);
+        if(request.status!==500 || request.status!==404) return true
         return false;
     }
     catch(ex){
@@ -27,7 +28,7 @@ const utilStatusCode =(argUrl)=>{
 Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle)=>{
     try{
         if(utilStatusCode(argUrl)){
-            cy.visit(argUrl)
+            cy.visit(argUrl);
             cy.checkVortexOpenAndTakeScreenShot(argTitle);
         }
     }

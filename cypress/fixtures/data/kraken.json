@@ -1,4 +1,4 @@
 {
     "device":"[1600,1200],[320,480]",
-    "urls":"[us-en/*/https://www.pampers.com/en-us],[fr/*/https://www.pampers.fr]"
+    "urls":"[us-en/*/https://www.pampers.com/en-us],[fr/*/https://www.pampers.fr],[test/*/https://www.pampers.fr/qwerty123]"
 }
