@@ -39,18 +39,22 @@ describe('Article V2', () => {
             cy.checkVortexOpenAndTakeScreenShot('ArticleV2-Desktop-'+temp+' '+listUrls[temp][0]);
         });
         if(confVerifyArticleV2Element){
+            /*
             //verify page info
             it('TC'+temp+'-1 Check Page Info ::'+listUrls[temp][0]+'',()=>{
                 cy.checkArticleV2PageInfo(listUrls[temp],reportId);
             });
+            */
             //verify if element breadcumb contains itemptype data-vocabulary.org/breadcrumb
             it('TC'+temp+'-2 Article V2 verify element braedcrumb vocabulary is present ::'+listUrls[temp][0]+'',()=>{
                 cy.checkArticleV2Breadcrumb();
             });
+            /*
             //verify element title is present
             it('TC'+temp+'-3 Article V2 verify element Title class is present ::'+listUrls[temp][0]+'',()=>{
                 cy.checkArticleV2Title(listUrls[temp][0]);
             });
+            */
             //verify element author name is present
             //both header and footer
             it('TC'+temp+'-4 Article V2 verify data action detail for element author name ::'+listUrls[temp][0]+'',()=>{
