@@ -20,7 +20,6 @@ describe('Screenshot', () => {
     let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
     let reportId=new Date();
     let id=reportId.getTime();
-    let test2='';
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
@@ -34,12 +33,8 @@ describe('Screenshot', () => {
             it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.viewport(confWidth,confHeight);
-                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0],id);
             });
         }
     }
-    it('Kraken get status code report id :: '+id+'',()=>{
-        //cy.checkUtilGetStatusCodeReport(id);
-    });
-
 })

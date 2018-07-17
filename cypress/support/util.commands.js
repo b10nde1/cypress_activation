@@ -124,12 +124,28 @@ const utilSendRequest =(argUrl)=>{
     }
 };
 
-const utilStatusCode =(argUrl)=>{
+const addStatusInTxtFile=(argTxtPathAndName,argData)=>{
+    try{
+        let txtRequest=utilSendRequest(argTxtPathAndName);
+        let txtFile=txtRequest.responseText;
+        txtFile+=argData+'\n';
+        let pathForResult=argTxtPathAndName.split('/report/');
+        cy.writeFile('cypress/report/'+pathForResult[1]+'',''+txtFile+'');
+    }
+    catch(ex){
+        cy.checkUtilConsole(['addStatusInTxtFile'],[ex]);
+    }
+};
+
+const utilStatusCode =(argUrl,argId)=>{
     try{
         let request=utilSendRequest(argUrl);
         let typeOfArgUrl=typeof request;
         console.log("utilStatusCode type of argUrl ::"+typeOfArgUrl);
         if(typeOfArgUrl!=='object')throw ('Error utilStatusCode || XMLHttpRequest')
+        /* */
+        addStatusInTxtFile('../report/statusCodeReport/kraken-statusCode-'+argId+'.txt',' '+argUrl+' => '+request.status+' ');
+        /* */
         console.log("utilStatusCode status code ::"+request.status);
         if(request.status!==500 || request.status!==404) return true
         return false;
@@ -139,9 +155,9 @@ const utilStatusCode =(argUrl)=>{
     }
 };
 
-Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle)=>{
+Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,argId)=>{
     try{
-        if(utilStatusCode(argUrl)){
+        if(utilStatusCode(argUrl,argId)){
             cy.visit(argUrl);
             cy.checkVortexOpenAndTakeScreenShot(argTitle);
         }
