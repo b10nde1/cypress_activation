@@ -1,3 +1,15 @@
+Cypress.Commands.add('checkUtilConsole',(argText,argValue)=>{
+    try{
+        if(argText.length!=argValue.length)throw('checkUtilConsole | argText.length != argValue.length')
+        for(var compt=0;compt<argText.length;compt++){
+            console.log(argText[compt]+' :: '+argValue[compt]);
+        }
+    }
+    catch(ex){
+        console.log('checkUtilConsole ::'+ex);
+    }
+});
+
 const setCookie=(argCookieName, argCookieValue, argExDays)=>{
     try{
         let dateCookie = new Date();
@@ -10,17 +22,22 @@ const setCookie=(argCookieName, argCookieValue, argExDays)=>{
     }
 }
 
+/*ISSUE WITH getCookie */
 const getCookie=(argCookieName)=>{
     try{
         let name = argCookieName + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
+        cy.checkUtilConsole(['getCookie value decoded cookie'],decodedCookie);
         let decodedCkieSplt = decodedCookie.split(';');
+        cy.checkUtilConsole(['getCookie value decoded cookie split'],decodedCkieSplt[0]);
+        cy.checkUtilConsole(['getCookie value decoded cookie split charAt'],decodedCkieSplt[0].charAt(0));
+        cy.checkUtilConsole(['getCookie value decoded cookie split substring'],decodedCkieSplt[0].substring(1));
         for(var compt=0; compt<decodedCkieSplt.length; compt++) {
             var temp = decodedCkieSplt[compt];
             while (temp.charAt(0) == ' ') {
                 temp=temp.substring(1);
             }
-            if (temp.indexOf(name) == 0) {
+            if(temp.indexOf(name) == 0) {
                 return temp.substring(name.length, temp.length);
             }
         }
@@ -43,11 +60,16 @@ const checkCookie=(argExDays)=>{
 
 const saveRequestInCookie=(argCookieName,argCookieValue)=>{
     try{
-        if(!checkCookie(argCookieName))setCookie(argCookieName,argCookieValue,1)
-        else{
+        cy.checkUtilConsole(['Check cookie exist'],[checkCookie(argCookieName)]);
+        if(checkCookie(argCookieName)){
+            cy.checkUtilConsole(['saveRequestInCookie add cookie'],['']);
             let tempCookieValue=getCookie(argCookieName);
             tempCookieValue+=argCookieValue;
             setCookie(argCookieName,tempCookieValue,1);
+        }
+        else{
+            cy.checkUtilConsole(['saveRequestInCookie create cookie'],['']);
+            setCookie(argCookieName,argCookieValue,1);
         }
     }
     catch(ex){
