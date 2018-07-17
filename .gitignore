@@ -34,3 +34,5 @@ cypress/screenshots/archive/AR-CM/
 cypress/screenshots/archive/BR-CM/
 
 cypress/screenshots/
+
+cypress/report/kraken-statusCode/
