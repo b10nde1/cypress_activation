@@ -18,6 +18,7 @@ describe('Screenshot', () => {
     };
     let confDevice=getTable2DFromJson(dataFromJson.device.split('],['),',');
     let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
+    let reportId=new Date();
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
@@ -36,4 +37,8 @@ describe('Screenshot', () => {
             });
         }
     }
+    it('Kraken get status code report id :: '+reportId.getTime()+'',()=>{
+        cy.checkUtilGetStatusCodeReport(reportId.getTime());
+    });
+
 })

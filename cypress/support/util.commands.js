@@ -1,18 +1,18 @@
-const setCookie=(cname, cvalue, exdays)=>{
+const setCookie=(argCookieName, argCookieValue, argExDays)=>{
     try{
         let dateCookie = new Date();
-        dateCookie.setTime(dateCookie.getTime()+(exdays*24*60*60*1000));
+        dateCookie.setTime(dateCookie.getTime()+(argExDays*24*60*60*1000));
         let expires = "expires="+ dateCookie.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        document.cookie = argCookieName + "=" + argCookieValue + ";" + expires + ";path=/";
     }
     catch(ex){
         console.log('setCookie ::'+ex);
     }
 }
 
-const getCookie=(cname)=>{
+const getCookie=(argCookieName)=>{
     try{
-        let name = cname + "=";
+        let name = argCookieName + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
         let decodedCkieSplt = decodedCookie.split(';');
         for(var compt=0; compt<decodedCkieSplt.length; compt++) {
@@ -31,14 +31,64 @@ const getCookie=(cname)=>{
     }
 }
 
-const saveRequest=(argUrl,argStatusCode)=>{
+const checkCookie=(argExDays)=>{
     try{
-        
+        if(getCookie(argExDays)!='')return true
+        return false;
     }
     catch(ex){
-        console.log('saveRequest ::'+ex);
+        console.log('argExDays ::'+ex);
+    }
+};
+
+const saveRequestInCookie=(argCookieName,argCookieValue)=>{
+    try{
+        if(!checkCookie(argCookieName))setCookie(argCookieName,argCookieValue,1)
+        else{
+            let tempCookieValue=getCookie(argCookieName);
+            tempCookieValue+=argCookieValue;
+            setCookie(argCookieName,tempCookieValue,1);
+        }
+    }
+    catch(ex){
+        console.log('saveRequestInCookie ::'+ex);
     }
 }
+
+Cypress.Commands.add('checkUtilGetReport',(argModule,argReportId,argData,argSeparator1,argSeparator2)=>{
+    try{
+        let temp='';
+        let splitOperator=argSeparator2+argSeparator1;
+        let dataSplited=argData.split(splitOperator);
+        for(var compt=0;compt<dataSplited.length;compt++){
+            let tempValue=dataSplited[compt];
+            temp+=''+tempValue+'\n';
+        }
+        cy.writeFile('cypress/report/'+argModule+'/report-'+argModule+'Id'+argReportId+'.json','{'+temp+'}');
+    }
+    catch(ex){
+        console.log('checkUtilGetReport ::'+ex);
+    }
+});
+
+Cypress.Commands.add('checkUtilGetCookieReport',(argCookieName,argReportId)=>{
+    try{
+        let dataFromCookie=getCookie(argCookieName);
+        cy.checkUtilGetReport('kraken-statusCode',argReportId,dataFromCookie,'[',']');
+    }
+    catch(ex){
+        console.log('checkUtilGetCookieReport ::'+ex);
+    }
+});
+
+Cypress.Commands.add('checkUtilGetStatusCodeReport',(argReportId)=>{
+    try{
+        cy.checkUtilGetCookieReport('utilStatusCode',argReportId);
+    }
+    catch(ex){
+        console.log('checkUtilGetStatusCodeReport ::'+ex);
+    }
+});
 
 const utilSendRequest =(argUrl)=>{
     try{
@@ -59,7 +109,7 @@ const utilStatusCode =(argUrl)=>{
         console.log("utilStatusCode type of argUrl ::"+typeOfArgUrl);
         if(typeOfArgUrl!=='object')throw ('Error utilStatusCode || XMLHttpRequest')
         console.log("utilStatusCode status code ::"+request.status);
-        saveRequest(argUrl,request.status);
+        saveRequestInCookie('utilStatusCode','[ '+argUrl+' => '+request.status+' ]');
         if(request.status!==500 || request.status!==404) return true
         return false;
     }
@@ -85,11 +135,6 @@ Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl,argTestTitle)=
         console.log('checkUtilDownloadSitemapXML');
         let baseUrl=argSiteMapUrl;
         console.log('Base Url for sitemap.xml '+baseUrl);
-        /*
-        let request=new XMLHttpRequest();
-        request.open('GET',baseUrl,false);
-        request.send();
-        */
         let request=utilSendRequest(baseUrl);
         let xmlDocument=(request.responseXML);
         var oSerializer = new XMLSerializer();
