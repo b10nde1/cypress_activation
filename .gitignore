@@ -29,6 +29,12 @@ cypress/download/articleV2/
 
 cypress/report/articleV2/
 
+cypress/screenshots/archive/AR-CM/
+
+cypress/screenshots/archive/BR-CM/
+
 cypress/screenshots/
+
+cypress/report/kraken-statusCode/
 
 cypress/report/kraken-statusCodeReport/
