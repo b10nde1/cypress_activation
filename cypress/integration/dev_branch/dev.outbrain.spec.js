@@ -45,6 +45,7 @@ describe('Outbrain V2',()=>{
             cy.wait(6000);
             cy.checkVortexOpenAndTakeScreenShot('TC'+temp+'-OutbrainV2-'+listUrls[temp][0],'.c-suggestion-v2.js-outbrain-v2');
         });
+        /*
         //verify 3 closed box are present
         it('TC'+temp+'-1 Outbrain V2 verify element closed box ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2ClosedBox();
@@ -61,6 +62,7 @@ describe('Outbrain V2',()=>{
         it('TC'+temp+'-4 Outbrain V2 verify title is present ::'+listUrls[temp][0]+'',()=>{
             cy.checkOutbrainV2H2Title(confH2Title);
         });
+        */
     }
     //screenshot on mobiles
     if(confScreenShotMobile){
