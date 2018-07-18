@@ -18,6 +18,7 @@ describe('Screenshot', () => {
     };
     let confDevice=getTable2DFromJson(dataFromJson.device.split('],['),',');
     let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
+    let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportId=new Date();
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
@@ -36,7 +37,9 @@ describe('Screenshot', () => {
             });
         }
     }
-    it('Kraken | Get Status Code report '+reportId.getTime()+'',()=>{
-        cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId.getTime());
-    })
+    if(confGetStatusCodeReport){
+        it('Kraken | Get Status Code report '+reportId.getTime()+'',()=>{
+            cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId.getTime());
+        })
+    }
 })
