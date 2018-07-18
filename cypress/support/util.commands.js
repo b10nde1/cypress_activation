@@ -103,15 +103,6 @@ Cypress.Commands.add('checkUtilGetCookieReport',(argCookieName,argReportId)=>{
     }
 });
 
-Cypress.Commands.add('checkUtilGetStatusCodeReport',(argReportId)=>{
-    try{
-        cy.checkUtilGetCookieReport('utilStatusCode',argReportId);
-    }
-    catch(ex){
-        console.log('checkUtilGetStatusCodeReport ::'+ex);
-    }
-});
-
 const utilSendRequest =(argUrl)=>{
     try{
         let request=new XMLHttpRequest();
@@ -124,18 +115,30 @@ const utilSendRequest =(argUrl)=>{
     }
 };
 
-const addStatusInTxtFile=(argTxtPathAndName,argData)=>{
+Cypress.Commands.add('checkUtilGetStatusCodeReport',(argModule,argListUrls,argReportId)=>{
     try{
-        let txtRequest=utilSendRequest(argTxtPathAndName);
-        let txtFile=txtRequest.responseText;
-        txtFile+=argData+'\n';
-        let pathForResult=argTxtPathAndName.split('/report/');
-        cy.writeFile('cypress/report/'+pathForResult[1]+'',''+txtFile+'');
+        let tableOfResult=new Array(argListUrls.length);
+        let compt200=0; let comptOther=0;var compt=0;
+        for(;compt<argListUrls.length;compt++){
+            let tempRequest=utilSendRequest(argListUrls[compt][1]);
+            let tempStatusCode=tempRequest.status;
+            let tempCodeColor='green';let tempDivId='status-200';
+            if(tempStatusCode!=200){
+                tempCodeColor='red';
+                tempDivId='status-error';
+                comptOther++;
+            }
+            else compt200++
+            let tempURL='<a href="'+argListUrls[compt][1]+'">'+argListUrls[compt][1]+'</a>';
+            tableOfResult[compt]='<div id="'+tempDivId+'">Status :: <button style="color:'+tempCodeColor+'">'+tempStatusCode+'</button> Element :: '+argListUrls[compt][0]+' | URL :: '+tempURL+'</div>';
+        }
+        let headerFilter='<div><p>All ('+compt+')</p><p>Status-200 ('+compt200+')</p><p>Other-status ('+comptOther+')</p></div>';
+        cy.writeFile('cypress/report/'+argModule+'/statusCodeReport-'+argReportId+'.html',''+headerFilter+tableOfResult+'');
     }
     catch(ex){
-        cy.checkUtilConsole(['addStatusInTxtFile'],[ex]);
+        console.log('checkUtilGetStatusCodeReport ::'+ex);
     }
-};
+});
 
 const utilStatusCode =(argUrl,argId)=>{
     try{
@@ -143,9 +146,6 @@ const utilStatusCode =(argUrl,argId)=>{
         let typeOfArgUrl=typeof request;
         console.log("utilStatusCode type of argUrl ::"+typeOfArgUrl);
         if(typeOfArgUrl!=='object')throw ('Error utilStatusCode || XMLHttpRequest')
-        /* */
-        addStatusInTxtFile('../report/statusCodeReport/kraken-statusCode-'+argId+'.txt',' '+argUrl+' => '+request.status+' ');
-        /* */
         console.log("utilStatusCode status code ::"+request.status);
         if(request.status!==500 || request.status!==404) return true
         return false;
