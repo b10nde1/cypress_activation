@@ -33,6 +33,7 @@ describe('Screenshot', () => {
             it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.viewport(confWidth,confHeight);
+                cy.wait(6000);
                 cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
