@@ -30,3 +30,5 @@ cypress/download/articleV2/
 cypress/report/articleV2/
 
 cypress/screenshots/
+
+cypress/report/kraken-statusCodeReport/
