@@ -159,6 +159,7 @@ Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,ar
     try{
         if(utilStatusCode(argUrl,argId)){
             cy.visit(argUrl);
+            cy.wait(7000);
             cy.checkVortexOpenAndTakeScreenShot(argTitle);
         }
     }
