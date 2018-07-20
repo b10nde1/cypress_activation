@@ -34,7 +34,7 @@ describe('Article V2', () => {
         it('Open URL for :: '+listUrls[temp][0]+'',()=>{
             cy.visit(listUrls[temp][1]);
             //hide css of _evidon_banner
-            if(confEvidonBanner)cy.checkUtilHideEvidonCookieBanner()
+            cy.checkUtilHideEvidonCookieBanner()
         });
         //take screenshot
         it('TC'+temp+'-0 Article V2 take screenshot ::'+listUrls[temp][0]+'',()=>{
@@ -89,7 +89,7 @@ describe('Article V2', () => {
                 cy.viewport(320, 480);
                 cy.visit(listUrls[temp][1]);
                 //hide css of _evidon_banner
-                if(confEvidonBanner)cy.checkUtilHideEvidonCookieBanner()
+                cy.checkUtilHideEvidonCookieBanner()
                 cy.checkVortexOpenAndTakeScreenShot('ArcitleV2-Mobile-'+temp+'-'+listUrls[temp][0]+'');
             });
         }
