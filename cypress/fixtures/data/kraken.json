@@ -1,5 +1,4 @@
 {
-    "hideCookiesBanner":true,
     "onlyStatus200":true,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",

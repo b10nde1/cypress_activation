@@ -21,7 +21,6 @@ describe('Screenshot', () => {
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
     let confOnlyStatus200=dataFromJson.onlyStatus200;
-    let confEvidonBanner=dataFromJson.hideCookiesBanner;
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
