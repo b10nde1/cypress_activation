@@ -20,20 +20,25 @@ describe('Screenshot', () => {
     let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
+    let confOnlyStatus200=dataFromJson.onlyStatus200;
+    let confEvidonBanner=dataFromJson.hideCookiesBanner;
+    beforeEach(() => {
+        Cypress.on('uncaught:exception', (err, runnable)=> {
+            return false
+        })
+        //hide css of _evidon_banner
+        if(confEvidonBanner)cy.checkUtilHideEvidonCookieBanner()
+        cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
+    });
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
-        beforeEach(() => {
-            Cypress.on('uncaught:exception', (err, runnable)=> {
-                return false
-            })
-        });
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
             it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.viewport(confWidth,confHeight);
-                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0],confOnlyStatus200);
             });
         }
     }
