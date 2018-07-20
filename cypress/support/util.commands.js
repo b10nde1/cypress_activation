@@ -1,8 +1,8 @@
 Cypress.Commands.add('checkUtilConsole',(argText,argValue)=>{
     try{
         for(var compt=0;compt<argText.length;compt++){
-            if(argValue)throw(argText[compt]+' :: '+argValue[compt])
-            throw(argText[compt]);
+            if(argValue)console.log(argText[compt]+' :: '+argValue[compt])
+            else console.log(argText[compt])
         }
     }
     catch(ex){
@@ -22,7 +22,6 @@ const setCookie=(argCookieName, argCookieValue, argExDays)=>{
     }
 }
 
-/*ISSUE WITH getCookie */
 const getCookie=(argCookieName)=>{
     try{
         let name = argCookieName + "=";
@@ -140,7 +139,7 @@ Cypress.Commands.add('checkUtilGetStatusCodeReport',(argModule,argListUrls,argRe
     }
 });
 
-const utilStatusCode =(argUrl,argId)=>{
+const utilStatusCode =(argUrl)=>{
     try{
         let request=utilSendRequest(argUrl);
         let typeOfArgUrl=typeof request;
@@ -151,20 +150,40 @@ const utilStatusCode =(argUrl,argId)=>{
         return false;
     }
     catch(ex){
-        console.log('utilStatusCode ::'+ex);
+        cy.checkUtilConsole(['utilStatusCode'],[ex]);
     }
 };
 
-Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,argId)=>{
+const openWaitAndTakeScreenShot=(argUrl,argTitle)=>{
     try{
-        if(utilStatusCode(argUrl,argId)){
-            cy.visit(argUrl);
-            cy.wait(7000);
-            cy.checkVortexOpenAndTakeScreenShot(argTitle);
+        cy.visit(argUrl);
+        cy.wait(7000);
+        cy.checkVortexOpenAndTakeScreenShot(argTitle);
+    }
+    catch(ex){
+        cy.checkUtilConsole(['openWaitAndTakeScreenShot'],[ex]);
+    }
+}
+
+Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,argOnlyStatus200)=>{
+    try{
+        if(argOnlyStatus200){
+            if(utilStatusCode(argUrl)){
+                openWaitAndTakeScreenShot(argUrl,argTitle);
+            }
         }
+        else openWaitAndTakeScreenShot(argUrl,argTitle);
     }
     catch(ex){
         console.log('checkUtilTakeScreenShotIfNotErrorPage ::'+ex);
+    }
+});
+Cypress.Commands.add('checkUtilHideEvidonCookieBanner',()=>{
+    try{
+        document.getElementsByClassName('_evidon_banner').display="none";
+    }
+    catch(ex){
+        cy.checkUtilConsole(['checkUtilHideEvidonCookieBanner'],[ex]);
     }
 });
 
