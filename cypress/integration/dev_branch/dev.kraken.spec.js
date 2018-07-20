@@ -27,7 +27,6 @@ describe('Screenshot', () => {
             return false
         })
         //hide css of _evidon_banner
-        if(confEvidonBanner)cy.checkUtilHideEvidonCookieBanner()
         cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
     });
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
