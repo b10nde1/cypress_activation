@@ -21,10 +21,13 @@ describe('Screenshot', () => {
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
     let confOnlyStatus200=dataFromJson.onlyStatus200;
+    let confEvidonBanner=dataFromJson.hideCookiesBanner;
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
+        //hide css of _evidon_banner
+        if(confEvidonBanner)cy.checkUtilHideEvidonCookieBanner()
         cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
     });
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){

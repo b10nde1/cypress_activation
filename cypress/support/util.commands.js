@@ -178,6 +178,14 @@ Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,ar
         console.log('checkUtilTakeScreenShotIfNotErrorPage ::'+ex);
     }
 });
+Cypress.Commands.add('checkUtilHideEvidonCookieBanner',()=>{
+    try{
+        document.getElementsByClassName('_evidon_banner').display="none";
+    }
+    catch(ex){
+        cy.checkUtilConsole(['checkUtilHideEvidonCookieBanner'],[ex]);
+    }
+});
 
 Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl,argTestTitle)=>{
     try{
