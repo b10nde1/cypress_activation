@@ -21,13 +21,14 @@ describe('Screenshot', () => {
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
     let confOnlyStatus200=dataFromJson.onlyStatus200;
-    let confEvidonBanner=dataFromJson.hideCookiesBanner;
+    let confScreenshotReport=dataFromJson.screenshotReport;
+    let confVerifySitemapXML=dataFromJson.verifySitemapXML;
+    let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
         })
         //hide css of _evidon_banner
-        if(confEvidonBanner)cy.checkUtilHideEvidonCookieBanner()
         cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
     });
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
@@ -49,5 +50,23 @@ describe('Screenshot', () => {
         it('Kraken | Get Status Code report '+reportId+'',()=>{
             cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
         })
+    }
+    //report json for screenshot with tcid+article name + url
+    if(confScreenshotReport){
+        it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
+            cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
+        });
+    }
+    //check if list of new article are present in sitemap.xml
+    if(confVerifySitemapXML){
+        it('Kraken | Verify sitemap.xml',()=>{
+            cy.checkArticleV2Sitemap(listMarkets,reportId);
+        });
+    }
+    //download sitemap.xml
+    if(confDownloadSitemapXML){
+        it('Kraken | Download Sitemap.xml',()=>{
+            cy.checkArticleV2DownloadSitemapXML(listMarkets);
+        });
     }
 })

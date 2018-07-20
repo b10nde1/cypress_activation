@@ -158,6 +158,7 @@ const openWaitAndTakeScreenShot=(argUrl,argTitle)=>{
     try{
         cy.visit(argUrl);
         cy.wait(7000);
+        cy.checkUtilHideEvidonCookieBanner()
         cy.checkVortexOpenAndTakeScreenShot(argTitle);
     }
     catch(ex){
@@ -180,7 +181,7 @@ Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,ar
 });
 Cypress.Commands.add('checkUtilHideEvidonCookieBanner',()=>{
     try{
-        document.getElementsByClassName('_evidon_banner').display="none";
+        cy.get('.evidon-banner-acceptbutton').click();
     }
     catch(ex){
         cy.checkUtilConsole(['checkUtilHideEvidonCookieBanner'],[ex]);
