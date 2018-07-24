@@ -36,10 +36,16 @@ describe('Screenshot', () => {
         let confHeight=Number(confDevice[comptDevice][1]);
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
-            it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+            it('Kraken open url| '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.viewport(confWidth,confHeight);
-                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0],confOnlyStatus200);
+                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
+            });
+            it('Kraken check and close Evidon Banner if present | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+                cy.checkUtilHideEvidonCookieBanner();
+            });
+            it('Kraken take screenshot | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
     }

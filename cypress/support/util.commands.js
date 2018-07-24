@@ -154,26 +154,24 @@ const utilStatusCode =(argUrl)=>{
     }
 };
 
-const openWaitAndTakeScreenShot=(argUrl,argTitle)=>{
+const openWaitAndTakeScreenShot=(argUrl)=>{
     try{
         cy.visit(argUrl);
         cy.wait(7000);
-        cy.checkUtilHideEvidonCookieBanner()
-        cy.checkVortexOpenAndTakeScreenShot(argTitle);
     }
     catch(ex){
         cy.checkUtilConsole(['openWaitAndTakeScreenShot'],[ex]);
     }
 }
 
-Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argTitle,argOnlyStatus200)=>{
+Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argOnlyStatus200)=>{
     try{
         if(argOnlyStatus200){
             if(utilStatusCode(argUrl)){
-                openWaitAndTakeScreenShot(argUrl,argTitle);
+                openWaitAndTakeScreenShot(argUrl);
             }
         }
-        else openWaitAndTakeScreenShot(argUrl,argTitle);
+        else openWaitAndTakeScreenShot(argUrl);
     }
     catch(ex){
         console.log('checkUtilTakeScreenShotIfNotErrorPage ::'+ex);
