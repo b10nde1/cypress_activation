@@ -11,8 +11,14 @@ describe('Screenshot', () => {
         let result=new Array(argTableTestimonialContent.length);
         for(var compt=0;compt<argTableTestimonialContent.length;compt++){
             result[compt]=alignTableFromJson(argTableTestimonialContent[compt].split(argSplit));
-            result[compt][0]=result[compt][0].replace("[","");
-            result[compt][1]=result[compt][1].replace("]","");
+            let tempResultLabel=result[compt][0].replace("[","");
+            let tempResultLink=result[compt][1].replace("]","");
+            if(tempResultLabel!='--')result[compt][0]=tempResultLabel
+            else{
+                let tempResultGenerateLabel=tempResultLink.split('/');
+                result[compt][0]=tempResultGenerateLabel[(tempResultGenerateLabel.length)-1];
+            }
+            result[compt][1]=tempResultLink;
         }
         return result;
     };
