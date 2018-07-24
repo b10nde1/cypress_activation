@@ -130,7 +130,7 @@ const reportForSitemap=(argListStatus,argReportId)=>{
             tempResult+=tempStatus;
         }
         console.log(tempResult);
-        cy.writeFile('cypress/report/articleV2/statusSitemapXmlArticlev2Id'+argReportId+'.json','{'+tempResult+'}');
+        cy.writeFile('cypress/report/statusSitemapXmlId'+argReportId+'.json','{'+tempResult+'}');
     }
     catch(ex){
         console.log('reportForSitemap ::'+ex);
