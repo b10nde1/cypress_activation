@@ -42,17 +42,17 @@ describe('Screenshot', () => {
         let confHeight=Number(confDevice[comptDevice][1]);
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
-            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets.length+' | Kraken open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | Kraken open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
             });
-            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets.length+' | Kraken check and close Evidon Banner if present | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | Kraken Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
             });
-            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets.length+' | Kraken check and close Non Evidon Banner if present | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | Kraken Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.checkUtilCloseCookieBanner('#_evh-ric-c');
             });
-            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets.length+' | Kraken take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+'| Kraken take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.viewport(confWidth,confHeight);
                 cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
