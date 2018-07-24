@@ -177,12 +177,12 @@ Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argOnlyStat
         console.log('checkUtilTakeScreenShotIfNotErrorPage ::'+ex);
     }
 });
-Cypress.Commands.add('checkUtilHideEvidonCookieBanner',()=>{
+Cypress.Commands.add('checkUtilCloseCookieBanner',(argBannerCloseIcon)=>{
     try{
-        cy.get('.evidon-banner-acceptbutton').click();
+        cy.get(argBannerCloseIcon).click();
     }
     catch(ex){
-        cy.checkUtilConsole(['checkUtilHideEvidonCookieBanner'],[ex]);
+        cy.checkUtilConsole(['checkUtilCloseCookieBanner'],[ex]);
     }
 });
 
