@@ -36,15 +36,18 @@ describe('Screenshot', () => {
         let confHeight=Number(confDevice[comptDevice][1]);
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
-            it('Kraken open url| '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
-                cy.viewport(confWidth,confHeight);
                 cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
             });
-            it('Kraken check and close Evidon Banner if present | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
-                cy.checkUtilHideEvidonCookieBanner();
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken check and close Evidon Banner if present | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
             });
-            it('Kraken take screenshot | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken check and close Non Evidon Banner if present | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                cy.checkUtilCloseCookieBanner('#_evh-ric-c');
+            });
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                cy.viewport(confWidth,confHeight);
                 cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
