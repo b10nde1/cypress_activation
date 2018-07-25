@@ -37,6 +37,7 @@ describe('Screenshot', () => {
         //hide css of _evidon_banner
         cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
     });
+    /*
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
@@ -64,6 +65,7 @@ describe('Screenshot', () => {
     if('Kraken | Get ScreenShot report '+reportId+' ',()=>{
         cy.checkGlobalScreenShotReport('kraken-screenShotReport',listMarkets,reportId);
     });
+    */
     if(confGetStatusCodeReport){
         it('Kraken | Get Status Code report '+reportId+'',()=>{
             cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
@@ -78,13 +80,15 @@ describe('Screenshot', () => {
     //check if list of new article are present in sitemap.xml
     if(confVerifySitemapXML){
         it('Kraken | Verify sitemap.xml',()=>{
-            cy.checkArticleV2Sitemap(listMarkets,reportId);
+            //cy.checkArticleV2Sitemap(listMarkets,reportId);
+            cy.checkUtilVerifyUrlsInSitemapXML(listMarkets,reportId);
         });
     }
     //download sitemap.xml
     if(confDownloadSitemapXML){
         it('Kraken | Download Sitemap.xml',()=>{
-            cy.checkArticleV2DownloadSitemapXML(listMarkets);
+           // cy.checkArticleV2DownloadSitemapXML(listMarkets);
+           cy.checkUtilDownloadMultipleSitemapXML(listMarkets);
         });
     }
 })

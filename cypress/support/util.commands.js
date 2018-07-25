@@ -206,3 +206,60 @@ Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl,argTestTitle)=
         console.log('checkUtilDownloadSitemapXML ::'+ex);
     }
 });
+//fonction get indicatif domaine
+const getIndicMarket=(argUrls)=>{
+    try{
+        return argUrls.split('/')[2];
+    }
+    catch(ex){
+        cy.checkUtilConsole(['getIndicMarket'],[ex]);
+    }
+}
+//cette fonction verifie si la list provient du meme market ou pas
+const getListOfSiteMap=(argListOfUrls)=>{
+    try{
+        let tempResult=new Array(argListOfUrls.length);let resultLength=0;
+        for(var comptLevel1=0;comptLevel1<argListOfUrls.length;comptLevel1++){
+            if(comptLevel1!=0)comptLevel1--;
+            let indiceCompteLevel1=comptLevel1;
+            for(var comptLevel2;comptLevel2<argListOfUrls.length;comptLevel2++){
+                if(getIndicMarket(argListOfUrls[indiceCompteLevel1][1])==getIndicMarketargListOfUrls([comptLevel2][1])){
+                    tempResult[resultLength][comptLevel1][0]=argListOfUrls[comptLevel2][0];
+                    tempResult[resultLength][comptLevel1][1]=argListOfUrls[comptLevel2][1];
+                    comptLevel1=comptLevel2;
+                    resultLength++;
+                }
+            }
+        }
+        let result=new Array(resultLength);
+        result=tempResult;
+        return result;
+    }
+    catch(ex){
+        cy.checkUtilConsole(['getListOfSiteMap'],[ex]);
+    }
+}
+//Cette fonction verifie les urls pour chaque sitemap.xml
+Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReportId)=>{
+    try{
+        let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
+        for(var compt=0;compt<tempListOfSiteMap.length;compt++){
+            cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId);
+        }
+    }
+    catch(ex){
+        cy.checkUtilConsole(['checkUtilVerifyUrlsInSitemapXML'],[ex]);
+    }
+});
+//Cette fonction telecharge la liste de sitemap.xml
+Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets)=>{
+    try{
+        let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
+        for(var compt=0;compt<tempListOfSiteMap.length;compt++){
+            cy.checkArticleV2DownloadSitemapXML(tempListOfSiteMap[compt]);
+        }
+    }
+    catch(ex){
+        cy.checkUtilConsole(['checkUtilDownloadMultipleSitemapXML'],[ex]);
+    }
+});
