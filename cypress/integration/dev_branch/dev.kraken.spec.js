@@ -46,6 +46,9 @@ describe('Screenshot', () => {
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
             });
+            it('Url id '+comptDevice+'-'+compt+' | Kraken adoric element | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                cy.checkUtilCloseCookieBanner('.adoric_element.element-text.selected.closeLightboxButton');
+            });
             it('Url id '+comptDevice+'-'+compt+' | Kraken Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
             });
