@@ -1,3 +1,9 @@
 {
-    "urls":"[us-en/*/https://www.pampers.com/en-us],[fr/*/https://www.pampers.fr]"
+    "screenshotReport":true,
+    "verifySitemapXML":true,
+    "downloadSitemapXML":true,
+    "onlyStatus200":false,
+    "getStatusCodeReport":true,
+    "device":"[1600,1200],[320,480]",
+    "urls":""
 }
