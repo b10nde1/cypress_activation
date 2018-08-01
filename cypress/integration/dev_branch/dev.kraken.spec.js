@@ -35,30 +35,37 @@ describe('Screenshot', () => {
             return false
         })
         //hide css of _evidon_banner
-        cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
+        cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['RUN',confOnlyStatus200,confGetStatusCodeReport]);
     });
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
-            it('Url id '+comptDevice+'-'+compt+' | Kraken open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
                 cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
             });
-            it('Scroll to bottom',()=>{
-                cy.scrollTo('bottom');
+            it('Scroll down',()=>{
+                cy.get('footer').scrollIntoView();
+                cy.wait(1000);
             });
-            it('Url id '+comptDevice+'-'+compt+' | Kraken adoric element | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
                 cy.checkUtilCloseCookieBanner('.adoric_element.element-text');
             });
-            it('Url id '+comptDevice+'-'+compt+' | Kraken Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                cy.checkUtilCloseCookieBanner('.adoric_element.element-text.closeLightboxButton');
+            });
+            it('Url id '+comptDevice+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                cy.checkUtilCloseCookieBanner('.adoric_element.element-shape.closeLightboxButton');
+            });
+            it('Url id '+comptDevice+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
             });
-            it('Url id '+comptDevice+'-'+compt+' | Kraken Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.checkUtilCloseCookieBanner('#_evh-ric-c');
             });
-            it('Url id '+comptDevice+'-'+compt+'| Kraken take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+            it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.viewport(confWidth,confHeight);
                 cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });

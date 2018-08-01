@@ -157,7 +157,7 @@ const utilStatusCode =(argUrl)=>{
 const openWaitAndTakeScreenShot=(argUrl)=>{
     try{
         cy.visit(argUrl);
-        cy.wait(7000);
+        cy.wait(6000);
     }
     catch(ex){
         cy.checkUtilConsole(['openWaitAndTakeScreenShot'],[ex]);
@@ -179,7 +179,7 @@ Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argOnlyStat
 });
 Cypress.Commands.add('checkUtilCloseCookieBanner',(argBannerCloseIcon)=>{
     try{
-        cy.get(argBannerCloseIcon).click();
+        cy.get(argBannerCloseIcon).click({force:true});
     }
     catch(ex){
         cy.checkUtilConsole(['checkUtilCloseCookieBanner'],[ex]);
