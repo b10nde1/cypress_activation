@@ -218,6 +218,30 @@ const getIndicMarket=(argUrls)=>{
 //cette fonction verifie si la list provient du meme market ou pas
 const getListOfSiteMap=(argListOfUrls)=>{
     try{
+        cy.checkUtilConsole(['getListOfSiteMap'],['Start']);
+
+        let lengthIdMarket=1;
+        for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
+            let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
+            let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
+            //cy.checkUtilConsole(['tempIdMarketFullUrl','tempIdMarketBaseUrl'],[tempIdMarketFullUrl,tempIdMarketBaseUrl]);
+            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
+                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+                let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
+                //cy.checkUtilConsole(['tempMarketFullUrl','tempMarketBaseUrl'],[tempMarketFullUrl,tempMarketBaseUrl]);
+                if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
+                    cy.checkUtilConsole(['tempIdMarketFullUrl','tempIdMarketBaseUrl'],[tempIdMarketFullUrl,tempIdMarketBaseUrl]);
+                    cy.checkUtilConsole(['tempMarketFullUrl','tempMarketBaseUrl'],[tempMarketFullUrl,tempMarketBaseUrl]);
+                    lengthIdMarket++;
+                    comptIdMarket=comptTempMarket;
+                }
+            }
+        }
+
+        let listIdMarket=new Array(lengthIdMarket);
+
+        cy.checkUtilConsole(['getListOfSiteMap info','listIdMarket.length','getListOfSiteMap'],['***INFO***',lengthIdMarket,'END']);
+        /*
         let tempResult=new Array(argListOfUrls.length);let resultLength=0;
         for(var comptLevel1=0;comptLevel1<argListOfUrls.length;comptLevel1++){
             if(comptLevel1!=0)comptLevel1--;
@@ -234,6 +258,7 @@ const getListOfSiteMap=(argListOfUrls)=>{
         let result=new Array(resultLength);
         result=tempResult;
         return result;
+        */
     }
     catch(ex){
         cy.checkUtilConsole(['getListOfSiteMap'],[ex]);
@@ -244,7 +269,7 @@ Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReport
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
         for(var compt=0;compt<tempListOfSiteMap.length;compt++){
-            cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId);
+            //cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId);
         }
     }
     catch(ex){

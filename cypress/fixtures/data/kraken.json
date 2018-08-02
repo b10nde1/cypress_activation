@@ -1,9 +1,9 @@
 {
-    "screenshotReport":true,
+    "screenshotReport":false,
     "verifySitemapXML":true,
-    "downloadSitemapXML":true,
+    "downloadSitemapXML":false,
     "onlyStatus200":false,
-    "getStatusCodeReport":true,
+    "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":""
+    "urls":"[PL-01/*/https://www.pampers.pl/dziecko/rozwoj/artykul/rozwoj-dziecka-miedzy-3-a9-miesiacem-zycia-fazy-wzrostu-dziecka],[JP-01/*/https://www.jp.pampers.com/about-pampers/diapers-and-wipes/article/diaper-leaks-prevent-leaks-and-blowouts-by-ensuring-the-right-diaper-fit],[RU-01/*/https://www.pampers-gorodok.ru/pregnancy/baby-names/article/popular-baby-girl-names-around-the-world],[JP-03/*/https://www.jp.pampers.com/baby/development/article/coughs-and-coughing-in-babies-and-toddlers]"
 }
