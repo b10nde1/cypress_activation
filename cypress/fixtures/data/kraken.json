@@ -1,9 +1,9 @@
 {
-    "screenshotReport":true,
+    "screenshotReport":false,
     "verifySitemapXML":true,
-    "downloadSitemapXML":true,
+    "downloadSitemapXML":false,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":"[FR-01/*/https://www.pampers.fr/bebe/developpement/article/la-toux-chez-les-bebes-et-les-tout-petits],[FR-02/*/https://www.pampers.fr/bebe/sommeil/article/conseils-pour-favoriser-le-sommeil-de-bebe],[FR-03/*/https://www.pampers.fr/bebe/developpement/article/bebe-de-4-a-6-mois-accessoires-essentiels],[FR-04/*/https://www.pampers.fr/grossesse/symptomes-de-grossesse/article/apparition-des-nausees-matinales],[FR-05/*/https://www.pampers.fr/bebe/developpement/article/developpement-des-capacites-motrices],[FR-06/*/https://www.pampers.fr/grossesse/accouchement/article/que-mettre-dans-votre-sac-d-accouchement-liste-pour-le-sac-d-accouchement],[FR-07/*/https://www.pampers.fr/tout-petit/developpement/article/quand-bebe-dira-t-il-ses-premiers-mots],[FR-08/*/https://www.pampers.fr/grossesse/prenoms-de-bebe/article/prenoms-de-filles-plus-populaires-du-monde],[FR-09/*/https://www.pampers.fr/tout-petit/developpement/article/comment-gerer-les-crises-de-colere-de-bebe],[FR-10/*/https://www.pampers.fr/bebe/developpement/article/phases-de-croissance-de-3a9mois]"
+    "urls":""
 }
