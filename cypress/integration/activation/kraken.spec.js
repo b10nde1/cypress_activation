@@ -20,20 +20,34 @@ describe('Screenshot', () => {
     let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
+    let confOnlyStatus200=dataFromJson.onlyStatus200;
+    let confScreenshotReport=dataFromJson.screenshotReport;
+    let confVerifySitemapXML=dataFromJson.verifySitemapXML;
+    let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
+    beforeEach(() => {
+        Cypress.on('uncaught:exception', (err, runnable)=> {
+            return false
+        })
+        cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['',confOnlyStatus200,confGetStatusCodeReport]);
+    });
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
-        beforeEach(() => {
-            Cypress.on('uncaught:exception', (err, runnable)=> {
-                return false
-            })
-        });
         for(var compt=0;compt<listMarkets.length;compt++){
             let temp=compt;
-            it('Kraken | '+confWidth+'x'+confHeight+' '+listMarkets[temp][0]+'',()=>{
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 console.log('=======>'+confWidth+' X '+confHeight);
+                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
+            });
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken check and close Evidon Banner if present | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
+            });
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken check and close Non Evidon Banner if present | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                cy.checkUtilCloseCookieBanner('#_evh-ric-c');
+            });
+            it('Device : '+comptDevice+'/'+confDevice.length+' | Test : '+compt+'/'+listMarkets+' | Kraken take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.viewport(confWidth,confHeight);
-                cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
     }
@@ -44,5 +58,20 @@ describe('Screenshot', () => {
         it('Kraken | Get Status Code report '+reportId+'',()=>{
             cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
         })
+    }
+    if(confScreenshotReport){
+        it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
+            cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
+        });
+    }
+    if(confVerifySitemapXML){
+        it('Kraken | Verify sitemap.xml',()=>{
+            cy.checkArticleV2Sitemap(listMarkets,reportId);
+        });
+    }
+    if(confDownloadSitemapXML){
+        it('Kraken | Download Sitemap.xml',()=>{
+            cy.checkArticleV2DownloadSitemapXML(listMarkets);
+        });
     }
 })

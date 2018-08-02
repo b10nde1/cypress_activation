@@ -37,6 +37,7 @@ describe('Screenshot', () => {
         //hide css of _evidon_banner
         cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['RUN',confOnlyStatus200,confGetStatusCodeReport]);
     });
+    /*
     for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
         let confWidth=Number(confDevice[comptDevice][0]);
         let confHeight=Number(confDevice[comptDevice][1]);
@@ -71,9 +72,7 @@ describe('Screenshot', () => {
             });
         }
     }
-    if('Kraken | Get ScreenShot report '+reportId+' ',()=>{
-        cy.checkGlobalScreenShotReport('kraken-screenShotReport',listMarkets,reportId);
-    });
+    */
     if(confGetStatusCodeReport){
         it('Kraken | Get Status Code report '+reportId+'',()=>{
             cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
