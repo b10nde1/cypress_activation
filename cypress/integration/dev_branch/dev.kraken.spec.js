@@ -77,8 +77,8 @@ describe('Screenshot', () => {
     //check if list of new article are present in sitemap.xml
     if(confVerifySitemapXML){
         it('Kraken | Verify sitemap.xml',()=>{
-            //cy.checkArticleV2Sitemap(listMarkets,reportId);
-            cy.checkUtilVerifyUrlsInSitemapXML(listMarkets,reportId);
+            cy.checkArticleV2Sitemap(listMarkets,reportId);
+            //cy.checkUtilVerifyUrlsInSitemapXML(listMarkets,reportId);
         });
     }
     //download sitemap.xml
