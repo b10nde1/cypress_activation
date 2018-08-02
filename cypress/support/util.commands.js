@@ -285,16 +285,16 @@ const getListOfSiteMap=(argListOfUrls)=>{
     try{
         cy.checkUtilConsole(['getListOfSiteMap'],['Start']);
         let tableOfMarket=utilSplitMarket(argListOfUrls);
-        let result=new Array(tableOfMarket.length);
-        for(var comptLv1=0;comptLv1<result.length;comptLv1++){
-            result[comptLv1]=[];
-            for(var comptLv2=0;comptLv2<argListOfUrls.length;comptLv2++){
-                result[comptLv1][comptLv2]=[];
-                
+        for(var comptLv1=0;comptLv1<tableOfMarket.length;comptLv1++){
+            for(var comptLv2=0;comptLv2<tableOfMarket[comptLv1].length;comptLv2++){
+                let temp=tableOfMarket[comptLv1][comptLv2];
+                tableOfMarket[comptLv1][comptLv2]=new Array(2);
+                tableOfMarket[comptLv1][comptLv2][0]='kraken_multiple_countries';
+                tableOfMarket[comptLv1][comptLv2][1]=temp;
             }
         }
         cy.checkUtilConsole(['getListOfSiteMap'],['END']);
-        //return result;
+        return tableOfMarket;
     }
     catch(ex){
         cy.checkUtilConsole(['getListOfSiteMap'],[ex]);
@@ -305,7 +305,7 @@ Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReport
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
         for(var compt=0;compt<tempListOfSiteMap.length;compt++){
-            cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId);
+            cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId+compt);
         }
     }
     catch(ex){
