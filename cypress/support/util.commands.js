@@ -215,25 +215,86 @@ const getIndicMarket=(argUrls)=>{
         cy.checkUtilConsole(['getIndicMarket'],[ex]);
     }
 }
-//cette fonction verifie si la list provient du meme market ou pas
-const getListOfSiteMap=(argListOfUrls)=>{
+
+const utilGetNumberOfMarket=(argListOfUrls)=>{
     try{
-        let tempResult=new Array(argListOfUrls.length);let resultLength=0;
-        for(var comptLevel1=0;comptLevel1<argListOfUrls.length;comptLevel1++){
-            if(comptLevel1!=0)comptLevel1--;
-            let indiceCompteLevel1=comptLevel1;
-            for(var comptLevel2;comptLevel2<argListOfUrls.length;comptLevel2++){
-                if(getIndicMarket(argListOfUrls[indiceCompteLevel1][1])==getIndicMarketargListOfUrls([comptLevel2][1])){
-                    tempResult[resultLength][comptLevel1][0]=argListOfUrls[comptLevel2][0];
-                    tempResult[resultLength][comptLevel1][1]=argListOfUrls[comptLevel2][1];
-                    comptLevel1=comptLevel2;
-                    resultLength++;
+        let lengthIdMarket=0;
+        for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
+            let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
+            let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
+            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
+                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+                let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
+                if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
+                    lengthIdMarket++;
+                    comptIdMarket=comptTempMarket;
                 }
             }
         }
-        let result=new Array(resultLength);
-        result=tempResult;
+        return lengthIdMarket;
+    }
+    catch(ex){
+
+    }
+}
+
+const utilSplitMarket=(argListOfUrls)=>{
+    try{
+        let listMarket= new Array (utilGetNumberOfMarket(argListOfUrls));let comptListMarket=1;
+        for(var comptFix=0;comptFix<argListOfUrls.length;comptFix++){
+            argListOfUrls[comptFix][0]=argListOfUrls[comptFix][1].split('/')[2];
+        }
+        for(var compt=0;compt<listMarket.length;compt++){
+            listMarket[compt]=argListOfUrls[0][0];
+        }
+        for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
+            let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
+            let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
+            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
+                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+                let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
+                if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
+                    listMarket[comptListMarket]=tempMarketBaseUrl;
+                    comptListMarket++;
+                    comptIdMarket=comptTempMarket;
+                }
+            }
+        }
+        cy.checkUtilConsole(['utilSplitMarket listMarket'],[listMarket]);
+        let result=new Array(listMarket.length);let comptResult=0;
+        for(var compt=0;compt<result.length;compt++){
+            result[compt]=[];
+            for(var comptList=0;comptList<argListOfUrls.length;comptList++){
+                if(listMarket[compt]==argListOfUrls[comptList][0]){
+                    result[compt][comptResult]=argListOfUrls[comptList][1];
+                    comptResult++;
+                }
+            }
+            comptResult=0;
+        }
+        cy.checkUtilConsole(['utilSplitMarket result'],[result]);
         return result;
+    }
+    catch(ex){
+        cy.checkUtilConsole(['utilSplitMarket'],[ex]);
+    }
+}
+
+//cette fonction verifie si la list provient du meme market ou pas
+const getListOfSiteMap=(argListOfUrls)=>{
+    try{
+        cy.checkUtilConsole(['getListOfSiteMap'],['Start']);
+        let tableOfMarket=utilSplitMarket(argListOfUrls);
+        let result=new Array(tableOfMarket.length);
+        for(var comptLv1=0;comptLv1<result.length;comptLv1++){
+            result[comptLv1]=[];
+            for(var comptLv2=0;comptLv2<argListOfUrls.length;comptLv2++){
+                result[comptLv1][comptLv2]=[];
+                
+            }
+        }
+        cy.checkUtilConsole(['getListOfSiteMap'],['END']);
+        //return result;
     }
     catch(ex){
         cy.checkUtilConsole(['getListOfSiteMap'],[ex]);
