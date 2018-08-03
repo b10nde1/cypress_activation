@@ -30,6 +30,7 @@ describe('Screenshot', () => {
     let confScreenshotReport=dataFromJson.screenshotReport;
     let confVerifySitemapXML=dataFromJson.verifySitemapXML;
     let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
+    let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -67,7 +68,13 @@ describe('Screenshot', () => {
             });
             it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.viewport(confWidth,confHeight);
-                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+                if(confOpenNavMenu[0]!=0){
+                    for(var comptNavMenu=0;comptNavMenu<confOpenNavMenu.length;confOpenNavMenu++){
+                        cy.checkUtilOpenNavMenu(confOpenNavMenu[comptNavMenu]);
+                        cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-navMenuId'+comptNavMenu+'-'+listMarkets[temp][0]);
+                    }
+                }
+                else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
     }
