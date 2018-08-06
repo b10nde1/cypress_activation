@@ -68,7 +68,7 @@ describe('Screenshot', () => {
             });
             it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.viewport(confWidth,confHeight);
-                if(confOpenNavMenu[0]!=0){
+                if(confOpenNavMenu[0]!=0 && confWidth>1023){
                     for(var comptNavMenu=0;comptNavMenu<confOpenNavMenu.length;confOpenNavMenu++){
                         cy.checkUtilOpenNavMenu(confOpenNavMenu[comptNavMenu]);
                         cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-navMenuId'+comptNavMenu+'-'+listMarkets[temp][0]);
