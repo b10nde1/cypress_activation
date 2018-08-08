@@ -30,6 +30,8 @@ describe('Screenshot', () => {
     let confScreenshotReport=dataFromJson.screenshotReport;
     let confVerifySitemapXML=dataFromJson.verifySitemapXML;
     let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
+    let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
+    let confCloseBanner=dataFromJson.closeBanner;
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -50,24 +52,32 @@ describe('Screenshot', () => {
                 cy.get('footer').scrollIntoView();
                 cy.wait(1000);
             });
-            it('Url id '+comptDevice+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
-                cy.checkUtilCloseCookieBanner('.adoric_element.element-text');
-            });
-            it('Url id '+comptDevice+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
-                cy.checkUtilCloseCookieBanner('.adoric_element.element-text.closeLightboxButton');
-            });
-            it('Url id '+comptDevice+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
-                cy.checkUtilCloseCookieBanner('.adoric_element.element-shape.closeLightboxButton');
-            });
-            it('Url id '+comptDevice+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
-                cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
-            });
-            it('Url id '+comptDevice+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
-                cy.checkUtilCloseCookieBanner('#_evh-ric-c');
-            });
+            if(confCloseBanner){
+                it('Url id '+comptDevice+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                    cy.checkUtilCloseCookieBanner('.adoric_element.element-text');
+                });
+                it('Url id '+comptDevice+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                    cy.checkUtilCloseCookieBanner('.adoric_element.element-text.closeLightboxButton');
+                });
+                it('Url id '+comptDevice+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                    cy.checkUtilCloseCookieBanner('.adoric_element.element-shape.closeLightboxButton');
+                });
+                it('Url id '+comptDevice+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                    cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
+                });
+                it('Url id '+comptDevice+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                    cy.checkUtilCloseCookieBanner('#_evh-ric-c');
+                });
+            }
             it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                 cy.viewport(confWidth,confHeight);
-                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+                if(confOpenNavMenu[0]!=0 && confWidth>1023){
+                    for(var comptNavMenu=0;comptNavMenu<confOpenNavMenu.length;confOpenNavMenu++){
+                        cy.checkUtilOpenNavMenu(confOpenNavMenu[comptNavMenu]);
+                        cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-navMenuId'+comptNavMenu+'-'+listMarkets[temp][0]);
+                    }
+                }
+                else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
             });
         }
     }

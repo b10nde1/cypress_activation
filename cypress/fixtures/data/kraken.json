@@ -1,4 +1,6 @@
 {
+    "openNavMenu":"0",
+    "closeBanner":true,
     "screenshotReport":false,
     "verifySitemapXML":true,
     "downloadSitemapXML":false,
