@@ -324,3 +324,14 @@ Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets)=>{
         cy.checkUtilConsole(['checkUtilDownloadMultipleSitemapXML'],[ex]);
     }
 });
+//fonction pour ouvrir un element du NavMenu
+Cypress.Commands.add('checkUtilOpenNavMenu',(argIdNavMenu)=>{
+    try{
+        cy.get('#phmainbodytop_0_ctl01_NavigationHeader > div > div.menu__option__container.js-menu-content-oasis > ul > li:nth-child('+argIdNavMenu+') > div')
+            .invoke('attr','class','menu__option__content collapse js-menu-content in')
+            .should('have.attr','class','menu__option__content collapse js-menu-content in');
+    }
+    catch(ex){
+        cy.checkUtilConsole(['checkUtilOpenNavMenu'],[ex]);
+    }
+});
