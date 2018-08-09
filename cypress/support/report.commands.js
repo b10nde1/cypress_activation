@@ -12,13 +12,17 @@ const getDisplayNameItem=(argUrl)=>{
 
 Cypress.Commands.add('reportForSitemap',(argListStatus,argReportId)=>{
     try{
-        let tempResult='';
+        let tempResult='';let tableOfResult=new Array(argListStatus.length);
         for(var compt=0;compt<argListStatus.length;compt++){
-            let tempStatus='{\nStatus :: '+argListStatus[compt][0]+' || Display Name (Item) :: '+getDisplayNameItem(argListStatus[compt][1])+' || Link :: '+argListStatus[compt][1]+'\n}\n';
-            tempResult+=tempStatus;
+            /*
+                let tempStatus='{\nStatus :: '+argListStatus[compt][0]+' || Display Name (Item) :: '+getDisplayNameItem(argListStatus[compt][1])+' || Link :: '+argListStatus[compt][1]+'\n}\n';
+                tempResult+=tempStatus;
+            */
+            tableOfResult[compt]=argListStatus[compt][0]+'/*/'+getDisplayNameItem(argListStatus[compt][1])+'/*/'+argListStatus[compt][1];
         }
         console.log(tempResult);
-        cy.writeFile('cypress/report/statusSitemapXmlId'+argReportId+'.json','{'+tempResult+'}');
+        cy.interfaceSitemapReport('sitemapVerification',argReportId,tableOfResult);
+        //cy.writeFile('cypress/report/statusSitemapXmlId'+argReportId+'.json','{'+tempResult+'}');
     }
     catch(ex){
         cy.checkUtilConsole(['report commands -> reportForSitemap'],[ex]);
@@ -27,13 +31,7 @@ Cypress.Commands.add('reportForSitemap',(argListStatus,argReportId)=>{
 
 Cypress.Commands.add('checkGlobalScreenShotReport',(argModule,argUrls,argReportId)=>{
     try{
-        let tempResult='';
-        for(var compt=0;compt<argUrls.length;compt++){
-            let tempTitle='\nTitle-'+compt+' :: "'+argUrls[compt][0]+'",\n';
-            let tempUrl='Url-TC'+compt+' :: "'+argUrls[compt][1]+'"\n';
-            tempResult+=tempTitle+tempUrl;
-        }
-        cy.writeFile('cypress/report/'+argModule+'/screenshot'+argModule+'Id'+argReportId+'.json','{'+tempResult+'}');
+        cy.interfaceScreenShotReport(argModule,argReportId,tableOfData);
     }
     catch(ex){
         cy.checkUtilConsole(['report commands -> checkGlobalScreenShotReport'],[ex]);
