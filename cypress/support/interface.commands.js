@@ -1,4 +1,4 @@
-const writeFile=(argFileTitle,argReportId,argFileExt:String,argData)=>{
+const writeFile=(argFileTitle,argReportId,argFileExt,argData)=>{
     try{
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+argData+'');
     }
