@@ -114,31 +114,6 @@ const utilSendRequest =(argUrl)=>{
     }
 };
 
-Cypress.Commands.add('checkUtilGetStatusCodeReport',(argModule,argListUrls,argReportId)=>{
-    try{
-        let tableOfResult=new Array(argListUrls.length);
-        let compt200=0; let comptOther=0;var compt=0;
-        for(;compt<argListUrls.length;compt++){
-            let tempRequest=utilSendRequest(argListUrls[compt][1]);
-            let tempStatusCode=tempRequest.status;
-            let tempCodeColor='green';let tempDivId='status-200';
-            if(tempStatusCode!=200){
-                tempCodeColor='red';
-                tempDivId='status-error';
-                comptOther++;
-            }
-            else compt200++
-            let tempURL='<a href="'+argListUrls[compt][1]+'">'+argListUrls[compt][1]+'</a>';
-            tableOfResult[compt]='<div id="'+tempDivId+'">Status :: <button style="color:'+tempCodeColor+'">'+tempStatusCode+'</button> Element :: '+argListUrls[compt][0]+' | URL :: '+tempURL+'</div>';
-        }
-        let headerFilter='<div><p>All ('+compt+')</p><p>Status-200 ('+compt200+')</p><p>Other-status ('+comptOther+')</p></div>';
-        cy.writeFile('cypress/report/'+argModule+'/statusCodeReport-'+argReportId+'.html',''+headerFilter+tableOfResult+'');
-    }
-    catch(ex){
-        console.log('checkUtilGetStatusCodeReport ::'+ex);
-    }
-});
-
 const utilStatusCode =(argUrl)=>{
     try{
         let request=utilSendRequest(argUrl);
