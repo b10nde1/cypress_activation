@@ -1,6 +1,7 @@
 const writeFile=(argFileTitle,argReportId,argFileExt,argData)=>{
     try{
-        cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+argData+'');
+        let htmlContent=createHtml(argFileTitle,argData,'','');
+        cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
     catch(ex){
         cy.checkUtilConsole(['interface commands -> writeFile'],[ex]);
@@ -9,7 +10,7 @@ const writeFile=(argFileTitle,argReportId,argFileExt,argData)=>{
 
 const getBaliseOption=(argOption)=>{
     try{
-        //for option -> 
+        //for option ->
         //[0] = open or close '/' if close
         //[1] = class or id
         //[2] = class or id value
@@ -38,7 +39,7 @@ const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
                 tableOfOption[compt]=new Array(3);
                 tableOfOption[compt]=getBaliseOption(argOption[compt]);
             }
-            for(var compt=0;compt<argListBalise.length;compt++){    
+            for(var compt=0;compt<argListBalise.length;compt++){
                 option=getBaliseOption(tableOfOption[compt]);
                 if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+' '+option[1]+'="'+option[0]+'">'
                 else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+' '+option[1]+'="'+option[0]+'">';
@@ -62,31 +63,19 @@ const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
 }
 
 const createHtml=(argTitle,argBody,argCss,argJs)=>{
-/* 
-    <html>
-        <head>
-            <title></title>
-            <style></style>
-            <script></script>
-        </head>
-        <body>
-
-        </body>
-    </html>
-*/
     try{
         let listBalise=createBalise(
             ['html','html','head','head','body','body','title','title','style','style','script','script']
             ,[['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','','']]
             ,true
             ,false);
-        return listBalise[0]
-                    +listBalise[2]
-                        +listBalise[6]+argTitle+listBalise[7]
-                        +listBalise[8]+argCss+listBalise[9]
-                        +listBalise[10]+argJs+listBalise[11]
+        return listBalise[0]/*html*/
+                    +listBalise[2]/*head*/
+                        +listBalise[6]+argTitle+listBalise[7]/*title*/
+                        +listBalise[8]+argCss+listBalise[9]/*style*/
+                        +listBalise[10]+argJs+listBalise[11]/*script*/
                     +listBalise[3]
-                    +listBalise[4]
+                    +listBalise[4]/*body*/
                         +argBody
                     +listBalise[5]
                 +listBalise[1];
