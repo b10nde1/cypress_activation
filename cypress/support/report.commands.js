@@ -31,7 +31,7 @@ Cypress.Commands.add('reportForSitemap',(argListStatus,argReportId)=>{
 
 Cypress.Commands.add('checkGlobalScreenShotReport',(argModule,argUrls,argReportId)=>{
     try{
-        cy.interfaceScreenShotReport(argModule,argReportId,tableOfData);
+        cy.interfaceScreenShotReport(argModule,argReportId,argUrls);
     }
     catch(ex){
         cy.checkUtilConsole(['report commands -> checkGlobalScreenShotReport'],[ex]);

@@ -193,7 +193,7 @@ const getIndicMarket=(argUrls)=>{
 
 const utilGetNumberOfMarket=(argListOfUrls)=>{
     try{
-        let lengthIdMarket=0;
+        let lengthIdMarket=1;
         for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
             let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
             let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
