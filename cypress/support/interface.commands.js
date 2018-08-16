@@ -1,7 +1,6 @@
 const writeFile=(argFileTitle,argReportId,argFileExt,argData)=>{
     try{
         let htmlContent=createHtml(argFileTitle,argData,'','');
-        //cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
     catch(ex){
@@ -67,15 +66,6 @@ const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
     }
 }
 
-/*
-<table>
-    <tbody>
-        <tr>
-            <th></th>
-        </tr>
-        <tr>
-            <td>
-*/
 //argBody[0]=col1Value, [1]=col2Value, if [2]!=null [2]=href for col2Value else href=[1]
 const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
     try{
@@ -83,7 +73,7 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
         if(argCol1==null)col1='Col-1-'+argTableTitle+''
         if(argCol2==null)col2='Col-2-'+argTableTitle+''
         let table='<div><h1>'
-            +argTableTitle+'</h1><table><tbody align="center"><tr><th>'
+            +argTableTitle+'</h1><table class="tableCss"><tbody align="center"><tr><th>'
             +col1+
             '</th><th>'
             +col2+'</th></tr>';
@@ -109,17 +99,29 @@ const createHtml=(argTitle,argBody,argCss,argJs)=>{
     try{
         let listBalise=createBalise(
             ['html','html','head','head','body','body','title','title','style','style','script','script']
-            ,[['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','','']]
+            ,[['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','type','text/css'],['/','',''],['','type','text/javascript'],['/','','']]
             ,true
             ,false);
         return listBalise[0]/*html*/
                     +listBalise[2]/*head*/
                         +listBalise[6]+argTitle+listBalise[7]/*title*/
+                        +listBalise[8]/*style*/
+                        +'body{margin:auto;width:80%;padding:10px;}'
+                        +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 200px;text-align: center;border-collapse: collapse;}'
+                        +'table.tableCss td, table.tableCss th {border: 1px solid #FFFFFF;}'
+                        +'table.tableCss tbody td {font-size: 14px;}'
+                        +'table.tableCss tr:nth-child(even) {background: #D0E4F5;}'
+                        +'table.tableCss thead {background: #0B6FA4;border-bottom: 5px solid #FFFFFF;}'
+                        +'table.tableCss thead th {font-size: 16px;font-weight: bold;color: #FFFFFF;text-align: center;border-left: 2px solid #FFFFFF;}'
+                        +'table.tableCss thead th:first-child {border-left: none;}'
+                        +'table.tableCss tfoot td { font-size: 14px;}'
+                        +listBalise[9]
                         +listBalise[8]+argCss+listBalise[9]/*style*/
-                        +listBalise[10]+argJs+listBalise[11]/*script*/
                     +listBalise[3]
                     +listBalise[4]/*body*/
-                        +createTable(argTitle,argBody,null,null)
+                        +'<div>'+createTable(argTitle,argBody,null,null)
+                        +listBalise[10]+argJs+listBalise[11]/*script*/
+                        +'</div>'
                     +listBalise[5]
                 +listBalise[1];
     }
@@ -136,14 +138,6 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
             let tempSplit=argDataSection[compt].split('/*/');
             let tempColor='blue';
             if(tempSplit[0]!=200) tempColor='red'
-            /*
-            extractDataSection[compt]='<div id='
-                +tempSplit[1]+'><button style="color:'
-                +tempColor+'">'
-                +tempSplit[0]+'</button> <a href="'
-                +tempSplit[2]+'">Item : '
-                +tempSplit[1]+'</a></div>';
-            */
            extractDataSection[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>';
            extractDataSection[compt][1]=tempSplit[1];
            extractDataSection[compt][2]=tempSplit[2];
@@ -151,7 +145,6 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
         for(var compt=0;compt<argHeaderSection[0].length;compt++){
             extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';
         }
-        //writeFile(argTitle,argReportId,'html',extractHeaderSection+extractDataSection);
         writeFile(argTitle,argReportId,'html',extractDataSection);
     }
     catch(ex){
