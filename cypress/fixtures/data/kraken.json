@@ -5,7 +5,7 @@
     "verifySitemapXML":true,
     "downloadSitemapXML":false,
     "onlyStatus200":false,
-    "getStatusCodeReport":false,
+    "getStatusCodeReport":true,
     "device":"[1600,1200]",
     "urls":"[fr-01/*/https://author.pampers.fr.pgsitecore.com/bebe/developpement/article/la-toux-chez-les-bebes-et-les-tout-petits],[fr-02/*/https://author.pampers.fr.pgsitecore.com/bebe/developpement/article/phases-de-croissance-de-3a9mois]"
 }

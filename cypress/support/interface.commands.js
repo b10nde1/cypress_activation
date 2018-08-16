@@ -83,13 +83,13 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
         if(argCol1==null)col1='Col-1-'+argTableTitle+''
         if(argCol2==null)col2='Col-2-'+argTableTitle+''
         let table='<div><h1>'
-            +argTableTitle+'</h1><table><tbody><tr><th>'
+            +argTableTitle+'</h1><table><tbody align="center"><tr><th>'
             +col1+
             '</th><th>'
             +col2+'</th></tr>';
         for(var compt=0;compt<argBody.length;compt++){
             let hrefValue=argBody[compt][1];
-            if(argBody[compt].length>2)hrefValue=argBody[compt][3];
+            if(argBody[compt].length>2)hrefValue=argBody[compt][2];
             table+='<tr><td>'
                 +argBody[compt][0]+
                 '</td><td><a href="'
@@ -132,20 +132,27 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
     try{
         let extractHeaderSection='';let extractDataSection=new Array(argDataSection.length);
         for(var compt=0;compt<argDataSection.length;compt++){
+            extractDataSection[compt]=new Array(3);
             let tempSplit=argDataSection[compt].split('/*/');
-            let tempColor='green';
+            let tempColor='blue';
             if(tempSplit[0]!=200) tempColor='red'
+            /*
             extractDataSection[compt]='<div id='
                 +tempSplit[1]+'><button style="color:'
                 +tempColor+'">'
                 +tempSplit[0]+'</button> <a href="'
                 +tempSplit[2]+'">Item : '
                 +tempSplit[1]+'</a></div>';
+            */
+           extractDataSection[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>';
+           extractDataSection[compt][1]=tempSplit[1];
+           extractDataSection[compt][2]=tempSplit[2];
         }
         for(var compt=0;compt<argHeaderSection[0].length;compt++){
             extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';
         }
-        writeFile(argTitle,argReportId,'html',extractHeaderSection+extractDataSection);
+        //writeFile(argTitle,argReportId,'html',extractHeaderSection+extractDataSection);
+        writeFile(argTitle,argReportId,'html',extractDataSection);
     }
     catch(ex){
         cy.checkUtilConsole(['interface commands -> interfaceStatusCodeReport'],[ex]);
@@ -172,12 +179,11 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
         let extractData=new Array(argData.length);
         for(var compt=0;compt<argData.length;compt++){
             extractData[compt]=new Array(3);
-            let tempData=argData.split('/*/'); let tempColor='blue';
+            let tempData=argData[compt].split('/*/'); let tempColor='blue';
             if(tempData[0]!='OK')tempColor='silver';
-            //extractData[compt]='<div id="'+tempData[1]+'"><a href="'+tempData[2]+'"><button style="color:'+tempColor+'">'+tempData[1]+'</button></a></div>';
-            extractData[compt][0]='<button style="color:'+tempColor+'">'+tempData[0]+'</button>';
+            extractData[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempData[0]+'</button>';
             extractData[compt][1]=tempData[1];
-            extractData[compt][1]=tempData[2];
+            extractData[compt][2]=tempData[2];
         }
         writeFile(argModule,argReportId,'html',extractData);
     }
