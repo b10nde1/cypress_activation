@@ -1,8 +1,8 @@
 {
     "openNavMenu":"0",
-    "closeBanner":true,
+    "closeBanner":false,
     "screenshotReport":false,
-    "verifySitemapXML":true,
+    "verifySitemapXML":false,
     "downloadSitemapXML":false,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
