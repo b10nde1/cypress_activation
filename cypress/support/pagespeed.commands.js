@@ -12,20 +12,6 @@ const initListEncodedChar=(argListCode)=>{
     }
 }
 
-const encodeUrl=(argUrl)=>{
-    try{
-        //ref https://www.w3schools.com/tags/ref_urlencode.asp
-        let encoded_url=argUrl;let list_encodage=initListEncodedChar([':','%3A','/','%2F']);
-        list_encodage.forEach(element=>{
-            encoded_url.replace(element[0],list_encodage[1]);
-        });
-        return encoded_url;
-    }
-    catch(ex){
-        cy.checkUtilConsole(['pagespeed -> encodeUrl'],[ex]);
-    }
-}
-
 const pageSpeedReport=(argPageSpeedResult)=>{
     try{
         let report_id=new Date();
@@ -41,7 +27,7 @@ Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
         /***Encode List of Urls***/
         let final_list_urls=new Array(arglistUrls.length);let compt_final_list_urls=0;
         arglistUrls.forEach(element => {
-            final_list_urls[compt_final_list_urls]=encodeUrl(element[1]);
+            final_list_urls[compt_final_list_urls]=element[1];
             compt_final_list_urls++;
         });
         /***init table for result ***/
