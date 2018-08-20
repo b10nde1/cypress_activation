@@ -1,11 +1,13 @@
 {
+    "runPageSpeed":true,
+    "runScreenShot":false,
     "openNavMenu":"0",
     "closeBanner":false,
-    "screenshotReport":false,
     "verifySitemapXML":false,
     "downloadSitemapXML":false,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":""
+    "urls":"",
+    "pageSpeed":""
 }
