@@ -32,7 +32,6 @@ const getPageSpeedScore=(argApiCall)=>{
     try{
         let request=new XMLHttpRequest(); let urlApiCall=argApiCall;
         request.open('GET',urlApiCall,false);
-        request.send();
         return request;
     }
     catch(ex){
@@ -79,11 +78,13 @@ Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
                     +'&strategy='
                     +strategy_element
                     +'&key='+google_api_key+'';
+                cy.checkUtilConsole(['info pageSpeed','api_call'],['',api_call]);
                 let temp_json_result=getPageSpeedScore(api_call);
-                result[temp_indice_result][(temp_url_strategy.indexOf(strategy_element))+1]=temp_json_result.ruleGroups.SPEED.score;
+                cy.checkUtilConsole(['info pageSpeed','temp_json_result'],['',temp_json_result]);
+                //result[temp_indice_result][(temp_url_strategy.indexOf(strategy_element))+1]=temp_json_result.ruleGroups.SPEED.score;
             })
         });
-        pageSpeedReport(result);
+        //pageSpeedReport(result);
     }
     catch(ex){
         cy.checkUtilConsole(['pagespeed -> pageSpeed'],[ex]);
