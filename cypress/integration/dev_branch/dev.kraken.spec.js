@@ -23,9 +23,10 @@ describe('Screenshot', () => {
         return result;
     };
     let conf_run_screen_shot=dataFromJson.runScreenShot;
-    let confDevice=getTable2DFromJson(dataFromJson.device.split('],['),',');
-    let listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
-    let data_page_speed=getTable2DFromJson(dataFromJson.pageSpeed.split('],['),('/*/'));
+    let confDevice='';let listMarkets='';let data_page_speed='';
+    if(dataFromJson.device!='') confDevice=getTable2DFromJson(dataFromJson.device.split('],['),',');
+    if(dataFromJson.urls!='')listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
+    if(dataFromJson.pageSpeed!='')data_page_speed=getTable2DFromJson(dataFromJson.pageSpeed.split('],['),'/*/');
     let conf_run_page_speed=dataFromJson.runPageSpeed;
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
