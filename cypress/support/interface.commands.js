@@ -1,6 +1,8 @@
-const writeFile=(argFileTitle,argReportId,argFileExt,argData)=>{
+const writeFile=(argFileTitle,argReportId,argFileExt,argData,argCol1,argCol2)=>{
     try{
-        let htmlContent=createHtml(argFileTitle,argData,'','');
+        let col=null;
+        if(argCol1!=null && argCol2!=null)col=[argCol1,argCol2];
+        let htmlContent=createHtml(argFileTitle,argData,'','',col);
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
     catch(ex){
@@ -95,13 +97,16 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
     }
 }
 
-const createHtml=(argTitle,argBody,argCss,argJs)=>{
+const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
     try{
         let listBalise=createBalise(
             ['html','html','head','head','body','body','title','title','style','style','script','script']
             ,[['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','',''],['/','',''],['','type','text/css'],['/','',''],['','type','text/javascript'],['/','','']]
             ,true
             ,false);
+        let data_table='';
+        if(argCol!=null)data_table=createTable(argTitle,argBody,argCol[0],argCol[1]);
+        else data_table=createTable(argTitle,argBody,null,null);
         return listBalise[0]/*html*/
                     +listBalise[2]/*head*/
                         +listBalise[6]+argTitle+listBalise[7]/*title*/
@@ -119,7 +124,7 @@ const createHtml=(argTitle,argBody,argCss,argJs)=>{
                         +listBalise[8]+argCss+listBalise[9]/*style*/
                     +listBalise[3]
                     +listBalise[4]/*body*/
-                        +'<div>'+createTable(argTitle,argBody,null,null)
+                        +'<div>'+data_table
                         +listBalise[10]+argJs+listBalise[11]/*script*/
                         +'</div>'
                     +listBalise[5]
@@ -129,6 +134,22 @@ const createHtml=(argTitle,argBody,argCss,argJs)=>{
         cy.checkUtilConsole(['interface commands -> createHtml'],[ex]);
     }
 }
+
+Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>{
+    try{
+        let extract_data_section=new Array(argData.length);let init_indice_extract_data_section=0;
+        argData.forEach(element => {
+            extract_data_section[init_indice_extract_data_section][0]=element[3];
+            extract_data_section[init_indice_extract_data_section][1]=element[1]+' || '+element[2];
+            extract_data_section[init_indice_extract_data_section][2]=element[0];
+            init_indice_extract_data_section++;
+        });
+        writeFile(argTitle,argReportId,'html',extract_data_section,'Page','Desktop || Mobile');
+    }
+    catch(ex){
+        cy.checkUtilConsole(['interface commands -> interfaceGooglePageSpeed'],[ex]);
+    }
+});
 
 Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeaderSection,argDataSection)=>{
     try{
@@ -145,7 +166,7 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
         for(var compt=0;compt<argHeaderSection[0].length;compt++){
             extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';
         }
-        writeFile(argTitle,argReportId,'html',extractDataSection);
+        writeFile(argTitle,argReportId,'html',extractDataSection,'','');
     }
     catch(ex){
         cy.checkUtilConsole(['interface commands -> interfaceStatusCodeReport'],[ex]);
@@ -160,7 +181,7 @@ Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)
             extractData[compt][0]=argData[compt][0];
             extractData[compt][1]=argData[compt][1];
         }
-        writeFile(argModule,argReportId,'html',extractData);
+        writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
         cy.checkUtilConsole(['interface commands -> interfaceScreenShotReport'],[ex]);
@@ -178,7 +199,7 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
             extractData[compt][1]=tempData[1];
             extractData[compt][2]=tempData[2];
         }
-        writeFile(argModule,argReportId,'html',extractData);
+        writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
         cy.checkUtilConsole(['interface commands -> interfaceSitemapReport'],[ex]);

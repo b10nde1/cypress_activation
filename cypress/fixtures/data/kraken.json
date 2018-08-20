@@ -1,4 +1,6 @@
 {
+    "runPageSpeed":true,
+    "runScreenShot":false,
     "openNavMenu":"0",
     "closeBanner":false,
     "screenshotReport":false,
@@ -7,5 +9,6 @@
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":""
+    "urls":"",
+    "pageSpeed":"[Midi/*/http://www.midi-madagasikara.mg/],[fr01/*/https://www.pampers.fr]"
 }
