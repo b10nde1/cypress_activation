@@ -9,5 +9,5 @@
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
     "urls":"",
-    "pageSpeed":"[Midi/*/http://www.midi-madagasikara.mg],[fr01/*/https://www.pampers.fr]"
+    "pageSpeed":""
 }
