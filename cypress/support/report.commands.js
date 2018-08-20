@@ -10,6 +10,15 @@ const getDisplayNameItem=(argUrl)=>{
     }
 };
 
+Cypress.Commands.add('reportForGoogPageSpeed',(argData,argReportId)=>{
+    try{
+        cy.interfaceGooglePageSpeed('Google Page Speed',argData,argReportId);
+    }
+    catch(ex){
+        cy.checkUtilConsole(['report commands -> reportForGoogPageSpeed'],[ex]);
+    }
+});
+
 Cypress.Commands.add('reportForSitemap',(argListStatus,argReportId)=>{
     try{
         let tempResult='';let tableOfResult=new Array(argListStatus.length);
