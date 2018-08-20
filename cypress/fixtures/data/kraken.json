@@ -3,7 +3,6 @@
     "runScreenShot":false,
     "openNavMenu":"0",
     "closeBanner":false,
-    "screenshotReport":false,
     "verifySitemapXML":false,
     "downloadSitemapXML":false,
     "onlyStatus200":false,

@@ -5,7 +5,6 @@ const initListEncodedChar=(argListCode)=>{
             list_encodage[compt]=[argListCode[compt_arglistCode],argListCode[compt_arglistCode+1]];
             compt_arglistCode+=2;
         }
-        cy.checkUtilConsole(['info -> initListEncodedChar','list_encodage'],['',list_encodage]);
         return list_encodage;
     }
     catch(ex){
@@ -20,22 +19,10 @@ const encodeUrl=(argUrl)=>{
         list_encodage.forEach(element=>{
             encoded_url.replace(element[0],list_encodage[1]);
         });
-        cy.checkUtilConsole(['info -> encodeUrl','encoded_url'],['',encoded_url]);
         return encoded_url;
     }
     catch(ex){
         cy.checkUtilConsole(['pagespeed -> encodeUrl'],[ex]);
-    }
-}
-
-const getPageSpeedScore=(argApiCall)=>{
-    try{
-        let request=new XMLHttpRequest(); let urlApiCall=argApiCall;
-        request.open('GET',urlApiCall,false);
-        return request;
-    }
-    catch(ex){
-        cy.checkUtilConsole(['pagespeed -> getPageSpeedScore'],[ex]);
     }
 }
 
@@ -70,7 +57,7 @@ Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
             temp_url_to_test=final_url_element;
             let temp_indice_result=final_list_urls.indexOf(final_url_element);
             result[temp_indice_result][0]=arglistUrls[temp_indice_result][1];
-            result[temp_indice_result][4]=arglistUrls[temp_indice_result][0];
+            result[temp_indice_result][3]=arglistUrls[temp_indice_result][0];
             temp_url_strategy.forEach(strategy_element=>{
                 let api_call=
                     api_url
@@ -78,13 +65,19 @@ Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
                     +'&strategy='
                     +strategy_element
                     +'&key='+google_api_key+'';
-                cy.checkUtilConsole(['info pageSpeed','api_call'],['',api_call]);
-                let temp_json_result=getPageSpeedScore(api_call);
-                cy.checkUtilConsole(['info pageSpeed','temp_json_result'],['',temp_json_result]);
-                //result[temp_indice_result][(temp_url_strategy.indexOf(strategy_element))+1]=temp_json_result.ruleGroups.SPEED.score;
+                let request=new XMLHttpRequest();
+                request.open('GET',api_call,false);
+                request.onload=()=>{
+                    let response = request.response;
+                    result[temp_indice_result][(temp_url_strategy.indexOf(strategy_element))+1]=(JSON.parse(response))
+                        .ruleGroups
+                        .SPEED
+                        .score;
+                };
+                request.send();
             })
         });
-        //pageSpeedReport(result);
+        pageSpeedReport(result);
     }
     catch(ex){
         cy.checkUtilConsole(['pagespeed -> pageSpeed'],[ex]);

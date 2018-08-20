@@ -139,9 +139,9 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>
     try{
         let extract_data_section=new Array(argData.length);let init_indice_extract_data_section=0;
         argData.forEach(element => {
-            extract_data_section[init_indice_extract_data_section][0]=element[3];
-            extract_data_section[init_indice_extract_data_section][1]=element[1]+' || '+element[2];
-            extract_data_section[init_indice_extract_data_section][2]=element[0];
+            extract_data_section[init_indice_extract_data_section]=[element[3]
+                ,element[1]+' || '+element[2]
+                ,element[0]];
             init_indice_extract_data_section++;
         });
         writeFile(argTitle,argReportId,'html',extract_data_section,'Page','Desktop || Mobile');

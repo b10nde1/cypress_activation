@@ -31,7 +31,6 @@ describe('Screenshot', () => {
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
     let confOnlyStatus200=dataFromJson.onlyStatus200;
-    let confScreenshotReport=dataFromJson.screenshotReport;
     let confVerifySitemapXML=dataFromJson.verifySitemapXML;
     let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
     let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
@@ -87,11 +86,9 @@ describe('Screenshot', () => {
             }
         }
         //report json for screenshot with tcid+article name + url
-        if(confScreenshotReport){
-            it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
-                cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
-            });
-        }
+        it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
+            cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
+        });
     }
     if(confGetStatusCodeReport){
         it('Kraken | Get Status Code report '+reportId+'',()=>{
