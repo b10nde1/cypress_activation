@@ -194,17 +194,18 @@ const getIndicMarket=(argUrls)=>{
 const utilGetNumberOfMarket=(argListOfUrls)=>{
     try{
         let lengthIdMarket=1;
+        /*MERCI DE NE PAS CHANGER LA CETTE BOUCLE!*/
         for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
             let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
             let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
-            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
-                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+            argListOfUrls.forEach(element=>{
+                let tempMarketFullUrl=element[1];
                 let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
                 if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
                     lengthIdMarket++;
-                    comptIdMarket=comptTempMarket;
+                    comptIdMarket=argListOfUrls.indexOf(element);
                 }
-            }
+            });
         }
         return lengthIdMarket;
     }
@@ -216,27 +217,29 @@ const utilGetNumberOfMarket=(argListOfUrls)=>{
 const utilSplitMarket=(argListOfUrls)=>{
     try{
         let listMarket= new Array (utilGetNumberOfMarket(argListOfUrls));let comptListMarket=1;
-        for(var comptFix=0;comptFix<argListOfUrls.length;comptFix++){
-            argListOfUrls[comptFix][0]=argListOfUrls[comptFix][1].split('/')[2];
-        }
-        for(var compt=0;compt<listMarket.length;compt++){
-            listMarket[compt]=argListOfUrls[0][0];
-        }
+        argListOfUrls.forEach(element=>{
+            element[0]=element[1].split('/')[2];
+        });
+        listMarket.forEach(element=>{
+            element=argListOfUrls[0][0];
+        });
+        /*MERCI DE NE PAS TOUCHER A CETTE BOUCLE*/
         for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
             let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
             let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
-            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
-                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+            argListOfUrls.forEach(element=>{
+                let tempMarketFullUrl=element[1];
                 let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
                 if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
                     listMarket[comptListMarket]=tempMarketBaseUrl;
                     comptListMarket++;
-                    comptIdMarket=comptTempMarket;
+                    comptIdMarket=argListOfUrls.indexOf(element);
                 }
-            }
+            });
         }
         cy.checkUtilConsole(['utilSplitMarket listMarket'],[listMarket]);
         let result=new Array(listMarket.length);let comptResult=0;
+        /*MERCI DE NE PAS TOUCHER A CETTE BOUCLE*/
         for(var compt=0;compt<result.length;compt++){
             result[compt]=[];
             for(var comptList=0;comptList<argListOfUrls.length;comptList++){
@@ -260,13 +263,14 @@ const getListOfSiteMap=(argListOfUrls)=>{
     try{
         cy.checkUtilConsole(['getListOfSiteMap'],['Start']);
         let tableOfMarket=utilSplitMarket(argListOfUrls);
+        /*MERCI DE NE PAS TOUCHER A CETTE BOUCLE!*/
         for(var comptLv1=0;comptLv1<tableOfMarket.length;comptLv1++){
-            for(var comptLv2=0;comptLv2<tableOfMarket[comptLv1].length;comptLv2++){
-                let temp=tableOfMarket[comptLv1][comptLv2];
-                tableOfMarket[comptLv1][comptLv2]=new Array(2);
-                tableOfMarket[comptLv1][comptLv2][0]='kraken_multiple_countries';
-                tableOfMarket[comptLv1][comptLv2][1]=temp;
-            }
+            tableOfMarket[comptLv1].forEach(element=>{
+                let temp=tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)];
+                tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)]=new Array(2);
+                tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)][0]='kraken_multiple_countries';
+                tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)][1]=temp;
+            });
         }
         cy.checkUtilConsole(['getListOfSiteMap'],['END']);
         return tableOfMarket;
@@ -279,9 +283,9 @@ const getListOfSiteMap=(argListOfUrls)=>{
 Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReportId)=>{
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
-        for(var compt=0;compt<tempListOfSiteMap.length;compt++){
-            cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId+compt);
-        }
+        tempListOfSiteMap.forEach(element=>{
+            cy.checkArticleV2Sitemap(element,argReportId+tempListOfSiteMap.indexOf(element));
+        });
     }
     catch(ex){
         cy.checkUtilConsole(['checkUtilVerifyUrlsInSitemapXML'],[ex]);
@@ -291,9 +295,9 @@ Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReport
 Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets)=>{
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
-        for(var compt=0;compt<tempListOfSiteMap.length;compt++){
-            cy.checkArticleV2DownloadSitemapXML(tempListOfSiteMap[compt]);
-        }
+        tempListOfSiteMap.forEach(element=>{
+            cy.checkArticleV2DownloadSitemapXML(element);
+        });
     }
     catch(ex){
         cy.checkUtilConsole(['checkUtilDownloadMultipleSitemapXML'],[ex]);

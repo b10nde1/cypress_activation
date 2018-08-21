@@ -1,13 +1,13 @@
 {
-    "runPageSpeed":true,
-    "runScreenShot":false,
+    "runPageSpeed":false,
+    "runScreenShot":true,
     "openNavMenu":"0",
     "closeBanner":false,
-    "verifySitemapXML":false,
-    "downloadSitemapXML":false,
-    "onlyStatus200":false,
-    "getStatusCodeReport":false,
+    "verifySitemapXML":true,
+    "downloadSitemapXML":true,
+    "onlyStatus200":true,
+    "getStatusCodeReport":true,
     "device":"[1600,1200],[320,480]",
-    "urls":"",
+    "urls":"[fr01/*/https://www.pampers.fr],[us01/*/https://www.pampers.com],[es01/*/https://www.dodot.es]",
     "pageSpeed":""
 }
