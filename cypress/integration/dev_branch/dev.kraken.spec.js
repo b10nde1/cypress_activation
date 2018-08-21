@@ -18,7 +18,7 @@ describe('Screenshot', () => {
                 let tempResultGenerateLabel=tempResultLink.split('/');
                 result[argTableTestimonialContent.indexOf(element)][0]=tempResultGenerateLabel[(tempResultGenerateLabel.length)-1];
             }
-            result[compt][1]=tempResultLink;
+            result[argTableTestimonialContent.indexOf(element)][1]=tempResultLink;
         });
         return result;
     };

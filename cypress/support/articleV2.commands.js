@@ -89,13 +89,13 @@ const getBaseUrl=(argUrl)=>{
         let tempBase=tempData[2]
         result='https://'+tempBase;
         let listDoubleLang=['/en-us/','/es-us/','/ar-sa/','/en-sa/','/fr-ca/','/en-ca/','/en-eg/','/ar-eg/','/fr-be/','/nl-be/'];
-        listDoubleLang.forEach(element=>{
-            let tempStatus=argUrl.search(element);
+        for(var compt=0;compt<listDoubleLang.length;compt++){
+            let tempStatus=argUrl.search(listDoubleLang[compt]);
             if(tempStatus>0){
                 result+='/'+tempData[3];
                 break;
             }
-        });
+        }
         if(result===null)throw "getBaseUrl Error->unable to get baseUrl value==null "
         return result;
     }
