@@ -1,9 +1,9 @@
 Cypress.Commands.add('checkUtilConsole',(argText,argValue)=>{
     try{
-        for(var compt=0;compt<argText.length;compt++){
-            if(argValue)console.log(argText[compt]+' :: '+argValue[compt])
-            else console.log(argText[compt])
-        }
+        argText.forEach(element=>{
+            if(argValue)console.log(element+' :: '+argValue[argText.indexOf(element)])
+            else console.log(element)
+        });
     }
     catch(ex){
         console.log('checkUtilConsole :: '+ex);
@@ -31,15 +31,15 @@ const getCookie=(argCookieName)=>{
         cy.checkUtilConsole(['getCookie value decoded cookie split'],[decodedCkieSplt[0]]);
         cy.checkUtilConsole(['getCookie value decoded cookie split charAt'],[decodedCkieSplt[0].charAt(0)]);
         cy.checkUtilConsole(['getCookie value decoded cookie split substring'],[decodedCkieSplt[0].substring(1)]);
-        for(var compt=0; compt<decodedCkieSplt.length; compt++) {
-            var temp = decodedCkieSplt[compt];
+        decodedCkieSplt.forEach(element=>{
+            let temp = element;
             while (temp.charAt(0) == ' ') {
                 temp=temp.substring(1);
             }
             if(temp.indexOf(name) == 0) {
                 return temp.substring(name.length, temp.length);
             }
-        }
+        });
         return "";
     }
     catch(ex){
@@ -81,10 +81,10 @@ Cypress.Commands.add('checkUtilGetReport',(argModule,argReportId,argData,argSepa
         let temp='';
         let splitOperator=argSeparator2+argSeparator1;
         let dataSplited=argData.split(splitOperator);
-        for(var compt=0;compt<dataSplited.length;compt++){
-            let tempValue=dataSplited[compt];
+        dataSplited.forEach(element=>{
+            let tempValue=element;
             temp+=''+tempValue+'\n';
-        }
+        });
         cy.writeFile('cypress/report/'+argModule+'/report-'+argModule+'Id'+argReportId+'.json','{'+temp+'}');
     }
     catch(ex){

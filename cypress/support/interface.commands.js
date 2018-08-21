@@ -37,27 +37,27 @@ const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
         //case argMultipleOption true
         if(argMultipleOption){
             let tableOfOption=new Array(argOption.length);
-            for(var compt=0;compt<argOption.length;compt++){
-                tableOfOption[compt]=new Array(3);
-                tableOfOption[compt]=getBaliseOption(argOption[compt]);
-            }
-            for(var compt=0;compt<argListBalise.length;compt++){
-                option=getBaliseOption(tableOfOption[compt]);
+            argOption.forEach(element=>{
+                tableOfOption[argOption.indexOf(element)]=new Array(3);
+                tableOfOption[argOption.indexOf(element)]=getBaliseOption(element);
+            });
+            argListBalise.forEach(element=>{
+                option=getBaliseOption(tableOfOption[argListBalise.indexOf(element)]);
                 let optionBalise=' '+option[1]+'="'+option[2]+'"';
                 if(option[1]=='')optionBalise='';
-                if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>'
-                else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-            }
+                if(argAligned)resultAligned+='<'+option[0]+''+element+''+optionBalise+'>'
+                else resultNotAligned[argListBalise.indexOf(element)]='<'+option[0]+''+element+''+optionBalise+'>';
+            });
         }
         //case argMultipleOption false
         else {
             option=getBaliseOption(argOption);
             let optionBalise=' '+option[1]+'="'+option[0]+'"';
             if(option[1]=='')optionBalise='';
-            for(var compt;compt<argListBalise.length;compt++){
-                if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-                else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-            }
+            argListBalise.forEach(element=>{
+                if(argAligned)resultAligned+='<'+option[0]+''+element+''+optionBalise+'>';
+                else resultNotAligned[argListBalise.indexOf(element)]='<'+option[0]+''+element+''+optionBalise+'>';
+            });
         }
         if(argAligned)return resultAligned;
         else return resultNotAligned;
@@ -79,17 +79,17 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
             +col1+
             '</th><th>'
             +col2+'</th></tr>';
-        for(var compt=0;compt<argBody.length;compt++){
-            let hrefValue=argBody[compt][1];
-            if(argBody[compt].length>2)hrefValue=argBody[compt][2];
+        argBody.forEach(element=>{
+            let hrefValue=element[1];
+            if(element.length>2)hrefValue=element[2];
             table+='<tr><td>'
-                +argBody[compt][0]+
+                +element[0]+
                 '</td><td><a href="'
                     +hrefValue+
                     '">'
-                    +argBody[compt][1]+
+                    +element[1]+
                 '</a></td></tr>';
-        }
+        });
         return table+'</tbody></table></div>';
     }
     catch(ex){
@@ -153,19 +153,19 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>
 
 Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeaderSection,argDataSection)=>{
     try{
-        let extractHeaderSection='';let extractDataSection=new Array(argDataSection.length);
-        for(var compt=0;compt<argDataSection.length;compt++){
-            extractDataSection[compt]=new Array(3);
-            let tempSplit=argDataSection[compt].split('/*/');
+        let extractDataSection=new Array(argDataSection.length);
+        argDataSection.forEach(element=>{
+            extractDataSection[argDataSection.indexOf(element)]=new Array(3);
+            let tempSplit=element.split('/*/');
             let tempColor='blue';
             if(tempSplit[0]!=200) tempColor='red'
-           extractDataSection[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>';
-           extractDataSection[compt][1]=tempSplit[1];
-           extractDataSection[compt][2]=tempSplit[2];
-        }
-        for(var compt=0;compt<argHeaderSection[0].length;compt++){
-            extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';
-        }
+            extractDataSection[argDataSection.indexOf(element)][0]='<button style="color=white;background-color:'
+                +tempColor+'">'
+                +tempSplit[0]
+                +'</button>';
+            extractDataSection[argDataSection.indexOf(element)][1]=tempSplit[1];
+            extractDataSection[argDataSection.indexOf(element)][2]=tempSplit[2];
+        });
         writeFile(argTitle,argReportId,'html',extractDataSection,'','');
     }
     catch(ex){
@@ -176,11 +176,11 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
 Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)=>{
     try{
         let extractData=new Array(argData.length);
-        for(var compt=0;compt<argData.length;compt++){
-            extractData[compt]=new Array(2);
-            extractData[compt][0]=argData[compt][0];
-            extractData[compt][1]=argData[compt][1];
-        }
+        argData.forEach(element=>{
+            extractData[argData.indexOf(element)]=new Array(2);
+            extractData[argData.indexOf(element)][0]=element[0];
+            extractData[argData.indexOf(element)][1]=element[1];
+        });
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
@@ -191,14 +191,17 @@ Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)
 Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
     try{
         let extractData=new Array(argData.length);
-        for(var compt=0;compt<argData.length;compt++){
-            extractData[compt]=new Array(3);
-            let tempData=argData[compt].split('/*/'); let tempColor='blue';
+        argData.forEach(element=>{
+            extractData[argData.indexOf(element)]=new Array(3);
+            let tempData=element.split('/*/'); let tempColor='blue';
             if(tempData[0]!='OK')tempColor='silver';
-            extractData[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempData[0]+'</button>';
-            extractData[compt][1]=tempData[1];
-            extractData[compt][2]=tempData[2];
-        }
+            extractData[argData.indexOf(element)][0]='<button style="color=white;background-color:'
+                +tempColor+'">'
+                +tempData[0]
+                +'</button>';
+            extractData[argData.indexOf(element)][1]=tempData[1];
+            extractData[argData.indexOf(element)][2]=tempData[2];
+        });
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
