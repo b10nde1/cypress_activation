@@ -2,7 +2,8 @@ const writeFile=(argFileTitle,argReportId,argFileExt,argData,argCol1,argCol2)=>{
     try{
         let col=null;
         if(argCol1!=null && argCol2!=null)col=[argCol1,argCol2];
-        let htmlContent=createHtml(argFileTitle,argData,'','',col);
+        let htmlContent=createHtml(argFileTitle,argData,'',copyElement(),col);
+        if(argFileExt!='html')throw('Interface commands -> write file :: Error expect html | actual :'+argFileExt);
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
     catch(ex){
@@ -76,20 +77,23 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
         if(argCol2==null)col2='Col-2-'+argTableTitle+''
         let table='<div><h1>'
             +argTableTitle+'</h1><table class="tableCss"><tbody align="center"><tr><th>'
-            +col1+
-            '</th><th>'
-            +col2+'</th></tr>';
-        argBody.forEach(element=>{
-            let hrefValue=element[1];
-            if(element.length>2)hrefValue=element[2];
-            table+='<tr><td>'
-                +element[0]+
-                '</td><td><a href="'
-                    +hrefValue+
-                    '">'
-                    +element[1]+
-                '</a></td></tr>';
-        });
+            +col1+'</th><th>'
+            +col2+'</th><th>'
+            +'Option</th></tr>';
+        for(var compt=0;compt<argBody.length;compt++){
+            let hrefValue=argBody[compt][1];
+            if(argBody[compt].length>2)hrefValue=argBody[compt][2];
+            table+='<tr id="tr-'+argBody[compt][0]+'"><td>'
+                    +argBody[compt][0]
+                +'</td><td id="td-'+argBody[compt][0]+'">'
+                    +argBody[compt][1]
+                +'</td><td>'
+                    +'<p id="link-'+argBody[compt][0]+'">'+hrefValue+'</p>'
+                    +'<a href="javascript:window.open(\''+hrefValue+'\')">open</a>'
+                    +' || '
+                    +'<a href="javascript:copyElement(document.getElementById(\'link-'+argBody[compt][0]+'\'))">copy link</a>'
+                +'</td></tr>';
+        }
         return table+'</tbody></table></div>';
     }
     catch(ex){
@@ -97,6 +101,37 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
     }
 }
 
+//fonction copy past pour le report html
+const copyElement=()=>{
+    try{
+        return 'const copyElement=(el)=>{'
+            +'console.log("Copy Element :: "+el);'
+            +'let body = document.body, range, sel;'
+            +'if (document.createRange && window.getSelection) {'
+                +'range = document.createRange();'
+                +'sel = window.getSelection();'
+                +'sel.removeAllRanges();'
+                +'try {'
+                    +'range.selectNodeContents(el);'
+                    +'sel.addRange(range);'
+                +'} catch (e) {'
+                    +'range.selectNode(el);'
+                    +'sel.addRange(range);'
+                +'}'
+            +'} else if (body.createTextRange) {'
+                +'range = body.createTextRange();'
+                +'range.moveToElementText(el);'
+                +'range.select();'
+            +'}'
+            +'document.execCommand("Copy");'
+        +'}';
+    }
+    catch(ex){
+        cy.checkUtilConsole(['interface commands -> copyElement'],[ex]);
+    }
+}
+
+//creation du html
 const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
     try{
         let listBalise=createBalise(
