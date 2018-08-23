@@ -137,12 +137,11 @@ const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
 
 Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>{
     try{
-        let extract_data_section=new Array(argData.length);let init_indice_extract_data_section=0;
+        let extract_data_section=new Array(argData.length);
         argData.forEach(element => {
-            extract_data_section[init_indice_extract_data_section]=[element[3]
+            extract_data_section[argData.indexOf(element)]=[element[3]
                 ,element[1]+' || '+element[2]
                 ,element[0]];
-            init_indice_extract_data_section++;
         });
         writeFile(argTitle,argReportId,'html',extract_data_section,'Page','Desktop || Mobile');
     }
@@ -159,13 +158,13 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
             let tempSplit=element.split('/*/');
             let tempColor='blue';
             if(tempSplit[0]!=200) tempColor='red'
-            extractDataSection[argDataSection.indexOf(element)][0]='<button style="color=white;background-color:'
-                +tempColor+'">'
-                +tempSplit[0]
-                +'</button>';
-            extractDataSection[argDataSection.indexOf(element)][1]=tempSplit[1];
-            extractDataSection[argDataSection.indexOf(element)][2]=tempSplit[2];
-        });
+            [extractDataSection[compt][0],extractDataSection[compt][1],extractDataSection[compt][2]]=['<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>'
+                ,tempSplit[1]
+                ,tempSplit[2]];    
+        }
+        for(var compt=0;compt<argHeaderSection[0].length;compt++){
+            extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';
+        }
         writeFile(argTitle,argReportId,'html',extractDataSection,'','');
     }
     catch(ex){
@@ -176,11 +175,10 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
 Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)=>{
     try{
         let extractData=new Array(argData.length);
-        argData.forEach(element=>{
-            extractData[argData.indexOf(element)]=new Array(2);
-            extractData[argData.indexOf(element)][0]=element[0];
-            extractData[argData.indexOf(element)][1]=element[1];
-        });
+        for(var compt=0;compt<argData.length;compt++){
+            extractData[compt]=new Array(2);
+            [extractData[compt][0],extractData[compt][1]]=[argData[compt][0],argData[compt][1]];
+        }
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
@@ -195,13 +193,10 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
             extractData[argData.indexOf(element)]=new Array(3);
             let tempData=element.split('/*/'); let tempColor='blue';
             if(tempData[0]!='OK')tempColor='silver';
-            extractData[argData.indexOf(element)][0]='<button style="color=white;background-color:'
-                +tempColor+'">'
-                +tempData[0]
-                +'</button>';
-            extractData[argData.indexOf(element)][1]=tempData[1];
-            extractData[argData.indexOf(element)][2]=tempData[2];
-        });
+            [extractData[compt][0],extractData[compt][1],extractData[compt][2]]=['<button style="color=white;background-color:'+tempColor+'">'+tempData[0]+'</button>'
+                ,tempData[1]
+                ,tempData[2]];
+        }
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
