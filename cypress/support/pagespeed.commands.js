@@ -42,8 +42,8 @@ Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
         final_list_urls.forEach(final_url_element=>{
             temp_url_to_test=final_url_element;
             let temp_indice_result=final_list_urls.indexOf(final_url_element);
-            result[temp_indice_result][0]=arglistUrls[temp_indice_result][1];
-            result[temp_indice_result][3]=arglistUrls[temp_indice_result][0];
+            [result[temp_indice_result][0],result[temp_indice_result][3]]=[arglistUrls[temp_indice_result][1]
+                ,arglistUrls[temp_indice_result][0]];
             temp_url_strategy.forEach(strategy_element=>{
                 let api_call=
                     api_url
