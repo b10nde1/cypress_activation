@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^3.0.1"
+  },
+  "dependencies": {
+    "flow-bin": "^0.78.0"
   }
 }

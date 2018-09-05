@@ -1,8 +1,8 @@
-Cypress.Commands.add("checkVortexUtiltakeScreenShot",(argTitle,argIfForVortexPopin)=>{
+Cypress.Commands.add("checkVortexUtiltakeScreenShot",(argTitle,argTakeSpecificSection,argCssSection)=>{
     try{
         document.getElementsByClassName('__ADORIC__2').display="none";
         document.getElementsByClassName('__ADORIC__1').display="none";
-        if(argIfForVortexPopin)cy.get('.ajs-dialog').screenshot(argTitle);
+        if(argTakeSpecificSection)cy.get(argCssSection).screenshot(argTitle);
         else cy.screenshot(argTitle);
     }
     catch(ex){
@@ -13,7 +13,7 @@ Cypress.Commands.add("checkVortexUtiltakeScreenShot",(argTitle,argIfForVortexPop
 const checkVortexUtilPrepareTitle=(argMarket,argFunction)=>{
     try{
         let tempDate = new Date();
-        let result = tempDate.toDateString()+'-'+argMarket+'-'+argFunction;
+        let result = argMarket+'-'+argFunction+tempDate.getTime();
         return result;
     }
     catch(ex){
@@ -25,17 +25,18 @@ Cypress.Commands.add('checkVortexPopInHeader',(argMarket)=>{
     try{
         let title=checkVortexUtilPrepareTitle(argMarket,'checkVortexPopInHeader');
         cy.get('#phmainbodytop_0_ctl01_ctl06_loginUrl').click();
-        cy.checkVortexUtiltakeScreenShot(title,true);
+        cy.checkVortexUtiltakeScreenShot(title,true,'.ajs-dialog');
     }
     catch(ex){
         console.log("checkVortexPopinHeader ::"+ex);
     }
 });
 
-Cypress.Commands.add('checkVortexOpenAndTakeScreenShot',(argElmnt)=>{
+Cypress.Commands.add('checkVortexOpenAndTakeScreenShot',(argElmnt,argCssSection)=>{
     try{
         let title=checkVortexUtilPrepareTitle(argElmnt,'full_page');
-        cy.checkVortexUtiltakeScreenShot(title,false);
+        if(argCssSection)cy.checkVortexUtiltakeScreenShot(title,true,argCssSection);
+        else cy.checkVortexUtiltakeScreenShot(title,false);
     }
     catch(ex){
         console.log("checkVortexOpenAndTakeScreenShot ::"+ex);
