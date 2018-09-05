@@ -9,5 +9,5 @@
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
     "urls":"",
-    "pageSpeed":""
+    "pageSpeed":"[fr/*/https://www.pampers.fr],[us/*/https://www.pampers.com],[de/*/https://www.pampers.de],[uk/*/https://www.pampers.co.uk]"
 }
