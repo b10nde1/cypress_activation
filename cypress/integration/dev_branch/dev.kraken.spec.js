@@ -43,11 +43,13 @@ describe('Screenshot', () => {
             ['Kraken','Status 200','Status Code report'
                 ,'PageSpeed','ScreenShot','OpenNavMenu'
                 ,'CloseBanner','VerifySitemapXML'
-                ,'Download SitemapXML','Device']
+                ,'Download SitemapXML','Device'
+                ,'Run Meta Verification']
             ,['RUN',dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
                 ,dataFromJson.runPageSpeed,dataFromJson.runScreenShot,dataFromJson.openNavMenu
                 ,dataFromJson.closeBanner,dataFromJson.verifySitemapXML
-                ,dataFromJson.downloadSitemapXML,dataFromJson.device]);
+                ,dataFromJson.downloadSitemapXML,dataFromJson.device
+                ,dataFromJson.runMetaVerification]);
     });
     if(conf_run_screen_shot){
         console.log('conf_run_screen_shot :: Start');
@@ -93,11 +95,29 @@ describe('Screenshot', () => {
                 });
             }
         }
+        if(dataFromJson.runMetaVerification==true){
+            it('Kraken Meta Verification',()=>{
+                console.log('Meta Verification :: Start');
+                cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp]);
+                console.log('Meta Verification :: End');
+            });
+        }
         //report json for screenshot with tcid+article name + url
         it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
             cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
         });
         console.log('conf_run_screen_shot :: End');
+    }
+    if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
+        it('Kraken Meta Verification',()=>{
+            console.log('Meta Verification :: Start');
+            listMarkets.forEach(element=>{
+                cy.visit(element[1]);
+                cy.wait(6000);
+                cy.metaVerification(dataFromJson.metaInfo.split('],[')[listMarkets.indexOf(element)]);
+            });
+            console.log('Meta Verification :: End');
+        });
     }
     if(confGetStatusCodeReport){
         it('Kraken | Get Status Code report '+reportId+'',()=>{
