@@ -1,7 +1,7 @@
 {
-    "runPageSpeed":false,
+    "runPageSpeed":true,
     "runScreenShot":false,
-    "runMetaVerification":true,
+    "runMetaVerification":false,
     "openNavMenu":"0",
     "closeBanner":false,
     "verifySitemapXML":false,
@@ -9,7 +9,7 @@
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":"[usTest-01/*/https://www.pampers.com/en-us/about-us/quality-and-safety/article/materials-and-safety]",
-    "pageSpeed":"",
+    "urls":"",
+    "pageSpeed":"[usTest-01/*/https://www.pampers.com/en-us/about-us/quality-and-safety/article/materials-and-safety]",
     "metaInfo":"[title:=Materials and Safety | Pampers;description:=What are Pampers diapers made of? Read more about the materials used in our products to ensure optimal protection and safety for your baby.;h1:=Materials and Safety;canonical:=https://www.pampers.com/en-us/about-us/quality-and-safety/article/materials-and-safety;breadcrumbs:=Home>About Us>Quality and Safety>Materials and Safety]"
 }

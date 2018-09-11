@@ -45,7 +45,7 @@ describe('Screenshot', () => {
                 ,'CloseBanner','VerifySitemapXML'
                 ,'Download SitemapXML','Device'
                 ,'Run Meta Verification']
-            ,['RUN',dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
+            ,['RUN-'+reportId,dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
                 ,dataFromJson.runPageSpeed,dataFromJson.runScreenShot,dataFromJson.openNavMenu
                 ,dataFromJson.closeBanner,dataFromJson.verifySitemapXML
                 ,dataFromJson.downloadSitemapXML,dataFromJson.device

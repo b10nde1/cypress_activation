@@ -10,7 +10,7 @@ const getDisplayNameItem=(argUrl: string)=>{
     }
 };
 
-Cypress.Commands.add('reportForGoogPageSpeed',(argData,argReportId)=>{
+Cypress.Commands.add('reportForGoogPageSpeed',(argData: Array,argReportId: Date)=>{
     try{
         cy.interfaceGooglePageSpeed('Google Page Speed',argData,argReportId);
     }

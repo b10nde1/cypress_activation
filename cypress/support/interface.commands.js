@@ -1,4 +1,4 @@
-const writeFile=(argFileTitle,argReportId,argFileExt,argData,argCol1,argCol2)=>{
+const writeFile=(argFileTitle: string,argReportId: Date,argFileExt: string,argData: Array,argCol1: string,argCol2: string)=>{
     try{
         let col=null;
         if(argCol1!=null && argCol2!=null)col=[argCol1,argCol2];
@@ -170,7 +170,7 @@ const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
     }
 }
 
-Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>{
+Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array,argReportId: Date)=>{
     try{
         let extract_data_section=new Array(argData.length);
         argData.forEach(element => {
