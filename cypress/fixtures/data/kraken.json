@@ -1,7 +1,7 @@
 {
-    "runPageSpeed":true,
+    "runPageSpeed":false,
     "runScreenShot":false,
-    "runMetaVerification":false,
+    "runMetaVerification":true,
     "openNavMenu":"0",
     "closeBanner":false,
     "verifySitemapXML":false,
@@ -9,7 +9,7 @@
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":"[fr-01/*/https://www.pampers.fr/grossesse/annonce-de-grossesse/article/idees-pour-devoiler-le-sexe-un-garcon]",
+    "urls":"[usTest-01/*/https://www.pampers.com/en-us/about-us/quality-and-safety/article/materials-and-safety]",
     "pageSpeed":"",
-    "metaInfo":"[title:=Idées pour annoncer que vous attendez un petit garçon | Pampers FR;description:=Annoncer le prénom de votre petit garçon: nos idées en matière d’annonce du sexe ont été écrites par des parents expérimentés.;h1:=Idées pour dévoiler le sexe : un garçon;canonical:=https://www.pampers.fr/grossesse/annonce-de-grossesse/article/idees-pour-devoiler-le-sexe-un-garcon;breadcrumbs:=Accueil>Grossesse>Annonce de grossesse>Idées pour dévoiler le sexe : un garçon]"
+    "metaInfo":"[title:=Materials and Safety | Pampers;description:=What are Pampers diapers made of? Read more about the materials used in our products to ensure optimal protection and safety for your baby.;h1:=Materials and Safety;canonical:=https://www.pampers.com/en-us/about-us/quality-and-safety/article/materials-and-safety;breadcrumbs:=Home>About Us>Quality and Safety>Materials and Safety]"
 }

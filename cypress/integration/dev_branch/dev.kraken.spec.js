@@ -97,9 +97,7 @@ describe('Screenshot', () => {
         }
         if(dataFromJson.runMetaVerification==true){
             it('Kraken Meta Verification',()=>{
-                console.log('Meta Verification :: Start');
                 cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp]);
-                console.log('Meta Verification :: End');
             });
         }
         //report json for screenshot with tcid+article name + url
@@ -110,13 +108,12 @@ describe('Screenshot', () => {
     }
     if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
         it('Kraken Meta Verification',()=>{
-            console.log('Meta Verification :: Start');
-            listMarkets.forEach(element=>{
-                cy.visit(element[1]);
+            console.log('Meta Verification :: Start -screenshot');
+            for(var compt=0;compt<listMarkets.length;compt++){
+                cy.visit(listMarkets[compt][1]);
                 cy.wait(6000);
-                cy.metaVerification(dataFromJson.metaInfo.split('],[')[listMarkets.indexOf(element)]);
-            });
-            console.log('Meta Verification :: End');
+                cy.metaVerification(dataFromJson.metaInfo.split('],[')[compt]);
+            }
         });
     }
     if(confGetStatusCodeReport){
