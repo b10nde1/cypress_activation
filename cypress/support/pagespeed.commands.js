@@ -59,11 +59,13 @@ Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
                         .ruleGroups
                         .SPEED
                         .score;
+                    cy.checkUtilProgress('PageSpeed',final_list_urls.length,(final_list_urls.indexOf(final_url_element)+1));
                 };
                 request.send();
             })
         });
         pageSpeedReport(result);
+        console.log('conf_run_page_speed :: End');
     }
     catch(ex){
         cy.checkUtilConsole(['pagespeed -> pageSpeed'],[ex]);

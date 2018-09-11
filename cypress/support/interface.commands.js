@@ -147,7 +147,7 @@ const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
                         +listBalise[6]+argTitle+listBalise[7]/*title*/
                         +listBalise[8]/*style*/
                         +'body{margin:auto;width:80%;padding:10px;}'
-                        +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 200px;text-align: center;border-collapse: collapse;}'
+                        +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 100px;text-align: center;border-collapse: collapse;}'
                         +'table.tableCss td, table.tableCss th {border: 1px solid #FFFFFF;}'
                         +'table.tableCss tbody td {font-size: 14px;}'
                         +'table.tableCss tr:nth-child(even) {background: #D0E4F5;}'

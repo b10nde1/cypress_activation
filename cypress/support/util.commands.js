@@ -10,6 +10,16 @@ Cypress.Commands.add('checkUtilConsole',(argText,argValue)=>{
     }
 });
 
+Cypress.Commands.add('checkUtilProgress',(argModule,argTotalElement,argActualElement)=>{
+    try{
+        let loaded=((argActualElement*100)/argTotalElement);
+        cy.checkUtilConsole([''+argModule+' Completed'],[loaded]);
+    }
+    catch(ex){
+        cy.checkUtilConsole(['util.commands checkUtilProgress'],[ex]);
+    }
+});
+
 const setCookie=(argCookieName, argCookieValue, argExDays)=>{
     try{
         let dateCookie = new Date();
