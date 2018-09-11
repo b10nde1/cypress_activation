@@ -7,7 +7,7 @@ const writeFile=(argFileTitle: string,argReportId: Date,argFileExt: string,argDa
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> writeFile'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> writeFile'],[ex]);
     }
 }
 
@@ -24,7 +24,7 @@ const getBaliseOption=(argOption: Array)=>{
         return option;
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> getBaliseOption'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> getBaliseOption'],[ex]);
     }
 }
 
@@ -65,7 +65,7 @@ const createBalise=(argListBalise: Array,argOption: Array,argMultipleOption: boo
         throw('interface commands -> createBalise : ERROR NO RESULT');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> closeBalise'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> closeBalise'],[ex]);
     }
 }
 
@@ -97,7 +97,7 @@ const createTable=(argTableTitle: string,argBody: Array,argCol1: string,argCol2:
         return table+'</tbody></table></div>';
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> createTable'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> createTable'],[ex]);
     }
 }
 
@@ -127,7 +127,7 @@ const copyElement=()=>{
         +'}';
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> copyElement'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> copyElement'],[ex]);
     }
 }
 
@@ -166,7 +166,7 @@ const createHtml=(argTitle: string,argBody: Array,argCss: string,argJs: string,a
                 +listBalise[1];
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> createHtml'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> createHtml'],[ex]);
     }
 }
 
@@ -181,7 +181,7 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array
         writeFile(argTitle,argReportId,'html',extract_data_section,'Page','Desktop || Mobile');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceGooglePageSpeed'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceGooglePageSpeed'],[ex]);
     }
 });
 
@@ -203,7 +203,7 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle: string,argReportId: 
         writeFile(argTitle,argReportId,'html',extractDataSection,'','');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceStatusCodeReport'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceStatusCodeReport'],[ex]);
     }
 });
 
@@ -217,7 +217,7 @@ Cypress.Commands.add('interfaceScreenShotReport',(argModule: string,argReportId:
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceScreenShotReport'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceScreenShotReport'],[ex]);
     }
 });
 
@@ -235,6 +235,6 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule: string,argReportId: Da
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceSitemapReport'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceSitemapReport'],[ex]);
     }
 });

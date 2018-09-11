@@ -1,4 +1,4 @@
-Cypress.Commands.add('checkUtilConsole',(argText,argValue)=>{
+Cypress.Commands.add('checkUtilConsole',(argText: string,argValue)=>{
     try{
         for(var compt=0;compt<argText.length;compt++){
             if(argValue)console.log(argText[compt]+' :: '+argValue[compt])
@@ -10,17 +10,17 @@ Cypress.Commands.add('checkUtilConsole',(argText,argValue)=>{
     }
 });
 
-Cypress.Commands.add('checkUtilProgress',(argModule,argTotalElement,argActualElement)=>{
+Cypress.Commands.add('checkUtilProgress',(argModule: string,argTotalElement: Int32Array,argActualElement: Int32Array)=>{
     try{
         let loaded=((argActualElement*100)/argTotalElement);
-        cy.checkUtilConsole([''+argModule+' Completed'],[loaded]);
+        cy.checkUtilConsole(['util.commands => '+argModule+' Completed'],[loaded]);
     }
     catch(ex){
-        cy.checkUtilConsole(['util.commands checkUtilProgress'],[ex]);
+        cy.checkUtilConsole(['util.commands => util.commands checkUtilProgress'],[ex]);
     }
 });
 
-const setCookie=(argCookieName, argCookieValue, argExDays)=>{
+const setCookie=(argCookieName: string, argCookieValue: string, argExDays)=>{
     try{
         let dateCookie = new Date();
         dateCookie.setTime(dateCookie.getTime()+(argExDays*24*60*60*1000));
@@ -32,15 +32,15 @@ const setCookie=(argCookieName, argCookieValue, argExDays)=>{
     }
 }
 
-const getCookie=(argCookieName)=>{
+const getCookie=(argCookieName: string)=>{
     try{
         let name = argCookieName + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
-        cy.checkUtilConsole(['getCookie value decoded cookie'],[decodedCookie]);
+        cy.checkUtilConsole(['util.commands => getCookie value decoded cookie'],[decodedCookie]);
         let decodedCkieSplt = decodedCookie.split(';');
-        cy.checkUtilConsole(['getCookie value decoded cookie split'],[decodedCkieSplt[0]]);
-        cy.checkUtilConsole(['getCookie value decoded cookie split charAt'],[decodedCkieSplt[0].charAt(0)]);
-        cy.checkUtilConsole(['getCookie value decoded cookie split substring'],[decodedCkieSplt[0].substring(1)]);
+        cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split'],[decodedCkieSplt[0]]);
+        cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split charAt'],[decodedCkieSplt[0].charAt(0)]);
+        cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split substring'],[decodedCkieSplt[0].substring(1)]);
         for(var compt=0; compt<decodedCkieSplt.length; compt++) {
             var temp = decodedCkieSplt[compt];
             while (temp.charAt(0) == ' ') {
@@ -67,17 +67,17 @@ const checkCookie=(argExDays)=>{
     }
 };
 
-const saveRequestInCookie=(argCookieName,argCookieValue)=>{
+const saveRequestInCookie=(argCookieName: string,argCookieValue: string)=>{
     try{
-        cy.checkUtilConsole(['Check cookie exist'],[checkCookie(argCookieName)]);
+        cy.checkUtilConsole(['util.commands => Check cookie exist'],[checkCookie(argCookieName)]);
         if(checkCookie(argCookieName)){
-            cy.checkUtilConsole(['saveRequestInCookie add cookie']);
+            cy.checkUtilConsole(['util.commands => saveRequestInCookie add cookie']);
             let tempCookieValue=getCookie(argCookieName);
             tempCookieValue+=argCookieValue;
             setCookie(argCookieName,tempCookieValue,1);
         }
         else{
-            cy.checkUtilConsole(['saveRequestInCookie create cookie']);
+            cy.checkUtilConsole(['util.commands => saveRequestInCookie create cookie']);
             setCookie(argCookieName,argCookieValue,1);
         }
     }
@@ -86,23 +86,24 @@ const saveRequestInCookie=(argCookieName,argCookieValue)=>{
     }
 }
 
-Cypress.Commands.add('checkUtilGetReport',(argModule,argReportId,argData,argSeparator1,argSeparator2)=>{
-    try{
-        let temp='';
-        let splitOperator=argSeparator2+argSeparator1;
-        let dataSplited=argData.split(splitOperator);
-        for(var compt=0;compt<dataSplited.length;compt++){
-            let tempValue=dataSplited[compt];
-            temp+=''+tempValue+'\n';
+Cypress.Commands.add('checkUtilGetReport',(
+    argModule: string,argReportId: Date,argData: Array,argSeparator1: string,argSeparator2: string)=>{
+        try{
+            let temp='';
+            let splitOperator=argSeparator2+argSeparator1;
+            let dataSplited=argData.split(splitOperator);
+            for(var compt=0;compt<dataSplited.length;compt++){
+                let tempValue=dataSplited[compt];
+                temp+=''+tempValue+'\n';
+            }
+            cy.writeFile('cypress/report/'+argModule+'/report-'+argModule+'Id'+argReportId+'.json','{'+temp+'}');
         }
-        cy.writeFile('cypress/report/'+argModule+'/report-'+argModule+'Id'+argReportId+'.json','{'+temp+'}');
-    }
-    catch(ex){
-        console.log('checkUtilGetReport ::'+ex);
-    }
+        catch(ex){
+            console.log('checkUtilGetReport ::'+ex);
+        }
 });
 
-Cypress.Commands.add('checkUtilGetCookieReport',(argCookieName,argReportId)=>{
+Cypress.Commands.add('checkUtilGetCookieReport',(argCookieName: string,argReportId: Date)=>{
     try{
         let dataFromCookie=getCookie(argCookieName);
         cy.checkUtilGetReport('kraken-statusCode',argReportId,dataFromCookie,'[',']');
@@ -112,7 +113,7 @@ Cypress.Commands.add('checkUtilGetCookieReport',(argCookieName,argReportId)=>{
     }
 });
 
-const utilSendRequest =(argUrl)=>{
+const utilSendRequest=(argUrl: string)=>{
     try{
         let request=new XMLHttpRequest();
         request.open('GET',argUrl,false);
@@ -124,7 +125,7 @@ const utilSendRequest =(argUrl)=>{
     }
 };
 
-const utilStatusCode =(argUrl)=>{
+const utilStatusCode =(argUrl: string)=>{
     try{
         let request=utilSendRequest(argUrl);
         let typeOfArgUrl=typeof request;
@@ -135,21 +136,21 @@ const utilStatusCode =(argUrl)=>{
         return false;
     }
     catch(ex){
-        cy.checkUtilConsole(['utilStatusCode'],[ex]);
+        cy.checkUtilConsole(['util.commands => utilStatusCode'],[ex]);
     }
 };
 
-const openWaitAndTakeScreenShot=(argUrl)=>{
+const openWaitAndTakeScreenShot=(argUrl: string)=>{
     try{
         cy.visit(argUrl);
         cy.wait(6000);
     }
     catch(ex){
-        cy.checkUtilConsole(['openWaitAndTakeScreenShot'],[ex]);
+        cy.checkUtilConsole(['util.commands => openWaitAndTakeScreenShot'],[ex]);
     }
 }
 
-Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argOnlyStatus200)=>{
+Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl: string,argOnlyStatus200: boolean)=>{
     try{
         if(argOnlyStatus200){
             if(utilStatusCode(argUrl)){
@@ -162,16 +163,16 @@ Cypress.Commands.add('checkUtilTakeScreenShotIfNotErrorPage',(argUrl,argOnlyStat
         console.log('checkUtilTakeScreenShotIfNotErrorPage ::'+ex);
     }
 });
-Cypress.Commands.add('checkUtilCloseCookieBanner',(argBannerCloseIcon)=>{
+Cypress.Commands.add('checkUtilCloseCookieBanner',(argBannerCloseIcon: string)=>{
     try{
         cy.get(argBannerCloseIcon).click({force:true});
     }
     catch(ex){
-        cy.checkUtilConsole(['checkUtilCloseCookieBanner'],[ex]);
+        cy.checkUtilConsole(['util.commands => checkUtilCloseCookieBanner'],[ex]);
     }
 });
 
-Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl,argTestTitle)=>{
+Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl: string,argTestTitle: string)=>{
     try{
         console.log('checkUtilDownloadSitemapXML');
         let baseUrl=argSiteMapUrl;
@@ -192,16 +193,16 @@ Cypress.Commands.add('checkUtilDownloadSitemapXML',(argSiteMapUrl,argTestTitle)=
     }
 });
 //fonction get indicatif domaine
-const getIndicMarket=(argUrls)=>{
+const getIndicMarket=(argUrls: string)=>{
     try{
         return argUrls.split('/')[2];
     }
     catch(ex){
-        cy.checkUtilConsole(['getIndicMarket'],[ex]);
+        cy.checkUtilConsole(['util.commands => getIndicMarket'],[ex]);
     }
 }
 
-const utilGetNumberOfMarket=(argListOfUrls)=>{
+const utilGetNumberOfMarket=(argListOfUrls: Array)=>{
     try{
         let lengthIdMarket=1;
         for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
@@ -219,11 +220,11 @@ const utilGetNumberOfMarket=(argListOfUrls)=>{
         return lengthIdMarket;
     }
     catch(ex){
-
+        cy.checkUtilConsole(['util.commands => utilGetNumberOfMarket'],[ex]);
     }
 }
 
-const utilSplitMarket=(argListOfUrls)=>{
+const utilSplitMarket=(argListOfUrls: Array)=>{
     try{
         let listMarket= new Array (utilGetNumberOfMarket(argListOfUrls));let comptListMarket=1;
         for(var comptFix=0;comptFix<argListOfUrls.length;comptFix++){
@@ -245,7 +246,7 @@ const utilSplitMarket=(argListOfUrls)=>{
                 }
             }
         }
-        cy.checkUtilConsole(['utilSplitMarket listMarket'],[listMarket]);
+        cy.checkUtilConsole(['util.commands => utilSplitMarket listMarket'],[listMarket]);
         let result=new Array(listMarket.length);let comptResult=0;
         for(var compt=0;compt<result.length;compt++){
             result[compt]=[];
@@ -257,18 +258,18 @@ const utilSplitMarket=(argListOfUrls)=>{
             }
             comptResult=0;
         }
-        cy.checkUtilConsole(['utilSplitMarket result'],[result]);
+        cy.checkUtilConsole(['util.commands => utilSplitMarket result'],[result]);
         return result;
     }
     catch(ex){
-        cy.checkUtilConsole(['utilSplitMarket'],[ex]);
+        cy.checkUtilConsole(['util.commands => utilSplitMarket'],[ex]);
     }
 }
 
 //cette fonction verifie si la list provient du meme market ou pas
-const getListOfSiteMap=(argListOfUrls)=>{
+const getListOfSiteMap=(argListOfUrls [])=>{
     try{
-        cy.checkUtilConsole(['getListOfSiteMap'],['Start']);
+        cy.checkUtilConsole(['util.commands => getListOfSiteMap'],['Start']);
         let tableOfMarket=utilSplitMarket(argListOfUrls);
         for(var comptLv1=0;comptLv1<tableOfMarket.length;comptLv1++){
             for(var comptLv2=0;comptLv2<tableOfMarket[comptLv1].length;comptLv2++){
@@ -278,15 +279,15 @@ const getListOfSiteMap=(argListOfUrls)=>{
                 tableOfMarket[comptLv1][comptLv2][1]=temp;
             }
         }
-        cy.checkUtilConsole(['getListOfSiteMap'],['END']);
+        cy.checkUtilConsole(['util.commands => getListOfSiteMap'],['END']);
         return tableOfMarket;
     }
     catch(ex){
-        cy.checkUtilConsole(['getListOfSiteMap'],[ex]);
+        cy.checkUtilConsole(['util.commands => getListOfSiteMap'],[ex]);
     }
 }
 //Cette fonction verifie les urls pour chaque sitemap.xml
-Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReportId)=>{
+Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets: Array,argReportId: Date)=>{
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
         for(var compt=0;compt<tempListOfSiteMap.length;compt++){
@@ -294,11 +295,11 @@ Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets,argReport
         }
     }
     catch(ex){
-        cy.checkUtilConsole(['checkUtilVerifyUrlsInSitemapXML'],[ex]);
+        cy.checkUtilConsole(['util.commands => checkUtilVerifyUrlsInSitemapXML'],[ex]);
     }
 });
 //Cette fonction telecharge la liste de sitemap.xml
-Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets)=>{
+Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets: Array)=>{
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
         for(var compt=0;compt<tempListOfSiteMap.length;compt++){
@@ -306,17 +307,17 @@ Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets)=>{
         }
     }
     catch(ex){
-        cy.checkUtilConsole(['checkUtilDownloadMultipleSitemapXML'],[ex]);
+        cy.checkUtilConsole(['util.commands => checkUtilDownloadMultipleSitemapXML'],[ex]);
     }
 });
 //fonction pour ouvrir un element du NavMenu
-Cypress.Commands.add('checkUtilOpenNavMenu',(argIdNavMenu)=>{
+Cypress.Commands.add('checkUtilOpenNavMenu',(argIdNavMenu: Int16Array)=>{
     try{
         cy.get('#phmainbodytop_0_ctl01_NavigationHeader > div > div.menu__option__container.js-menu-content-oasis > ul > li:nth-child('+argIdNavMenu+') > div')
             .invoke('attr','class','menu__option__content collapse js-menu-content in')
             .should('have.attr','class','menu__option__content collapse js-menu-content in');
     }
     catch(ex){
-        cy.checkUtilConsole(['checkUtilOpenNavMenu'],[ex]);
+        cy.checkUtilConsole(['util.commands => checkUtilOpenNavMenu'],[ex]);
     }
 });
