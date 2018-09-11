@@ -207,7 +207,7 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
     }
 });
 
-Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)=>{
+Cypress.Commands.add('interfaceScreenShotReport',(argModule: string,argReportId: Date,argData: Array)=>{
     try{
         let extractData=new Array(argData.length);
         for(var compt=0;compt<argData.length;compt++){
