@@ -1,5 +1,5 @@
 //Object Meta
-const objMeta=(temp_title: string,temp_description,temp_h1,temp_canonical,temp_breadcrumbs)=>{
+const objMeta=(temp_title: string,temp_description: string,temp_h1: string,temp_canonical: string,temp_breadcrumbs: string)=>{
     let temp_obj={
         title:temp_title
         ,description:temp_description
@@ -11,7 +11,7 @@ const objMeta=(temp_title: string,temp_description,temp_h1,temp_canonical,temp_b
 };
 
 //Page Title
-Cypress.Commands.add('metaPageTitle',(arg_title)=>{
+Cypress.Commands.add('metaPageTitle',(arg_title: string)=>{
     try{
         console.log('metaPageTitle');
         cy.title().should('include',arg_title);
@@ -22,7 +22,7 @@ Cypress.Commands.add('metaPageTitle',(arg_title)=>{
 });
 
 //Meta description
-Cypress.Commands.add('metaDescription',(arg_description)=>{
+Cypress.Commands.add('metaDescription',(arg_description: string)=>{
     try{
         console.log('metaDescription');
         cy.get('head meta[property="og:description"]').should('have.attr','content',arg_description);
@@ -56,7 +56,7 @@ const changeSpecialCharInHtml=(arg_text: string)=>{
 }
 
 //H1 //*[@id="phmaincontentoasis_0_pharticleoasiscontent_0_ArticleSection"]/div[2]/h1
-Cypress.Commands.add('metaH1',(arg_h1)=>{
+Cypress.Commands.add('metaH1',(arg_h1: string)=>{
     try{
         console.log('metaH1');
         cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_ArticleSection > div.article-oasis__hero > h1').contains(changeSpecialCharInHtml(arg_h1));
@@ -67,7 +67,7 @@ Cypress.Commands.add('metaH1',(arg_h1)=>{
 });
 
 //canonical
-Cypress.Commands.add('metaCanonical',(arg_canonical)=>{
+Cypress.Commands.add('metaCanonical',(arg_canonical: string)=>{
     try{
         console.log('metaCanonical');
         cy.get('head link[rel="canonical"]').should('have.attr','href',arg_canonical);
@@ -78,7 +78,7 @@ Cypress.Commands.add('metaCanonical',(arg_canonical)=>{
 });
 
 // Breadcrumbs
-Cypress.Commands.add('metaBreadcrumbs',(arg_breadcrumbs)=>{
+Cypress.Commands.add('metaBreadcrumbs',(arg_breadcrumbs: string)=>{
     try{
         console.log('metaBreadcrumbs');
         let breadcrumbs=arg_breadcrumbs.split('>');
@@ -92,7 +92,7 @@ Cypress.Commands.add('metaBreadcrumbs',(arg_breadcrumbs)=>{
 });
 
 //align data from json
-const getDataFromJson=(arg_list_after_split)=>{
+const getDataFromJson=(arg_list_after_split: string)=>{
     try{
         console.log('getDataFromJson');
         let element_after_split=arg_list_after_split.split('],[');
@@ -113,7 +113,7 @@ const getDataFromJson=(arg_list_after_split)=>{
 }
 
 //verify obj
-const verifyMeta=(arg_obj)=>{
+const verifyMeta=(arg_obj: objMeta)=>{
     try{
         console.log('verifyMeta');
         cy.metaPageTitle(arg_obj.title);
@@ -128,7 +128,7 @@ const verifyMeta=(arg_obj)=>{
 };
 
 //run meta verification
-Cypress.Commands.add('metaVerification',(arg_list)=>{
+Cypress.Commands.add('metaVerification',(arg_list: string)=>{
     try{
         console.log('metaVerification');
         let get_data=getDataFromJson(arg_list);

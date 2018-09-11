@@ -12,7 +12,7 @@ const initListEncodedChar=(argListCode)=>{
     }
 }
 
-const pageSpeedReport=(argPageSpeedResult)=>{
+const pageSpeedReport=(argPageSpeedResult: Array)=>{
     try{
         let report_id=new Date();
         cy.reportForGoogPageSpeed(argPageSpeedResult,report_id.getTime());
@@ -22,7 +22,7 @@ const pageSpeedReport=(argPageSpeedResult)=>{
     }
 }
 
-Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
+Cypress.Commands.add('pageSpeed',(arglistUrls: Array)=>{
     try{
         /***Encode List of Urls***/
         let final_list_urls=new Array(arglistUrls.length);let compt_final_list_urls=0;

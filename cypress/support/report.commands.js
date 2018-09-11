@@ -1,4 +1,4 @@
-const getDisplayNameItem=(argUrl)=>{
+const getDisplayNameItem=(argUrl: string)=>{
     try{
         let urlSplit=argUrl.split('/');
         let displayNameWithDash=urlSplit[(urlSplit.length-1)];
