@@ -11,7 +11,7 @@ const writeFile=(argFileTitle: string,argReportId: Date,argFileExt: string,argDa
     }
 }
 
-const getBaliseOption=(argOption)=>{
+const getBaliseOption=(argOption: Array)=>{
     try{
         //for option ->
         //[0] = open or close '/' if close
@@ -32,7 +32,7 @@ const getBaliseOption=(argOption)=>{
 //['div','p','p','div']+[['','class','test'],['','',''],['/','',''],['/','','']]+true+false => ['<div class="test">','<p>','</p>','</div>']
 //['div']+['','','']+false+true => <div></div>
 //['div']+['','','']+false+false => ['<div>','</div>']
-const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
+const createBalise=(argListBalise: Array,argOption: Array,argMultipleOption: boolean,argAligned: boolean)=>{
     try{
         let option=null;let resultAligned='';let resultNotAligned=new Array(argListBalise.length);
         //case argMultipleOption true
@@ -70,7 +70,7 @@ const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
 }
 
 //argBody[0]=col1Value, [1]=col2Value, if [2]!=null [2]=href for col2Value else href=[1]
-const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
+const createTable=(argTableTitle: string,argBody: Array,argCol1: string,argCol2: string)=>{
     try{
         let col1=argCol1;let col2=argCol2;
         if(argCol1==null)col1='Col-1-'+argTableTitle+''
@@ -132,7 +132,7 @@ const copyElement=()=>{
 }
 
 //creation du html
-const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
+const createHtml=(argTitle: string,argBody: Array,argCss: string,argJs: string,argCol: Array)=>{
     try{
         let listBalise=createBalise(
             ['html','html','head','head','body','body','title','title','style','style','script','script']
@@ -185,7 +185,7 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array
     }
 });
 
-Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeaderSection,argDataSection)=>{
+Cypress.Commands.add('interfaceStatusCodeReport',(argTitle: string,argReportId: Date,argHeaderSection: Array,argDataSection: Array)=>{
     try{
         let extractHeaderSection='';let extractDataSection=new Array(argDataSection.length);
         for(var compt=0;compt<argDataSection.length;compt++){
@@ -221,7 +221,7 @@ Cypress.Commands.add('interfaceScreenShotReport',(argModule: string,argReportId:
     }
 });
 
-Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
+Cypress.Commands.add('interfaceSitemapReport',(argModule: string,argReportId: Date,argData: Array)=>{
     try{
         let extractData=new Array(argData.length);
         for(var compt=0;compt<argData.length;compt++){
