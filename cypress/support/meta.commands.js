@@ -1,3 +1,15 @@
+//Object Meta
+const objMeta=(temp_title: string,temp_description,temp_h1,temp_canonical,temp_breadcrumbs)=>{
+    let temp_obj={
+        title:temp_title
+        ,description:temp_description
+        ,h1:temp_h1
+        ,canonical:temp_canonical
+        ,breadcrumbs:temp_breadcrumbs
+    };
+    return temp_obj;
+};
+
 //Page Title
 Cypress.Commands.add('metaPageTitle',(arg_title)=>{
     try{
@@ -20,11 +32,34 @@ Cypress.Commands.add('metaDescription',(arg_description)=>{
     }
 })
 
+//init special char
+const initSpecialChar=()=>{
+    let result=[
+        [':','&nbsp;:']
+        ,[';','&nbsp;;']
+    ];
+    return result;
+}
+
+//&nbsp;: and &nbsp;; for special character on html
+const changeSpecialCharInHtml=(arg_text: string)=>{
+    try{
+        let list_special_char=initSpecialChar();
+        list_special_char.forEach(element=>{
+            arg_text.replace(element[0],element[1]);
+        });
+        return arg_text;
+    }
+    catch(ex){
+        cy.checkUtilConsole(['meta.commands => changeSpecialCharInHtml'],[ex]);
+    }
+}
+
 //H1 //*[@id="phmaincontentoasis_0_pharticleoasiscontent_0_ArticleSection"]/div[2]/h1
 Cypress.Commands.add('metaH1',(arg_h1)=>{
     try{
         console.log('metaH1');
-        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_ArticleSection > div.article-oasis__hero > h1').contains(arg_h1);
+        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_ArticleSection > div.article-oasis__hero > h1').contains(changeSpecialCharInHtml(arg_h1));
     }
     catch(ex){
         cy.checkUtilConsole(['meta.commands => metaH1'],[ex]);
@@ -47,9 +82,9 @@ Cypress.Commands.add('metaBreadcrumbs',(arg_breadcrumbs)=>{
     try{
         console.log('metaBreadcrumbs');
         let breadcrumbs=arg_breadcrumbs.split('>');
-        /*breadcrumbs.forEach(element=>{
-            cy.get('.c-breadcrumb__list').contains(element);
-        });*/
+        breadcrumbs.forEach(element=>{
+            cy.get('.c-breadcrumb__list').contains(changeSpecialCharInHtml(element));
+        });
     }
     catch(ex){
         cy.checkUtilConsole(['meta.commands => metaBreadcrumbs'],[ex]);
@@ -61,19 +96,15 @@ const getDataFromJson=(arg_list_after_split)=>{
     try{
         console.log('getDataFromJson');
         let element_after_split=arg_list_after_split.split('],[');
-        //****************************************************************************
-        //BUG element_after_split.split() is not a function!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        console.log('BUG '+element_after_split);
         let result=new Array(element_after_split.length);
         for(var compt=0;compt<result.length;compt++){
             result[compt]=new Array(5);
             for(var comptInsert=0;comptInsert<5;comptInsert++){
-                result[compt][comptInsert]=element_after_split.split(';');
+                result[compt][comptInsert]=element_after_split[compt].split(';')[comptInsert];
                 result[compt][comptInsert]=result[compt][comptInsert].replace("[","");
                 result[compt][comptInsert]=result[compt][comptInsert].replace("]","");
             }
         }
-        //****************************************************************************
         return result;
     }
     catch(ex){
@@ -115,13 +146,7 @@ Cypress.Commands.add('metaVerification',(arg_list)=>{
                 if(temp_indicator=='canonical')temp_canonical=element_after_split[1]
                 if(temp_indicator=='breadcrumbs')temp_breadcrumbs=element_after_split[1]
             }
-            let temp_obj={
-                title:temp_title
-                ,description:temp_description
-                ,h1:temp_h1
-                ,canonical:temp_canonical
-                ,breadcrumbs:temp_breadcrumbs
-            };
+            let temp_obj=objMeta(temp_title,temp_description,temp_h1,temp_canonical,temp_breadcrumbs);
             verifyMeta(temp_obj);
         }
     }
