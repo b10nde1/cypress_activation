@@ -30,7 +30,6 @@ describe('Screenshot', () => {
     let conf_run_page_speed=dataFromJson.runPageSpeed;
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
-    let confOnlyStatus200=dataFromJson.onlyStatus200;
     let confVerifySitemapXML=dataFromJson.verifySitemapXML;
     let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
     let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
@@ -40,9 +39,20 @@ describe('Screenshot', () => {
             return false
         })
         //hide css of _evidon_banner
-        cy.checkUtilConsole(['Kraken','Check only status 200','Get Status code report'],['RUN',confOnlyStatus200,confGetStatusCodeReport]);
+        cy.checkUtilConsole(
+            ['Kraken','Status 200','Status Code report'
+                ,'PageSpeed','ScreenShot','OpenNavMenu'
+                ,'CloseBanner','VerifySitemapXML'
+                ,'Download SitemapXML','Device'
+                ,'Run Meta Verification']
+            ,['RUN',dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
+                ,dataFromJson.runPageSpeed,dataFromJson.runScreenShot,dataFromJson.openNavMenu
+                ,dataFromJson.closeBanner,dataFromJson.verifySitemapXML
+                ,dataFromJson.downloadSitemapXML,dataFromJson.device
+                ,dataFromJson.runMetaVerification]);
     });
     if(conf_run_screen_shot){
+        console.log('conf_run_screen_shot :: Start');
         for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
             let confWidth=Number(confDevice[comptDevice][0]);
             let confHeight=Number(confDevice[comptDevice][1]);
@@ -85,31 +95,55 @@ describe('Screenshot', () => {
                 });
             }
         }
+        if(dataFromJson.runMetaVerification==true){
+            it('Kraken Meta Verification',()=>{
+                cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp]);
+            });
+        }
         //report json for screenshot with tcid+article name + url
         it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
             cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
         });
+        console.log('conf_run_screen_shot :: End');
+    }
+    if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
+        it('Kraken Meta Verification',()=>{
+            console.log('Meta Verification :: Start -screenshot');
+            for(var compt=0;compt<listMarkets.length;compt++){
+                cy.visit(listMarkets[compt][1]);
+                cy.wait(6000);
+                cy.metaVerification(dataFromJson.metaInfo.split('],[')[compt]);
+            }
+        });
     }
     if(confGetStatusCodeReport){
         it('Kraken | Get Status Code report '+reportId+'',()=>{
+            console.log('confGetStatusCodeReport :: Start');
             cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
+            console.log('confGetStatusCodeReport :: End');
         })
     }
     //check if list of new article are present in sitemap.xml
     if(confVerifySitemapXML){
         it('Kraken | Verify sitemap.xml',()=>{
+            console.log('confVerifySitemapXML :: Start');
             cy.checkUtilVerifyUrlsInSitemapXML(listMarkets,reportId);
+            console.log('confVerifySitemapXML :: End');
         });
     }
     //download sitemap.xml
     if(confDownloadSitemapXML){
         it('Kraken | Download Sitemap.xml',()=>{
+            console.log('confDownloadSitemapXML :: Start');
            cy.checkUtilDownloadMultipleSitemapXML(listMarkets);
+           console.log('confDownloadSitemapXML :: End');
         });
     }
     if(conf_run_page_speed){
         it('Kraken | Run Google Page Speed',()=>{
+            console.log('conf_run_page_speed :: Start');
             cy.pageSpeed(data_page_speed);
+            console.log('conf_run_page_speed :: End');
         });
     }
 })
