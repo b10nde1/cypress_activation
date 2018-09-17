@@ -267,7 +267,7 @@ const utilSplitMarket=(argListOfUrls: Array)=>{
 }
 
 //cette fonction verifie si la list provient du meme market ou pas
-const getListOfSiteMap=(argListOfUrls [])=>{
+const getListOfSiteMap=(argListOfUrls: Array)=>{
     try{
         cy.checkUtilConsole(['util.commands => getListOfSiteMap'],['Start']);
         let tableOfMarket=utilSplitMarket(argListOfUrls);
