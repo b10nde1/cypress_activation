@@ -1,4 +1,4 @@
-const getDisplayNameItem=(argUrl)=>{
+const getDisplayNameItem=(argUrl: string)=>{
     try{
         let urlSplit=argUrl.split('/');
         let displayNameWithDash=urlSplit[(urlSplit.length-1)];
@@ -10,7 +10,7 @@ const getDisplayNameItem=(argUrl)=>{
     }
 };
 
-Cypress.Commands.add('reportForGoogPageSpeed',(argData,argReportId)=>{
+Cypress.Commands.add('reportForGoogPageSpeed',(argData: Array,argReportId: Date)=>{
     try{
         cy.interfaceGooglePageSpeed('Google Page Speed',argData,argReportId);
     }
@@ -19,7 +19,7 @@ Cypress.Commands.add('reportForGoogPageSpeed',(argData,argReportId)=>{
     }
 });
 
-Cypress.Commands.add('reportForSitemap',(argListStatus,argReportId)=>{
+Cypress.Commands.add('reportForSitemap',(argListStatus: Array,argReportId: Date)=>{
     try{
         let tempResult='';let tableOfResult=new Array(argListStatus.length);
         for(var compt=0;compt<argListStatus.length;compt++){
@@ -33,7 +33,7 @@ Cypress.Commands.add('reportForSitemap',(argListStatus,argReportId)=>{
     }
 });
 
-Cypress.Commands.add('checkGlobalScreenShotReport',(argModule,argUrls,argReportId)=>{
+Cypress.Commands.add('checkGlobalScreenShotReport',(argModule: string,argUrls: Array,argReportId: Date)=>{
     try{
         cy.interfaceScreenShotReport(argModule,argReportId,argUrls);
     }
@@ -42,7 +42,7 @@ Cypress.Commands.add('checkGlobalScreenShotReport',(argModule,argUrls,argReportI
     }
 });
 
-Cypress.Commands.add('checkUtilGetStatusCodeReport',(argModule,argListUrls,argReportId)=>{
+Cypress.Commands.add('checkUtilGetStatusCodeReport',(argModule: string,argListUrls: Array,argReportId: Date)=>{
     try{
         let tableOfResult=new Array(argListUrls.length);
         let compt200=0; let comptOther=0;var compt=0;
