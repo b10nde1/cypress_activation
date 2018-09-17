@@ -1,4 +1,4 @@
-const writeFile=(argFileTitle,argReportId,argFileExt,argData,argCol1,argCol2)=>{
+const writeFile=(argFileTitle: string,argReportId: Date,argFileExt: string,argData: Array,argCol1: string,argCol2: string)=>{
     try{
         let col=null;
         if(argCol1!=null && argCol2!=null)col=[argCol1,argCol2];
@@ -7,11 +7,11 @@ const writeFile=(argFileTitle,argReportId,argFileExt,argData,argCol1,argCol2)=>{
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> writeFile'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> writeFile'],[ex]);
     }
 }
 
-const getBaliseOption=(argOption)=>{
+const getBaliseOption=(argOption: Array)=>{
     try{
         //for option ->
         //[0] = open or close '/' if close
@@ -24,7 +24,7 @@ const getBaliseOption=(argOption)=>{
         return option;
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> getBaliseOption'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> getBaliseOption'],[ex]);
     }
 }
 
@@ -32,7 +32,7 @@ const getBaliseOption=(argOption)=>{
 //['div','p','p','div']+[['','class','test'],['','',''],['/','',''],['/','','']]+true+false => ['<div class="test">','<p>','</p>','</div>']
 //['div']+['','','']+false+true => <div></div>
 //['div']+['','','']+false+false => ['<div>','</div>']
-const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
+const createBalise=(argListBalise: Array,argOption: Array,argMultipleOption: boolean,argAligned: boolean)=>{
     try{
         let option=null;let resultAligned='';let resultNotAligned=new Array(argListBalise.length);
         //case argMultipleOption true
@@ -65,12 +65,12 @@ const createBalise=(argListBalise,argOption,argMultipleOption,argAligned)=>{
         throw('interface commands -> createBalise : ERROR NO RESULT');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> closeBalise'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> closeBalise'],[ex]);
     }
 }
 
 //argBody[0]=col1Value, [1]=col2Value, if [2]!=null [2]=href for col2Value else href=[1]
-const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
+const createTable=(argTableTitle: string,argBody: Array,argCol1: string,argCol2: string)=>{
     try{
         let col1=argCol1;let col2=argCol2;
         if(argCol1==null)col1='Col-1-'+argTableTitle+''
@@ -97,7 +97,7 @@ const createTable=(argTableTitle,argBody,argCol1,argCol2)=>{
         return table+'</tbody></table></div>';
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> createTable'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> createTable'],[ex]);
     }
 }
 
@@ -127,12 +127,12 @@ const copyElement=()=>{
         +'}';
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> copyElement'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> copyElement'],[ex]);
     }
 }
 
 //creation du html
-const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
+const createHtml=(argTitle: string,argBody: Array,argCss: string,argJs: string,argCol: Array)=>{
     try{
         let listBalise=createBalise(
             ['html','html','head','head','body','body','title','title','style','style','script','script']
@@ -166,11 +166,11 @@ const createHtml=(argTitle,argBody,argCss,argJs,argCol)=>{
                 +listBalise[1];
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> createHtml'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> createHtml'],[ex]);
     }
 }
 
-Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>{
+Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array,argReportId: Date)=>{
     try{
         let extract_data_section=new Array(argData.length);
         argData.forEach(element => {
@@ -181,11 +181,11 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle,argData,argReportId)=>
         writeFile(argTitle,argReportId,'html',extract_data_section,'Page','Desktop || Mobile');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceGooglePageSpeed'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceGooglePageSpeed'],[ex]);
     }
 });
 
-Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeaderSection,argDataSection)=>{
+Cypress.Commands.add('interfaceStatusCodeReport',(argTitle: string,argReportId: Date,argHeaderSection: Array,argDataSection: Array)=>{
     try{
         let extractHeaderSection='';let extractDataSection=new Array(argDataSection.length);
         for(var compt=0;compt<argDataSection.length;compt++){
@@ -203,11 +203,11 @@ Cypress.Commands.add('interfaceStatusCodeReport',(argTitle,argReportId,argHeader
         writeFile(argTitle,argReportId,'html',extractDataSection,'','');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceStatusCodeReport'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceStatusCodeReport'],[ex]);
     }
 });
 
-Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)=>{
+Cypress.Commands.add('interfaceScreenShotReport',(argModule: string,argReportId: Date,argData: Array)=>{
     try{
         let extractData=new Array(argData.length);
         for(var compt=0;compt<argData.length;compt++){
@@ -217,11 +217,11 @@ Cypress.Commands.add('interfaceScreenShotReport',(argModule,argReportId,argData)
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceScreenShotReport'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceScreenShotReport'],[ex]);
     }
 });
 
-Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
+Cypress.Commands.add('interfaceSitemapReport',(argModule: string,argReportId: Date,argData: Array)=>{
     try{
         let extractData=new Array(argData.length);
         for(var compt=0;compt<argData.length;compt++){
@@ -235,6 +235,6 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule,argReportId,argData)=>{
         writeFile(argModule,argReportId,'html',extractData,'','');
     }
     catch(ex){
-        cy.checkUtilConsole(['interface commands -> interfaceSitemapReport'],[ex]);
+         cy.checkUtilConsole(['interface.commands => interface commands -> interfaceSitemapReport'],[ex]);
     }
 });
