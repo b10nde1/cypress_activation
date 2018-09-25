@@ -23,10 +23,31 @@ describe('Screenshot', () => {
         return result;
     };
     let conf_run_screen_shot=dataFromJson.runScreenShot;
-    let confDevice='';let listMarkets='';let data_page_speed='';
+    let confDevice='';let listMarkets='';let data_page_speed='';let temp_list_markets='';let temp_page_speed_urls='';
+    let conf_base_url=dataFromJson.baseUrl;
     if(dataFromJson.device!='') confDevice=getTable2DFromJson(dataFromJson.device.split('],['),',');
-    if(dataFromJson.urls!='')listMarkets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
-    if(dataFromJson.pageSpeed!='')data_page_speed=getTable2DFromJson(dataFromJson.pageSpeed.split('],['),'/*/');
+    if(dataFromJson.urls!=''){
+        temp_list_markets=getTable2DFromJson(dataFromJson.urls.split('],['),'/*/');
+        if(dataFromJson.useBaseUrl){
+            temp_list_markets.forEach(element => {
+                element[1]=
+                    conf_base_url+
+                    element[1];
+            });
+        }
+    }
+    if(dataFromJson.pageSpeed!=''){
+        temp_page_speed_urls=getTable2DFromJson(dataFromJson.pageSpeed.split('],['),'/*/');
+        if(dataFromJson.useBaseUrl){ 
+            temp_page_speed_urls.forEach(element=>{
+            element[1]=
+                conf_base_url+
+                element[1];
+            });
+        }
+    }
+    listMarkets=temp_list_markets;
+    data_page_speed=temp_page_speed_urls;
     let conf_run_page_speed=dataFromJson.runPageSpeed;
     let confGetStatusCodeReport=dataFromJson.getStatusCodeReport;
     let reportDate=new Date(); let reportId=reportDate.getTime();
@@ -34,6 +55,7 @@ describe('Screenshot', () => {
     let confDownloadSitemapXML=dataFromJson.downloadSitemapXML;
     let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
     let confCloseBanner=dataFromJson.closeBanner;
+    let confOnlyStatus200=dataFromJson.onlyStatus200;
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -44,20 +66,22 @@ describe('Screenshot', () => {
                 ,'PageSpeed','ScreenShot','OpenNavMenu'
                 ,'CloseBanner','VerifySitemapXML'
                 ,'Download SitemapXML','Device'
-                ,'Run Meta Verification']
-            ,['RUN',dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
+                ,'Run Meta Verification','Use Base Url']
+            ,['RUN-'+reportId,dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
                 ,dataFromJson.runPageSpeed,dataFromJson.runScreenShot,dataFromJson.openNavMenu
                 ,dataFromJson.closeBanner,dataFromJson.verifySitemapXML
                 ,dataFromJson.downloadSitemapXML,dataFromJson.device
-                ,dataFromJson.runMetaVerification]);
+                ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl]);
     });
     if(conf_run_screen_shot){
         console.log('conf_run_screen_shot :: Start');
+        let temp_indice_for_runMeta=0;
         for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
             let confWidth=Number(confDevice[comptDevice][0]);
             let confHeight=Number(confDevice[comptDevice][1]);
             for(var compt=0;compt<listMarkets.length;compt++){
                 let temp=compt;
+                temp_indice_for_runMeta=temp;
                 it('Url id '+comptDevice+'-'+compt+' | open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                     console.log('=======>'+confWidth+' X '+confHeight);
                     cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
@@ -97,7 +121,7 @@ describe('Screenshot', () => {
         }
         if(dataFromJson.runMetaVerification==true){
             it('Kraken Meta Verification',()=>{
-                cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp]);
+                cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
             });
         }
         //report json for screenshot with tcid+article name + url

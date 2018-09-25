@@ -12,7 +12,7 @@ const initListEncodedChar=(argListCode)=>{
     }
 }
 
-const pageSpeedReport=(argPageSpeedResult)=>{
+const pageSpeedReport=(argPageSpeedResult: Array)=>{
     try{
         let report_id=new Date();
         cy.reportForGoogPageSpeed(argPageSpeedResult,report_id.getTime());
@@ -22,20 +22,20 @@ const pageSpeedReport=(argPageSpeedResult)=>{
     }
 }
 
-Cypress.Commands.add('pageSpeed',(arglistUrls)=>{
+Cypress.Commands.add('pageSpeed',(arglistUrls: Array)=>{
     try{
         /***Encode List of Urls***/
         let final_list_urls=new Array(arglistUrls.length);let compt_final_list_urls=0;
-        arglistUrls.forEach(element => {
-            final_list_urls[compt_final_list_urls]=element[1];
+        for(var compt=0;compt<arglistUrls.length;compt++){
+            final_list_urls[compt_final_list_urls]=arglistUrls[compt][1];
             compt_final_list_urls++;
-        });
+        }
         /***init table for result ***/
         let result=new Array(arglistUrls.length);let indice_init_result=0;
-        arglistUrls.forEach(element=>{
+        for(var compt=0;compt<arglistUrls.length;compt++){
             result[indice_init_result]=new Array(4);
             indice_init_result++;
-        });
+        }
         /***Init Google page speed API***/
         let google_api_key='AIzaSyANQ1jfs-ZQawUzAh8XZqMQCLSUAypMTz0'; let temp_url_to_test='';let temp_url_strategy=['desktop','mobile'];
         let api_url='https://www.googleapis.com/pagespeedonline/v4/runPagespeed?url=';
