@@ -226,9 +226,8 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule: string,argReportId: Da
         let extractData=new Array(argData.length);
         for(var compt=0;compt<argData.length;compt++){
             extractData[compt]=new Array(3);
-            let tempData=argData[compt].split('/*/'); let tempColor='blue';
-            if(tempData[0]!='OK')tempColor='silver';
-            extractData[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempData[0]+'</button>';
+            let tempData=argData[compt].split('/*/');
+            extractData[compt][0]=tempData[0];
             extractData[compt][1]=tempData[1];
             extractData[compt][2]=tempData[2];
         }
