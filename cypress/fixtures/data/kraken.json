@@ -1,17 +1,17 @@
 {
-    "runPageSpeed":false,
+    "runPageSpeed":true,
     "runScreenShot":true,
-    "runMetaVerification":true,
+    "runMetaVerification":false,
     "useBaseUrl":true,
     "openNavMenu":"0",
     "closeBanner":false,
-    "verifySitemapXML":false,
-    "downloadSitemapXML":false,
+    "verifySitemapXML":true,
+    "downloadSitemapXML":true,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "baseUrl":"https://www.pampers.com/en-us/",
-    "urls":"[usTest-01/*/about-us/quality-and-safety/article/materials-and-safety]",
-    "pageSpeed":"",
-    "metaInfo":"[title:=Materials and Safety | Pampers;description:=What are Pampers diapers made of? Read more about the materials used in our products to ensure optimal protection and safety for your baby.;h1:=Materials and Safety;canonical:=https://www.pampers.com/en-us/about-us/quality-and-safety/article/materials-and-safety;breadcrumbs:=Home>About Us>Quality and Safety>Materials and Safety]"
+    "baseUrl":"https://azauthor.pampers.nl.pgsitecore.com/",
+    "urls":"[nl-01/*/Over-Pampers/Luiers-en-doekjes/artikel/welke-luier-kies-je],[nl-02/*/Pasgeboren-baby/Zorgen-voor-je-pasgeboren-baby/artikel/luieruitslag-voorkomen-en-behandelen],[nl-03/*/baby/eerste-tandjes/artikel/hoe-kun-je-je-baby-helpen-bij-het-krijgen-van-tandjes],[nl-04/*/Zwangerschap/Bevallen/artikel/de-bevalling-begint],[nl-05/*/Zwangerschap/Bevallen/artikel/bevallingstas-inpakken-en-klaarzetten],[nl-06/*/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-meisjesnamen],[nl-07/*/Peuter/Peuters-en-slaap/artikel/klaar-voor-een-peuterbedje],[nl-08/*/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-jongensnamen],[nl-09/*/Baby/Baby-s-en-slaap/artikel/wat-draagt-je-baby-bij-het-slapen-gaan],[nl-10/*/Peuter/Zindelijkheidstraining/artikel/signalen-dat-je-kind-klaar-is-voor-zindelijkheidstraining]",
+    "pageSpeed":"[nl_pageSpeed-01/*/https://azauthor.pampers.nl.pgsitecore.com/Over-Pampers/Luiers-en-doekjes/artikel/welke-luier-kies-je],[nl_pageSpeed-02/*/https://azauthor.pampers.nl.pgsitecore.com/Pasgeboren-baby/Zorgen-voor-je-pasgeboren-baby/artikel/luieruitslag-voorkomen-en-behandelen],[nl_pageSpeed-03/*/https://azauthor.pampers.nl.pgsitecore.com/baby/eerste-tandjes/artikel/hoe-kun-je-je-baby-helpen-bij-het-krijgen-van-tandjes],[nl_pageSpeed-04/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Bevallen/artikel/de-bevalling-begint],[nl_pageSpeed-05/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Bevallen/artikel/bevallingstas-inpakken-en-klaarzetten],[nl_pageSpeed-06/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-meisjesnamen],[nl_pageSpeed-07/*/https://azauthor.pampers.nl.pgsitecore.com/Peuter/Peuters-en-slaap/artikel/klaar-voor-een-peuterbedje],[nl_pageSpeed-08/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-jongensnamen],[nl_pageSpeed-09/*/https://azauthor.pampers.nl.pgsitecore.com/Baby/Baby-s-en-slaap/artikel/wat-draagt-je-baby-bij-het-slapen-gaan],[nl_pageSpeed-10/*/https://azauthor.pampers.nl.pgsitecore.com/Peuter/Zindelijkheidstraining/artikel/signalen-dat-je-kind-klaar-is-voor-zindelijkheidstraining]",
+    "metaInfo":""
 }
