@@ -228,9 +228,9 @@ Cypress.Commands.add('interfaceSitemapReport',(argModule: string,argReportId: Da
             extractData[compt]=new Array(3);
             let tempData=argData[compt].split('/*/'); let tempColor='blue';
             if(tempData[0]!='OK')tempColor='silver';
-            [extractData[compt][0],extractData[compt][1],extractData[compt][2]]=['<button style="color=white;background-color:'+tempColor+'">'+tempData[0]+'</button>'
-                ,tempData[1]
-                ,tempData[2]];
+            extractData[compt][0]='<button style="color=white;background-color:'+tempColor+'">'+tempData[0]+'</button>';
+            extractData[compt][1]=tempData[1];
+            extractData[compt][2]=tempData[2];
         }
         writeFile(argModule,argReportId,'html',extractData,'','');
     }

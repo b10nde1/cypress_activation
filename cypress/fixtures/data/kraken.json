@@ -1,17 +1,17 @@
 {
-    "runPageSpeed":true,
-    "runScreenShot":true,
+    "runPageSpeed":false,
+    "runScreenShot":false,
     "runMetaVerification":false,
     "useBaseUrl":true,
     "openNavMenu":"0",
     "closeBanner":false,
     "verifySitemapXML":true,
-    "downloadSitemapXML":true,
+    "downloadSitemapXML":false,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
     "baseUrl":"https://azauthor.pampers.nl.pgsitecore.com/",
-    "urls":"[nl-01/*/Over-Pampers/Luiers-en-doekjes/artikel/welke-luier-kies-je],[nl-02/*/Pasgeboren-baby/Zorgen-voor-je-pasgeboren-baby/artikel/luieruitslag-voorkomen-en-behandelen],[nl-03/*/baby/eerste-tandjes/artikel/hoe-kun-je-je-baby-helpen-bij-het-krijgen-van-tandjes],[nl-04/*/Zwangerschap/Bevallen/artikel/de-bevalling-begint],[nl-05/*/Zwangerschap/Bevallen/artikel/bevallingstas-inpakken-en-klaarzetten],[nl-06/*/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-meisjesnamen],[nl-07/*/Peuter/Peuters-en-slaap/artikel/klaar-voor-een-peuterbedje],[nl-08/*/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-jongensnamen],[nl-09/*/Baby/Baby-s-en-slaap/artikel/wat-draagt-je-baby-bij-het-slapen-gaan],[nl-10/*/Peuter/Zindelijkheidstraining/artikel/signalen-dat-je-kind-klaar-is-voor-zindelijkheidstraining]",
-    "pageSpeed":"[nl_pageSpeed-01/*/https://azauthor.pampers.nl.pgsitecore.com/Over-Pampers/Luiers-en-doekjes/artikel/welke-luier-kies-je],[nl_pageSpeed-02/*/https://azauthor.pampers.nl.pgsitecore.com/Pasgeboren-baby/Zorgen-voor-je-pasgeboren-baby/artikel/luieruitslag-voorkomen-en-behandelen],[nl_pageSpeed-03/*/https://azauthor.pampers.nl.pgsitecore.com/baby/eerste-tandjes/artikel/hoe-kun-je-je-baby-helpen-bij-het-krijgen-van-tandjes],[nl_pageSpeed-04/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Bevallen/artikel/de-bevalling-begint],[nl_pageSpeed-05/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Bevallen/artikel/bevallingstas-inpakken-en-klaarzetten],[nl_pageSpeed-06/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-meisjesnamen],[nl_pageSpeed-07/*/https://azauthor.pampers.nl.pgsitecore.com/Peuter/Peuters-en-slaap/artikel/klaar-voor-een-peuterbedje],[nl_pageSpeed-08/*/https://azauthor.pampers.nl.pgsitecore.com/Zwangerschap/Babynamen/artikel/wereldwijd-populaire-jongensnamen],[nl_pageSpeed-09/*/https://azauthor.pampers.nl.pgsitecore.com/Baby/Baby-s-en-slaap/artikel/wat-draagt-je-baby-bij-het-slapen-gaan],[nl_pageSpeed-10/*/https://azauthor.pampers.nl.pgsitecore.com/Peuter/Zindelijkheidstraining/artikel/signalen-dat-je-kind-klaar-is-voor-zindelijkheidstraining]",
+    "urls":"[nl-01/*/Over-Pampers/Luiers-en-doekjes/artikel/welke-luier-kies-je],[nl-02/*/Pasgeboren-baby/Zorgen-voor-je-pasgeboren-baby/artikel/luieruitslag-voorkomen-en-behandelen],[nl-03/*/baby/eerste-tandjes/artikel/hoe-kun-je-je-baby-helpen-bij-het-krijgen-van-tandjes]",
+    "pageSpeed":"",
     "metaInfo":""
 }
