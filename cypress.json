@@ -1,4 +1,8 @@
 {
     "defaultCommandTimeout":30000,
-    "reporter": "mochawesome"
+    "reporter": "mochawesome",
+    "reporterOptions": {
+        "mochaFile": "results/my-test-output.xml",
+        "toConsole": true
+    }
 }
