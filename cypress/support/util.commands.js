@@ -1,8 +1,10 @@
 Cypress.Commands.add('checkUtilConsole',(argText: string,argValue)=>{
     try{
         for(var compt=0;compt<argText.length;compt++){
+            console.log('/***********************************************/');
             if(argValue)console.log(argText[compt]+' :: '+argValue[compt])
             else console.log(argText[compt])
+            console.log('/***********************************************/');
         }
     }
     catch(ex){
@@ -329,16 +331,15 @@ Cypress.Commands.add('checkUtilDownloadUrlsFromSiteMapXml',(argUrl: string)=>{
 //get all links in current page
 Cypress.Commands.add('utilGetAllLinksOfCurrentPage',(argReportId: Date)=>{
     try{
-        let argData=document.links.href;
-        let result=new Array(argData.length);
+        let argData=document.getElementsByTagName('a');
         let currentPage=document.URL;
-        argData.forEach(element => {
-            result[argData.indexOf(element)]=element.href;
-        });
+        console.log('Data DEBUG :: '+argData.length);
+        /*
         cy.writeFile('cypress/report/listOfLinkInCurrentPage/'
             +currentPage.split('/')[2]+
                 '/'+currentPage.split('/')[3]+'-'+argReportId+'.txt'
                 ,'Current URL :: '+currentPage+'\n'+argData+'');
+        */
     }
     catch(ex){
         cy.checkUtilConsole(['util.commands -> utilGetAllLinksOfCurrentPage'],[ex]);

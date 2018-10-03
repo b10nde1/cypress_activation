@@ -77,6 +77,12 @@ describe('Screenshot', () => {
                 ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl
                 ,confGetUrlFromSiteMap,confGetAllLinkInCurrentPage]);
     });
+    /*********************************** */
+    it('Kraken | Get Links of Current page',()=>{
+        cy.visit('https://www.pampers.fr/grossesse/accouchement');
+        cy.utilGetAllLinksOfCurrentPage(reportId);
+    });
+    /*********************************** */
     if(conf_run_screen_shot){
         console.log('conf_run_screen_shot :: Start');
         let temp_indice_for_runMeta=0;

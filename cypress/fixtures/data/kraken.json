@@ -1,5 +1,5 @@
 {
-    "runPageSpeed":true,
+    "runPageSpeed":false,
     "runScreenShot":false,
     "runMetaVerification":false,
     "useBaseUrl":true,
@@ -8,7 +8,7 @@
     "verifySitemapXML":false,
     "downloadSitemapXML":false,
     "getAllUrlInSiteMap":false,
-    "getAllLinkInCurrentPage":true,
+    "getAllLinkInCurrentPage":false,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
