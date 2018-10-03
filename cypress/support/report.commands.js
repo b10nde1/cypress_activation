@@ -63,3 +63,13 @@ Cypress.Commands.add('checkUtilGetStatusCodeReport',(argModule: string,argListUr
         cy.checkUtilConsole(['report commands -> checkUtilGetStatusCodeReport'],[ex]);
     }
 });
+
+//fichier txt avec la liste des Urls
+Cypress.Commands.add('reportListUrlsInSiteMapXml',(argData: Array, argReportId: Date)=>{
+    try{
+        cy.writeFile('cypress/report/sitemap_ListUrls/sitemapXmlUrls-'+argReportId+'.txt',''+argData+'');
+    }
+    catch(ex){
+        cy.checkUtilConsole(['report commands -> reportListUrlsInSiteMapXml'],[ex]);
+    }
+});

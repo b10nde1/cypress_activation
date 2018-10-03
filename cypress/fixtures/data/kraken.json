@@ -1,17 +1,19 @@
 {
-    "runPageSpeed":false,
+    "runPageSpeed":true,
     "runScreenShot":false,
     "runMetaVerification":false,
     "useBaseUrl":true,
     "openNavMenu":"0",
     "closeBanner":false,
-    "verifySitemapXML":true,
+    "verifySitemapXML":false,
     "downloadSitemapXML":false,
+    "getAllUrlInSiteMap":false,
+    "getAllLinkInCurrentPage":true,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
     "baseUrl":"https://www.pampers.fr/",
-    "urls":"[test-01/*/grossesse/accouchement]",
+    "urls":"[test-01/*/grossesse/accouchement],[test-02/*/securite-et-engagement]",
     "pageSpeed":"",
     "metaInfo":""
 }

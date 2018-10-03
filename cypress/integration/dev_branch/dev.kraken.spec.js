@@ -56,6 +56,8 @@ describe('Screenshot', () => {
     let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
     let confCloseBanner=dataFromJson.closeBanner;
     let confOnlyStatus200=dataFromJson.onlyStatus200;
+    let confGetUrlFromSiteMap=dataFromJson.getAllUrlInSiteMap;
+    let confGetAllLinkInCurrentPage=dataFromJson.getAllLinkInCurrentPage;
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -66,12 +68,14 @@ describe('Screenshot', () => {
                 ,'PageSpeed','ScreenShot','OpenNavMenu'
                 ,'CloseBanner','VerifySitemapXML'
                 ,'Download SitemapXML','Device'
-                ,'Run Meta Verification','Use Base Url']
+                ,'Run Meta Verification','Use Base Url'
+                ,'GetAllUrlInSiteMapXml','getAllLinkInCurrentPage']
             ,['RUN-'+reportId,dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
                 ,dataFromJson.runPageSpeed,dataFromJson.runScreenShot,dataFromJson.openNavMenu
                 ,dataFromJson.closeBanner,dataFromJson.verifySitemapXML
                 ,dataFromJson.downloadSitemapXML,dataFromJson.device
-                ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl]);
+                ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl
+                ,confGetUrlFromSiteMap,confGetAllLinkInCurrentPage]);
     });
     if(conf_run_screen_shot){
         console.log('conf_run_screen_shot :: Start');
@@ -117,6 +121,12 @@ describe('Screenshot', () => {
                     }
                     else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
                 });
+                //return txt with list of links in current page
+                if(confGetAllLinkInCurrentPage){
+                    it('Kraken | Get Links of Current page',()=>{
+                        cy.utilGetAllLinksOfCurrentPage(reportId);
+                    });
+                }
             }
         }
         if(dataFromJson.runMetaVerification==true){
@@ -161,6 +171,14 @@ describe('Screenshot', () => {
             console.log('confDownloadSitemapXML :: Start');
            cy.checkUtilDownloadMultipleSitemapXML(listMarkets);
            console.log('confDownloadSitemapXML :: End');
+        });
+    }
+    //get all urls in sitemap.xml
+    if(confGetUrlFromSiteMap){
+        it('Kraken | Get All Urls in Sitemap.xml',()=>{
+            console.log('confGetUrlFromSiteMap :: Start');
+            cy.checkUtilDownloadUrlsFromSiteMapXml(listMarkets[0][1]);
+            console.log('confGetUrlFromSiteMap :: Emd');
         });
     }
     if(conf_run_page_speed){
