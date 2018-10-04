@@ -46,6 +46,15 @@ describe('Screenshot', () => {
             });
         }
     }
+    //cette fonction ne marche que pour confGetAllLinkInCurrentPage
+    const checkIfTrueOrFalse=(arg: Array)=>{
+        for(var compt=0;compt<arg.length;compt++){
+            if(arg[compt].split(':')[1]==='true' || arg[compt].split(':')[1]==='true]'){
+                return true;
+            }
+        }
+        return false;
+    }
     listMarkets=temp_list_markets;
     data_page_speed=temp_page_speed_urls;
     let conf_run_page_speed=dataFromJson.runPageSpeed;
@@ -56,6 +65,9 @@ describe('Screenshot', () => {
     let confOpenNavMenu=dataFromJson.openNavMenu.split(',');
     let confCloseBanner=dataFromJson.closeBanner;
     let confOnlyStatus200=dataFromJson.onlyStatus200;
+    let confGetUrlFromSiteMap=dataFromJson.getAllUrlInSiteMap;
+    let dataConfGetAllLinkCurrentPage=dataFromJson.getAllLinkInCurrentPage.split('],[');
+    let confGetAllLinkInCurrentPage=checkIfTrueOrFalse(dataConfGetAllLinkCurrentPage);
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -66,12 +78,14 @@ describe('Screenshot', () => {
                 ,'PageSpeed','ScreenShot','OpenNavMenu'
                 ,'CloseBanner','VerifySitemapXML'
                 ,'Download SitemapXML','Device'
-                ,'Run Meta Verification','Use Base Url']
+                ,'Run Meta Verification','Use Base Url'
+                ,'GetAllUrlInSiteMapXml','getAllLinkInCurrentPage']
             ,['RUN-'+reportId,dataFromJson.onlyStatus200,dataFromJson.getStatusCodeReport
                 ,dataFromJson.runPageSpeed,dataFromJson.runScreenShot,dataFromJson.openNavMenu
                 ,dataFromJson.closeBanner,dataFromJson.verifySitemapXML
                 ,dataFromJson.downloadSitemapXML,dataFromJson.device
-                ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl]);
+                ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl
+                ,confGetUrlFromSiteMap,confGetAllLinkInCurrentPage]);
     });
     if(conf_run_screen_shot){
         console.log('conf_run_screen_shot :: Start');
@@ -119,6 +133,7 @@ describe('Screenshot', () => {
                 });
             }
         }
+        /**Revoir la logic de la boucle */
         if(dataFromJson.runMetaVerification==true){
             it('Kraken Meta Verification',()=>{
                 cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
@@ -129,6 +144,15 @@ describe('Screenshot', () => {
             cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
         });
         console.log('conf_run_screen_shot :: End');
+    }
+    //return txt with list of links in current page
+    if(confGetAllLinkInCurrentPage){
+        for(var compt=0;compt<listMarkets.length;compt++){
+            let temp=compt;
+            it('Kraken | Get Links of Current page',()=>{
+                cy.utilGetAllLinksOfCurrentPage(listMarkets[temp][0],listMarkets[temp][1],reportId,dataConfGetAllLinkCurrentPage);
+            });
+        }
     }
     if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
         it('Kraken Meta Verification',()=>{
@@ -161,6 +185,14 @@ describe('Screenshot', () => {
             console.log('confDownloadSitemapXML :: Start');
            cy.checkUtilDownloadMultipleSitemapXML(listMarkets);
            console.log('confDownloadSitemapXML :: End');
+        });
+    }
+    //get all urls in sitemap.xml
+    if(confGetUrlFromSiteMap){
+        it('Kraken | Get All Urls in Sitemap.xml',()=>{
+            console.log('confGetUrlFromSiteMap :: Start');
+            cy.checkUtilDownloadUrlsFromSiteMapXml(listMarkets[0][1]);
+            console.log('confGetUrlFromSiteMap :: Emd');
         });
     }
     if(conf_run_page_speed){
