@@ -4,6 +4,7 @@ const utilSendRequest=(argType: string, argUrl: string, argSync: boolean)=>{
         cy.checkUtilConsole(['xml.command utilSendRequest INFO ARGURL'],[argUrl]);
         request.open(argType,argUrl,argSync);
         request.send();
+        console.log('xml.commands -> utilSendRequest ::request completed');
         return request;
     }
     catch(ex){
@@ -122,5 +123,53 @@ Cypress.Commands.add('checkArticleV2DownloadSitemapXML',(argListData)=>{
     }
     catch(ex){
         console.log('xml.commands => checkArticleV2DownloadSitemapXML ::'+ex);
+    }
+});
+
+//assistance pour recup href
+const getLinkValueFromTagName=(argListElement: string, argTypeOfAttr: string)=>{
+    try{
+        let result=new Array(argListElement.length);
+        for(var compt=0;compt<argListElement.length;compt++){
+            if(argTypeOfAttr=='href')result[compt]=argListElement[compt].href+'\n'
+            if(argTypeOfAttr=='src')result[compt]=argListElement[compt].src+'\n'
+        }
+        return result;
+    }
+    catch(ex){
+        cy.checkUtilConsole(['xml.commands -> getLinkValueFromTagName'],[ex]);
+    }
+};
+
+//get all links in current page
+Cypress.Commands.add('utilGetAllLinksOfCurrentPage',(argTitle: string,argUrl: string,argReportId: Date,argRunStatus: Array)=>{
+    try{
+        let request = new XMLHttpRequest();
+        let stringResponse='';
+        request.open('GET',argUrl,false);
+        request.onload=()=>{
+            let response=request.response;
+            stringResponse=response;
+        }
+        request.send();
+        let htmlResponse=document.createElement('div');
+        htmlResponse.innerHTML=stringResponse;
+        let tempScriptSrc=['N/A'];let tempAHref=['N/A'];let tempLinkHref=['N/A'];
+        if(argRunStatus[0].split(':')[1]=='true') tempAHref=getLinkValueFromTagName(htmlResponse.getElementsByTagName('a'),'href');
+        if(argRunStatus[1].split(':')[1]=='true') tempScriptSrc=getLinkValueFromTagName(htmlResponse.getElementsByTagName('script'),'src');
+        if(argRunStatus[2].split(':')[1]=='true]') tempLinkHref=getLinkValueFromTagName(htmlResponse.getElementsByTagName('link'),'href');
+        let finalResult='****************CURRENT URL****************\n'
+                            +'\n'+argUrl+'\n'
+                        +'\n****************A HREF****************\n'
+                            +'\n'+tempAHref+'\n'
+                        +'\n****************LINK HREF****************\n'
+                            +'\n'+tempLinkHref+'\n'
+                        +'\n****************SCRIPT SRC****************\n'
+                            +'\n'+tempScriptSrc+'\n'
+                        +'\n****************END****************\n';
+        cy.reportListUrlsInCurrentPage(argTitle,finalResult,new Date().getTime());
+     }
+    catch(ex){
+        cy.checkUtilConsole(['util.commands -> utilGetAllLinksOfCurrentPage'],[ex]);
     }
 });

@@ -326,21 +326,3 @@ Cypress.Commands.add('checkUtilOpenNavMenu',(argIdNavMenu: Int16Array)=>{
 Cypress.Commands.add('checkUtilDownloadUrlsFromSiteMapXml',(argUrl: string)=>{
     cy.xmlDownloadListOfUrls(argUrl);
 });
-
-//get all links in current page
-Cypress.Commands.add('utilGetAllLinksOfCurrentPage',(argReportId: Date)=>{
-    try{
-        let argData=document.getElementsByTagName('a');
-        let currentPage=document.URL;
-        console.log('Data DEBUG :: '+argData.length);
-        /*
-        cy.writeFile('cypress/report/listOfLinkInCurrentPage/'
-            +currentPage.split('/')[2]+
-                '/'+currentPage.split('/')[3]+'-'+argReportId+'.txt'
-                ,'Current URL :: '+currentPage+'\n'+argData+'');
-        */
-    }
-    catch(ex){
-        cy.checkUtilConsole(['util.commands -> utilGetAllLinksOfCurrentPage'],[ex]);
-    }
-});

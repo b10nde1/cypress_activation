@@ -73,3 +73,12 @@ Cypress.Commands.add('reportListUrlsInSiteMapXml',(argData: Array, argReportId: 
         cy.checkUtilConsole(['report commands -> reportListUrlsInSiteMapXml'],[ex]);
     }
 });
+//fichier txt avec la liste des Urls per page
+Cypress.Commands.add('reportListUrlsInCurrentPage',(argTitle: string, argData: Array, argReportId: Date)=>{
+    try{
+        cy.writeFile('cypress/report/currentPage_ListUrls/listsOfLinksInCurrentPage-'+argTitle+'-'+argReportId+'.txt',''+argData+'');
+    }
+    catch(ex){
+        cy.checkUtilConsole(['report commands -> reportListUrlsInSiteMapXml'],[ex]);
+    }
+});

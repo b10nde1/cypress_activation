@@ -46,6 +46,15 @@ describe('Screenshot', () => {
             });
         }
     }
+    //cette fonction ne marche que pour confGetAllLinkInCurrentPage
+    const checkIfTrueOrFalse=(arg: Array)=>{
+        for(var compt=0;compt<arg.length;compt++){
+            if(arg[compt].split(':')[1]==='true' || arg[compt].split(':')[1]==='true]'){
+                return true;
+            }
+        }
+        return false;
+    }
     listMarkets=temp_list_markets;
     data_page_speed=temp_page_speed_urls;
     let conf_run_page_speed=dataFromJson.runPageSpeed;
@@ -57,7 +66,8 @@ describe('Screenshot', () => {
     let confCloseBanner=dataFromJson.closeBanner;
     let confOnlyStatus200=dataFromJson.onlyStatus200;
     let confGetUrlFromSiteMap=dataFromJson.getAllUrlInSiteMap;
-    let confGetAllLinkInCurrentPage=dataFromJson.getAllLinkInCurrentPage;
+    let dataConfGetAllLinkCurrentPage=dataFromJson.getAllLinkInCurrentPage.split('],[');
+    let confGetAllLinkInCurrentPage=checkIfTrueOrFalse(dataConfGetAllLinkCurrentPage);
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -121,14 +131,9 @@ describe('Screenshot', () => {
                     }
                     else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
                 });
-                //return txt with list of links in current page
-                if(confGetAllLinkInCurrentPage){
-                    it('Kraken | Get Links of Current page',()=>{
-                        cy.utilGetAllLinksOfCurrentPage(reportId);
-                    });
-                }
             }
         }
+        /**Revoir la logic de la boucle */
         if(dataFromJson.runMetaVerification==true){
             it('Kraken Meta Verification',()=>{
                 cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
@@ -139,6 +144,15 @@ describe('Screenshot', () => {
             cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
         });
         console.log('conf_run_screen_shot :: End');
+    }
+    //return txt with list of links in current page
+    if(confGetAllLinkInCurrentPage){
+        for(var compt=0;compt<listMarkets.length;compt++){
+            let temp=compt;
+            it('Kraken | Get Links of Current page',()=>{
+                cy.utilGetAllLinksOfCurrentPage(listMarkets[temp][0],listMarkets[temp][1],reportId,dataConfGetAllLinkCurrentPage);
+            });
+        }
     }
     if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
         it('Kraken Meta Verification',()=>{
