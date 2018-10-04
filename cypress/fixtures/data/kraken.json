@@ -7,7 +7,7 @@
     "closeBanner":false,
     "verifySitemapXML":false,
     "downloadSitemapXML":false,
-    "getAllUrlInSiteMap":false,
+    "getAllUrlInSiteMap":true,
     "getAllLinkInCurrentPage":false,
     "onlyStatus200":false,
     "getStatusCodeReport":false,
