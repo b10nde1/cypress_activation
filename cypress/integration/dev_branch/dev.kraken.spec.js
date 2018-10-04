@@ -68,6 +68,8 @@ describe('Screenshot', () => {
     let confGetUrlFromSiteMap=dataFromJson.getAllUrlInSiteMap;
     let dataConfGetAllLinkCurrentPage=dataFromJson.getAllLinkInCurrentPage.split('],[');
     let confGetAllLinkInCurrentPage=checkIfTrueOrFalse(dataConfGetAllLinkCurrentPage);
+    let indicatorMetaVerification=new Array(listMarkets.length);
+    for(var compt=0;compt<listMarkets.length;compt++)indicatorMetaVerification[compt]=true
     beforeEach(() => {
         Cypress.on('uncaught:exception', (err, runnable)=> {
             return false
@@ -131,13 +133,14 @@ describe('Screenshot', () => {
                     }
                     else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
                 });
+                /**Revoir la logic de la boucle */
+                if(dataFromJson.runMetaVerification==true && indicatorMetaVerification[temp]==true){
+                    it('Kraken Meta Verification',()=>{
+                        cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
+                        indicatorMetaVerification[temp]=false;
+                    });
+                }
             }
-        }
-        /**Revoir la logic de la boucle */
-        if(dataFromJson.runMetaVerification==true){
-            it('Kraken Meta Verification',()=>{
-                cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
-            });
         }
         //report json for screenshot with tcid+article name + url
         it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
