@@ -129,10 +129,23 @@ Cypress.Commands.add('checkArticleV2DownloadSitemapXML',(argListData)=>{
 //assistance pour recup href
 const getLinkValueFromTagName=(argListElement: string, argTypeOfAttr: string)=>{
     try{
-        let result=new Array(argListElement.length);
+        //http://localhost:60251/__cypress/
+        let result='';
         for(var compt=0;compt<argListElement.length;compt++){
-            if(argTypeOfAttr=='href')result[compt]=argListElement[compt].href+'\n'
-            if(argTypeOfAttr=='src')result[compt]=argListElement[compt].src+'\n'
+            if(argTypeOfAttr=='href'){
+                if(argListElement[compt].href!='javascript:void(0)' 
+                    && argListElement[compt].href!='' 
+                        && argListElement[compt].href.split('/')[2]!='localhost:60251'){
+                            result+=argListElement[compt].href+'\n';
+                }
+            }
+            if(argTypeOfAttr=='src'){
+                if(argListElement[compt].src!='javascript:void(0)' 
+                    && argListElement[compt].src!='' 
+                        && argListElement[compt].src.split('/')[2]!='localhost:60251'){
+                            result+=argListElement[compt].src+'\n';
+                }
+            }
         }
         return result;
     }
