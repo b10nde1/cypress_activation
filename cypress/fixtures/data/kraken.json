@@ -1,4 +1,5 @@
 {
+    "xlsx_path":"../../data",
     "runPageSpeed":false,
     "runScreenShot":false,
     "runMetaVerification":false,
@@ -8,7 +9,7 @@
     "verifySitemapXML":false,
     "downloadSitemapXML":false,
     "getAllUrlInSiteMap":false,
-    "getAllLinkInCurrentPage":"[a_href:true],[script:true],[link:true]",
+    "getAllLinkInCurrentPage":"[a_href:false],[script:false],[link:false]",
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",

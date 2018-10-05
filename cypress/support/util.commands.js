@@ -2,8 +2,8 @@ Cypress.Commands.add('checkUtilConsole',(argText: string,argValue)=>{
     try{
         for(var compt=0;compt<argText.length;compt++){
             console.log('<**********SYSTEM INFORMATION**********>');
-            if(argValue)console.log(argText[compt]+' :: '+argValue[compt])
-            else console.log(argText[compt]);
+            if(argValue)console.warn(argText[compt]+' :: '+argValue[compt])
+            else console.warn(argText[compt]);
         }
     }
     catch(ex){

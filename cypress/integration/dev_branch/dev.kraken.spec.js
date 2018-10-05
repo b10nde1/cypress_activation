@@ -87,119 +87,130 @@ describe('Screenshot', () => {
                 ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl
                 ,confGetUrlFromSiteMap,confGetAllLinkInCurrentPage]);
     });
-    if(conf_run_screen_shot){
-        console.log('conf_run_screen_shot :: Start');
-        let temp_indice_for_runMeta=0;
-        for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
-            let confWidth=Number(confDevice[comptDevice][0]);
-            let confHeight=Number(confDevice[comptDevice][1]);
-            for(var compt=0;compt<listMarkets.length;compt++){
-                let temp=compt;
-                temp_indice_for_runMeta=temp;
-                it('Url id '+comptDevice+'-'+compt+' | open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
-                    console.log('=======>'+confWidth+' X '+confHeight);
-                    cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
-                });
-                it('Scroll down',()=>{
-                    cy.get('footer').scrollIntoView();
-                    cy.wait(1000);
-                });
-                if(confCloseBanner){
-                    it('Url id '+comptDevice+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
-                        cy.checkUtilCloseCookieBanner('.adoric_element.element-text');
+    if(dataFromJson.xlsx_path.toUpperCase()==='NA'){
+        if(conf_run_screen_shot){
+            console.log('conf_run_screen_shot :: Start');
+            let temp_indice_for_runMeta=0;
+            for(var comptDevice=0;comptDevice<confDevice.length;comptDevice++){
+                let confWidth=Number(confDevice[comptDevice][0]);
+                let confHeight=Number(confDevice[comptDevice][1]);
+                for(var compt=0;compt<listMarkets.length;compt++){
+                    let temp=compt;
+                    temp_indice_for_runMeta=temp;
+                    it('Url id '+comptDevice+'-'+compt+' | open url | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                        console.log('=======>'+confWidth+' X '+confHeight);
+                        cy.checkUtilTakeScreenShotIfNotErrorPage(listMarkets[temp][1],confOnlyStatus200);
                     });
-                    it('Url id '+comptDevice+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
-                        cy.checkUtilCloseCookieBanner('.adoric_element.element-text.closeLightboxButton');
+                    it('Scroll down',()=>{
+                        cy.get('footer').scrollIntoView();
+                        cy.wait(1000);
                     });
-                    it('Url id '+comptDevice+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
-                        cy.checkUtilCloseCookieBanner('.adoric_element.element-shape.closeLightboxButton');
-                    });
-                    it('Url id '+comptDevice+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
-                        cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
-                    });
-                    it('Url id '+comptDevice+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
-                        cy.checkUtilCloseCookieBanner('#_evh-ric-c');
+                    if(confCloseBanner){
+                        it('Url id '+comptDevice+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                            cy.checkUtilCloseCookieBanner('.adoric_element.element-text');
+                        });
+                        it('Url id '+comptDevice+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                            cy.checkUtilCloseCookieBanner('.adoric_element.element-text.closeLightboxButton');
+                        });
+                        it('Url id '+comptDevice+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                            cy.checkUtilCloseCookieBanner('.adoric_element.element-shape.closeLightboxButton');
+                        });
+                        it('Url id '+comptDevice+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                            cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
+                        });
+                        it('Url id '+comptDevice+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                            cy.checkUtilCloseCookieBanner('#_evh-ric-c');
+                        });
+                    }
+                    it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                        cy.viewport(confWidth,confHeight);
+                        if(confOpenNavMenu[0]!=0 && confWidth>1023){
+                            for(var comptNavMenu=0;comptNavMenu<confOpenNavMenu.length;confOpenNavMenu++){
+                                cy.checkUtilOpenNavMenu(confOpenNavMenu[comptNavMenu]);
+                                cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-navMenuId'+comptNavMenu+'-'+listMarkets[temp][0]);
+                            }
+                        }
+                        else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
                     });
                 }
-                it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
-                    cy.viewport(confWidth,confHeight);
-                    if(confOpenNavMenu[0]!=0 && confWidth>1023){
-                        for(var comptNavMenu=0;comptNavMenu<confOpenNavMenu.length;confOpenNavMenu++){
-                            cy.checkUtilOpenNavMenu(confOpenNavMenu[comptNavMenu]);
-                            cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-navMenuId'+comptNavMenu+'-'+listMarkets[temp][0]);
-                        }
-                    }
-                    else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
+            }
+            /**Revoir la logic de la boucle */
+            if(dataFromJson.runMetaVerification==true){
+                it('Kraken Meta Verification',()=>{
+                    cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
+                });
+            }
+            //report json for screenshot with tcid+article name + url
+            it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
+                cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
+            });
+            console.log('conf_run_screen_shot :: End');
+        }
+        //return txt with list of links in current page
+        if(confGetAllLinkInCurrentPage){
+            for(var compt=0;compt<listMarkets.length;compt++){
+                let temp=compt;
+                it('Kraken | Get Links of Current page',()=>{
+                    cy.utilGetAllLinksOfCurrentPage(listMarkets[temp][0],listMarkets[temp][1],reportId,dataConfGetAllLinkCurrentPage);
                 });
             }
         }
-        /**Revoir la logic de la boucle */
-        if(dataFromJson.runMetaVerification==true){
+        if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
             it('Kraken Meta Verification',()=>{
-                cy.metaVerification(dataFromJson.metaInfo.split('],[')[temp_indice_for_runMeta]);
+                console.log('Meta Verification :: Start -screenshot');
+                for(var compt=0;compt<listMarkets.length;compt++){
+                    cy.visit(listMarkets[compt][1]);
+                    cy.wait(6000);
+                    cy.metaVerification(dataFromJson.metaInfo.split('],[')[compt]);
+                }
             });
         }
-        //report json for screenshot with tcid+article name + url
-        it('Kraken screenshot Report id :: kraken'+reportId+'',()=>{
-            cy.checkGlobalScreenShotReport('kraken',listMarkets,reportId);
-        });
-        console.log('conf_run_screen_shot :: End');
-    }
-    //return txt with list of links in current page
-    if(confGetAllLinkInCurrentPage){
-        for(var compt=0;compt<listMarkets.length;compt++){
-            let temp=compt;
-            it('Kraken | Get Links of Current page',()=>{
-                cy.utilGetAllLinksOfCurrentPage(listMarkets[temp][0],listMarkets[temp][1],reportId,dataConfGetAllLinkCurrentPage);
+        if(confGetStatusCodeReport){
+            it('Kraken | Get Status Code report '+reportId+'',()=>{
+                console.log('confGetStatusCodeReport :: Start');
+                cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
+                console.log('confGetStatusCodeReport :: End');
+            })
+        }
+        //check if list of new article are present in sitemap.xml
+        if(confVerifySitemapXML){
+            it('Kraken | Verify sitemap.xml',()=>{
+                console.log('confVerifySitemapXML :: Start');
+                cy.checkUtilVerifyUrlsInSitemapXML(listMarkets,reportId);
+                console.log('confVerifySitemapXML :: End');
+            });
+        }
+        //download sitemap.xml
+        if(confDownloadSitemapXML){
+            it('Kraken | Download Sitemap.xml',()=>{
+                console.log('confDownloadSitemapXML :: Start');
+            cy.checkUtilDownloadMultipleSitemapXML(listMarkets);
+            console.log('confDownloadSitemapXML :: End');
+            });
+        }
+        //get all urls in sitemap.xml
+        if(confGetUrlFromSiteMap){
+            it('Kraken | Get All Urls in Sitemap.xml',()=>{
+                console.log('confGetUrlFromSiteMap :: Start');
+                cy.checkUtilDownloadUrlsFromSiteMapXml(listMarkets[0][1]);
+                console.log('confGetUrlFromSiteMap :: Emd');
+            });
+        }
+        if(conf_run_page_speed){
+            it('Kraken | Run Google Page Speed',()=>{
+                console.log('conf_run_page_speed :: Start');
+                cy.pageSpeed(data_page_speed);
+                console.log('conf_run_page_speed :: End');
             });
         }
     }
-    if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
-        it('Kraken Meta Verification',()=>{
-            console.log('Meta Verification :: Start -screenshot');
-            for(var compt=0;compt<listMarkets.length;compt++){
-                cy.visit(listMarkets[compt][1]);
-                cy.wait(6000);
-                cy.metaVerification(dataFromJson.metaInfo.split('],[')[compt]);
-            }
+    else{
+        it('Run Kraken from XLSX',()=>{
+            cy.xlsxRun(dataFromJson.xlsx_path);
         });
-    }
-    if(confGetStatusCodeReport){
-        it('Kraken | Get Status Code report '+reportId+'',()=>{
-            console.log('confGetStatusCodeReport :: Start');
-            cy.checkUtilGetStatusCodeReport('kraken-statusCodeReport',listMarkets,reportId);
-            console.log('confGetStatusCodeReport :: End');
-        })
-    }
-    //check if list of new article are present in sitemap.xml
-    if(confVerifySitemapXML){
-        it('Kraken | Verify sitemap.xml',()=>{
-            console.log('confVerifySitemapXML :: Start');
-            cy.checkUtilVerifyUrlsInSitemapXML(listMarkets,reportId);
-            console.log('confVerifySitemapXML :: End');
-        });
-    }
-    //download sitemap.xml
-    if(confDownloadSitemapXML){
-        it('Kraken | Download Sitemap.xml',()=>{
-            console.log('confDownloadSitemapXML :: Start');
-           cy.checkUtilDownloadMultipleSitemapXML(listMarkets);
-           console.log('confDownloadSitemapXML :: End');
-        });
-    }
-    //get all urls in sitemap.xml
-    if(confGetUrlFromSiteMap){
-        it('Kraken | Get All Urls in Sitemap.xml',()=>{
-            console.log('confGetUrlFromSiteMap :: Start');
-            cy.checkUtilDownloadUrlsFromSiteMapXml(listMarkets[0][1]);
-            console.log('confGetUrlFromSiteMap :: Emd');
-        });
-    }
-    if(conf_run_page_speed){
-        it('Kraken | Run Google Page Speed',()=>{
-            console.log('conf_run_page_speed :: Start');
-            cy.pageSpeed(data_page_speed);
-            console.log('conf_run_page_speed :: End');
-        });
+        /*it('Scroll down',()=>{
+            cy.get('footer').scrollIntoView();
+            cy.wait(1000);
+        });*/
     }
 })
