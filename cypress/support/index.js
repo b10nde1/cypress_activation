@@ -1,3 +1,4 @@
+import '../../node_modules/xlsx'
 import './util.commands'
 import './guides.commands'
 import './interface.commands'

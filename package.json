@@ -14,6 +14,7 @@
     "cypress": "^3.0.1"
   },
   "dependencies": {
-    "flow-bin": "^0.78.0"
+    "flow-bin": "^0.78.0",
+    "xlsx": "^0.14.0"
   }
 }

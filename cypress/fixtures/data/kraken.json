@@ -1,5 +1,5 @@
 {
-    "xlsx_path":"../../data",
+    "xlsx_path":"../../data.xlsx",
     "runPageSpeed":false,
     "runScreenShot":false,
     "runMetaVerification":false,
