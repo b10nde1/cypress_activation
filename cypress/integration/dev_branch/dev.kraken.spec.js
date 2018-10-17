@@ -2,24 +2,24 @@ import dataFromJson from '../../fixtures/data/kraken.json';
 describe('Screenshot', () => {
     const alignTableFromJson=(argSplit)=>{
         let result=new Array(argSplit.length);
-        for(var compt=0;compt<argSplit.length;compt++){
-            result[compt]=argSplit[compt];
-        }
+        argSplit.forEach(element => {
+            result[argSplit.indexOf(element)]=element;
+        });
         return result;
     };
     const getTable2DFromJson=(argTableTestimonialContent,argSplit)=>{
         let result=new Array(argTableTestimonialContent.length);
-        for(var compt=0;compt<argTableTestimonialContent.length;compt++){
-            result[compt]=alignTableFromJson(argTableTestimonialContent[compt].split(argSplit));
-            let tempResultLabel=result[compt][0].replace("[","");
-            let tempResultLink=result[compt][1].replace("]","");
-            if(tempResultLabel!='--')result[compt][0]=tempResultLabel
+        argTableTestimonialContent.forEach(element=>{
+            result[argTableTestimonialContent.indexOf(element)]=alignTableFromJson(element.split(argSplit));
+            let tempResultLabel=result[argTableTestimonialContent.indexOf(element)][0].replace("[","");
+            let tempResultLink=result[argTableTestimonialContent.indexOf(element)][1].replace("]","");
+            if(tempResultLabel!='--')result[argTableTestimonialContent.indexOf(element)][0]=tempResultLabel
             else{
                 let tempResultGenerateLabel=tempResultLink.split('/');
-                result[compt][0]=tempResultGenerateLabel[(tempResultGenerateLabel.length)-1];
+                result[argTableTestimonialContent.indexOf(element)][0]=tempResultGenerateLabel[(tempResultGenerateLabel.length)-1];
             }
-            result[compt][1]=tempResultLink;
-        }
+            result[argTableTestimonialContent.indexOf(element)][1]=tempResultLink;
+        });
         return result;
     };
     let conf_run_screen_shot=dataFromJson.runScreenShot;
@@ -105,29 +105,32 @@ describe('Screenshot', () => {
                     cy.wait(1000);
                 });
                 if(confCloseBanner){
-                    it('Url id '+comptDevice+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                    it('Url id '+confDevice.indexOf(element)+'-'+compt+' | adoric element text | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
                         cy.checkUtilCloseCookieBanner('.adoric_element.element-text');
                     });
-                    it('Url id '+comptDevice+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                    it('Url id '+confDevice.indexOf(element)+'-'+compt+' | adoric element light box | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
                         cy.checkUtilCloseCookieBanner('.adoric_element.element-text.closeLightboxButton');
                     });
-                    it('Url id '+comptDevice+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
+                    it('Url id '+confDevice.indexOf(element)+'-'+compt+' | adoric element light Shape | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+' ',()=>{
                         cy.checkUtilCloseCookieBanner('.adoric_element.element-shape.closeLightboxButton');
                     });
-                    it('Url id '+comptDevice+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                    it('Url id '+confDevice.indexOf(element)+'-'+compt+' | Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                         cy.checkUtilCloseCookieBanner('.evidon-banner-acceptbutton');
                     });
-                    it('Url id '+comptDevice+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                    it('Url id '+confDevice.indexOf(element)+'-'+compt+' | Non Evidon Banner | '+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                         cy.checkUtilCloseCookieBanner('#_evh-ric-c');
                     });
                 }
-                it('Url id '+comptDevice+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
+                it('Url id '+confDevice.indexOf(element)+'-'+compt+'| take screenshot |'+confWidth+'x'+confHeight+'-'+listMarkets[temp][0]+'',()=>{
                     cy.viewport(confWidth,confHeight);
                     if(confOpenNavMenu[0]!=0 && confWidth>1023){
-                        for(var comptNavMenu=0;comptNavMenu<confOpenNavMenu.length;confOpenNavMenu++){
-                            cy.checkUtilOpenNavMenu(confOpenNavMenu[comptNavMenu]);
-                            cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-navMenuId'+comptNavMenu+'-'+listMarkets[temp][0]);
-                        }
+                        confOpenNavMenu.forEach(element=>{
+                            cy.checkUtilOpenNavMenu(element);
+                            cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'
+                                +confHeight+'-navMenuId'
+                                +confOpenNavMenu.indexOf(element)+'-'
+                                +listMarkets[temp][0]);
+                        });
                     }
                     else cy.checkVortexOpenAndTakeScreenShot(confWidth+'x'+confHeight+'-'+listMarkets[temp][0]);
                 });
@@ -156,7 +159,7 @@ describe('Screenshot', () => {
     }
     if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
         it('Kraken Meta Verification',()=>{
-            console.log('Meta Verification :: Start -screenshot');
+            console.log('Meta Verification :: Start -runMetaVerification');
             for(var compt=0;compt<listMarkets.length;compt++){
                 cy.visit(listMarkets[compt][1]);
                 cy.wait(6000);

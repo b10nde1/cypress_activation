@@ -42,7 +42,7 @@ const getCookie=(argCookieName: string)=>{
         cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split'],[decodedCkieSplt[0]]);
         cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split charAt'],[decodedCkieSplt[0].charAt(0)]);
         cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split substring'],[decodedCkieSplt[0].substring(1)]);
-        for(var compt=0; compt<decodedCkieSplt.length; compt++) {
+        for(var compt=0; compt<decodedCkieSplt.length; compt++){
             var temp = decodedCkieSplt[compt];
             while (temp.charAt(0) == ' ') {
                 temp=temp.substring(1);
@@ -206,17 +206,18 @@ const getIndicMarket=(argUrls: string)=>{
 const utilGetNumberOfMarket=(argListOfUrls: Array)=>{
     try{
         let lengthIdMarket=1;
+        /*MERCI DE NE PAS CHANGER LA CETTE BOUCLE!*/
         for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
             let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
             let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
-            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
-                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+            argListOfUrls.forEach(element=>{
+                let tempMarketFullUrl=element[1];
                 let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
                 if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
                     lengthIdMarket++;
-                    comptIdMarket=comptTempMarket;
+                    comptIdMarket=argListOfUrls.indexOf(element);
                 }
-            }
+            });
         }
         return lengthIdMarket;
     }
@@ -228,27 +229,29 @@ const utilGetNumberOfMarket=(argListOfUrls: Array)=>{
 const utilSplitMarket=(argListOfUrls: Array)=>{
     try{
         let listMarket= new Array (utilGetNumberOfMarket(argListOfUrls));let comptListMarket=1;
-        for(var comptFix=0;comptFix<argListOfUrls.length;comptFix++){
-            argListOfUrls[comptFix][0]=argListOfUrls[comptFix][1].split('/')[2];
-        }
-        for(var compt=0;compt<listMarket.length;compt++){
-            listMarket[compt]=argListOfUrls[0][0];
-        }
+        argListOfUrls.forEach(element=>{
+            element[0]=element[1].split('/')[2];
+        });
+        listMarket.forEach(element=>{
+            element=argListOfUrls[0][0];
+        });
+        /*MERCI DE NE PAS TOUCHER A CETTE BOUCLE*/
         for(var comptIdMarket=0;comptIdMarket<argListOfUrls.length;comptIdMarket++){
             let tempIdMarketFullUrl=argListOfUrls[comptIdMarket][1];
             let tempIdMarketBaseUrl=tempIdMarketFullUrl.split('/')[2];
-            for(var comptTempMarket=0;comptTempMarket<argListOfUrls.length;comptTempMarket++){
-                let tempMarketFullUrl=argListOfUrls[comptTempMarket][1];
+            argListOfUrls.forEach(element=>{
+                let tempMarketFullUrl=element[1];
                 let tempMarketBaseUrl=tempMarketFullUrl.split('/')[2];
                 if(tempIdMarketBaseUrl!=tempMarketBaseUrl){
                     listMarket[comptListMarket]=tempMarketBaseUrl;
                     comptListMarket++;
-                    comptIdMarket=comptTempMarket;
+                    comptIdMarket=argListOfUrls.indexOf(element);
                 }
-            }
+            });
         }
         cy.checkUtilConsole(['util.commands => utilSplitMarket listMarket'],[listMarket]);
         let result=new Array(listMarket.length);let comptResult=0;
+        /*MERCI DE NE PAS TOUCHER A CETTE BOUCLE*/
         for(var compt=0;compt<result.length;compt++){
             result[compt]=[];
             for(var comptList=0;comptList<argListOfUrls.length;comptList++){
@@ -272,13 +275,14 @@ const getListOfSiteMap=(argListOfUrls: Array)=>{
     try{
         cy.checkUtilConsole(['util.commands => getListOfSiteMap'],['Start']);
         let tableOfMarket=utilSplitMarket(argListOfUrls);
+        /*MERCI DE NE PAS TOUCHER A CETTE BOUCLE!*/
         for(var comptLv1=0;comptLv1<tableOfMarket.length;comptLv1++){
-            for(var comptLv2=0;comptLv2<tableOfMarket[comptLv1].length;comptLv2++){
-                let temp=tableOfMarket[comptLv1][comptLv2];
-                tableOfMarket[comptLv1][comptLv2]=new Array(2);
-                tableOfMarket[comptLv1][comptLv2][0]='kraken_multiple_countries';
-                tableOfMarket[comptLv1][comptLv2][1]=temp;
-            }
+            tableOfMarket[comptLv1].forEach(element=>{
+                let temp=tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)];
+                tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)]=new Array(2);
+                tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)][0]='kraken_multiple_countries';
+                tableOfMarket[comptLv1][tableOfMarket[comptLv1].indexOf(element)][1]=temp;
+            });
         }
         cy.checkUtilConsole(['util.commands => getListOfSiteMap'],['END']);
         return tableOfMarket;
@@ -291,9 +295,9 @@ const getListOfSiteMap=(argListOfUrls: Array)=>{
 Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets: Array,argReportId: Date)=>{
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
-        for(var compt=0;compt<tempListOfSiteMap.length;compt++){
-            cy.checkArticleV2Sitemap(tempListOfSiteMap[compt],argReportId+compt);
-        }
+        tempListOfSiteMap.forEach(element=>{
+            cy.checkArticleV2Sitemap(element,argReportId+tempListOfSiteMap.indexOf(element));
+        });
     }
     catch(ex){
         cy.checkUtilConsole(['util.commands => checkUtilVerifyUrlsInSitemapXML'],[ex]);
@@ -303,9 +307,9 @@ Cypress.Commands.add('checkUtilVerifyUrlsInSitemapXML',(argListMarkets: Array,ar
 Cypress.Commands.add('checkUtilDownloadMultipleSitemapXML',(argListMarkets: Array)=>{
     try{
         let tempListOfSiteMap=getListOfSiteMap(argListMarkets);
-        for(var compt=0;compt<tempListOfSiteMap.length;compt++){
-            cy.checkArticleV2DownloadSitemapXML(tempListOfSiteMap[compt]);
-        }
+        tempListOfSiteMap.forEach(element=>{
+            cy.checkArticleV2DownloadSitemapXML(element);
+        });
     }
     catch(ex){
         cy.checkUtilConsole(['util.commands => checkUtilDownloadMultipleSitemapXML'],[ex]);

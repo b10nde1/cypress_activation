@@ -38,27 +38,27 @@ const createBalise=(argListBalise: Array,argOption: Array,argMultipleOption: boo
         //case argMultipleOption true
         if(argMultipleOption){
             let tableOfOption=new Array(argOption.length);
-            for(var compt=0;compt<argOption.length;compt++){
-                tableOfOption[compt]=new Array(3);
-                tableOfOption[compt]=getBaliseOption(argOption[compt]);
-            }
-            for(var compt=0;compt<argListBalise.length;compt++){
-                option=getBaliseOption(tableOfOption[compt]);
+            argOption.forEach(element=>{
+                tableOfOption[argOption.indexOf(element)]=new Array(3);
+                tableOfOption[argOption.indexOf(element)]=getBaliseOption(element);
+            });
+            argListBalise.forEach(element=>{
+                option=getBaliseOption(tableOfOption[argListBalise.indexOf(element)]);
                 let optionBalise=' '+option[1]+'="'+option[2]+'"';
                 if(option[1]=='')optionBalise='';
-                if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>'
-                else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-            }
+                if(argAligned)resultAligned+='<'+option[0]+''+element+''+optionBalise+'>'
+                else resultNotAligned[argListBalise.indexOf(element)]='<'+option[0]+''+element+''+optionBalise+'>';
+            });
         }
         //case argMultipleOption false
         else {
             option=getBaliseOption(argOption);
             let optionBalise=' '+option[1]+'="'+option[0]+'"';
             if(option[1]=='')optionBalise='';
-            for(var compt;compt<argListBalise.length;compt++){
-                if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-                else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-            }
+            argListBalise.forEach(element=>{
+                if(argAligned)resultAligned+='<'+option[0]+''+element+''+optionBalise+'>';
+                else resultNotAligned[argListBalise.indexOf(element)]='<'+option[0]+''+element+''+optionBalise+'>';
+            });
         }
         if(argAligned)return resultAligned;
         else return resultNotAligned;
@@ -187,15 +187,13 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array
 
 Cypress.Commands.add('interfaceStatusCodeReport',(argTitle: string,argReportId: Date,argHeaderSection: Array,argDataSection: Array)=>{
     try{
-        let extractHeaderSection='';let extractDataSection=new Array(argDataSection.length);
-        for(var compt=0;compt<argDataSection.length;compt++){
-            extractDataSection[compt]=new Array(3);
-            let tempSplit=argDataSection[compt].split('/*/');
-            let tempColor='blue';
-            if(tempSplit[0]!=200) tempColor='red'
-            [extractDataSection[compt][0],extractDataSection[compt][1],extractDataSection[compt][2]]=['<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>'
-                ,tempSplit[1]
-                ,tempSplit[2]];    
+        let extractDataSection=new Array(argDataSection.length);
+        for(var compt=0;compt<argData.length;compt++){ 
+            extractData[compt]=new Array(3); 
+            let tempData=argData[compt].split('/*/'); 
+            extractData[compt][0]=tempData[0]; 
+            extractData[compt][1]=tempData[1]; 
+            extractData[compt][2]=tempData[2];  
         }
         for(var compt=0;compt<argHeaderSection[0].length;compt++){
             extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';

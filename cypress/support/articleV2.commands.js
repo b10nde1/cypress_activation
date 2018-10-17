@@ -29,8 +29,10 @@ Cypress.Commands.add('checkArticleV2Title',(argTitle)=>{
 
 Cypress.Commands.add('checkArticleV2AuthorName',()=>{
     try{
-        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisheaderinformation_0_AuthorLink').should('have.attr','data-action-detail','author-page_author_view-detail-link');
-        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_AuthorLink').should('have.attr','data-action-detail','author-page_author_view-detail-link');        
+        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisheaderinformation_0_AuthorLink')
+            .should('have.attr','data-action-detail','author-page_author_view-detail-link');
+        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_AuthorLink')
+            .should('have.attr','data-action-detail','author-page_author_view-detail-link');        
     }
     catch(ex){
         console.log('checkArticleV2AuthorName ::'+ex);
@@ -39,7 +41,8 @@ Cypress.Commands.add('checkArticleV2AuthorName',()=>{
 
 Cypress.Commands.add('checkArticleV2DateAndTimeInfo',()=>{
     try{
-        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisheaderinformation_0_ReadTimeSection').should('have.class','article-oasis__details--item');
+        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisheaderinformation_0_ReadTimeSection')
+            .should('have.class','article-oasis__details--item');
     }
     catch(ex){
         console.log('checkArticleV2DateAndTimeInfo ::'+ex);
@@ -49,7 +52,8 @@ Cypress.Commands.add('checkArticleV2DateAndTimeInfo',()=>{
 Cypress.Commands.add('checkArticleV2ShareSection',()=>{
     try{
         cy.get('.js-article-share-desktop');
-        cy.get('.js-article-share-desktop').children('.icon__print.icon_print.overlay-oasis.js-share--print.event_print_page');
+        cy.get('.js-article-share-desktop')
+            .children('.icon__print.icon_print.overlay-oasis.js-share--print.event_print_page');
     }
     catch(ex){
         console.log('checkArticleV2ShareSection ::'+ex);
@@ -59,8 +63,10 @@ Cypress.Commands.add('checkArticleV2ShareSection',()=>{
 Cypress.Commands.add('checkArticleV2LikeIcon',()=>{
     try{
         cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_LikeButton');
-        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_LikeButton').should('have.class','overlay-oasis js-add-favorites event_socialmedia_like');
-        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_LikeButton').should('have.attr','data-vortex-scenario','like');
+        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_LikeButton')
+            .should('have.class','overlay-oasis js-add-favorites event_socialmedia_like');
+        cy.get('#phmaincontentoasis_0_pharticleoasiscontent_0_pharticleoasisfooterinformation_0_LikeButton')
+            .should('have.attr','data-vortex-scenario','like');
     }
     catch(ex){
         console.log('checkArticleV2LikeIcon ::'+ex);
@@ -83,7 +89,7 @@ const getBaseUrl=(argUrl)=>{
         let tempBase=tempData[2]
         result='https://'+tempBase;
         let listDoubleLang=['/en-us/','/es-us/','/ar-sa/','/en-sa/','/fr-ca/','/en-ca/','/en-eg/','/ar-eg/','/fr-be/','/nl-be/'];
-        for(var compt=0;compt<listDoubleLang.length;listDoubleLang++){
+        for(var compt=0;compt<listDoubleLang.length;compt++){
             let tempStatus=argUrl.search(listDoubleLang[compt]);
             if(tempStatus>0){
                 result+='/'+tempData[3];
