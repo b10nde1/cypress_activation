@@ -159,7 +159,7 @@ describe('Screenshot', () => {
     }
     if(dataFromJson.runMetaVerification==true && conf_run_screen_shot==false){
         it('Kraken Meta Verification',()=>{
-            console.log('Meta Verification :: Start -screenshot');
+            console.log('Meta Verification :: Start -runMetaVerification');
             for(var compt=0;compt<listMarkets.length;compt++){
                 cy.visit(listMarkets[compt][1]);
                 cy.wait(6000);

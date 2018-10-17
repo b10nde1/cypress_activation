@@ -42,7 +42,7 @@ const getCookie=(argCookieName: string)=>{
         cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split'],[decodedCkieSplt[0]]);
         cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split charAt'],[decodedCkieSplt[0].charAt(0)]);
         cy.checkUtilConsole(['util.commands => getCookie value decoded cookie split substring'],[decodedCkieSplt[0].substring(1)]);
-        for(var compt=0; compt<decodedCkieSplt.length; compt++) {
+        for(var compt=0; compt<decodedCkieSplt.length; compt++){
             var temp = decodedCkieSplt[compt];
             while (temp.charAt(0) == ' ') {
                 temp=temp.substring(1);
@@ -50,7 +50,7 @@ const getCookie=(argCookieName: string)=>{
             if(temp.indexOf(name) == 0) {
                 return temp.substring(name.length, temp.length);
             }
-        });
+        }
         return "";
     }
     catch(ex){

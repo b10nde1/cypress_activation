@@ -1,19 +1,19 @@
 {
     "runPageSpeed":false,
     "runScreenShot":false,
-    "runMetaVerification":false,
+    "runMetaVerification":true,
     "useBaseUrl":true,
     "openNavMenu":"0",
     "closeBanner":false,
     "verifySitemapXML":false,
     "downloadSitemapXML":false,
     "getAllUrlInSiteMap":false,
-    "getAllLinkInCurrentPage":"[a_href:true],[script:true],[link:true]",
+    "getAllLinkInCurrentPage":"[a_href:false],[script:false],[link:false]",
     "onlyStatus200":false,
     "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "baseUrl":"https://www.pampers.fr/",
-    "urls":"[grossesse_accouchement/*/grossesse/accouchement],[home_page/*/]",
+    "baseUrl":"https://www.pampers.com/en-us/",
+    "urls":"[test/*/maintenance]",
     "pageSpeed":"",
-    "metaInfo":""
+    "metaInfo":"[metaPageTitle:=Maintenance Page;metaDescription:=Maintenance Page;metaH1:=n/a;metaCanonical:=n/a;metaBreadcrumbs:=n/a]"
 }

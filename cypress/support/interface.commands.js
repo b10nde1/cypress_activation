@@ -188,14 +188,12 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array
 Cypress.Commands.add('interfaceStatusCodeReport',(argTitle: string,argReportId: Date,argHeaderSection: Array,argDataSection: Array)=>{
     try{
         let extractDataSection=new Array(argDataSection.length);
-        argDataSection.forEach(element=>{
-            extractDataSection[argDataSection.indexOf(element)]=new Array(3);
-            let tempSplit=element.split('/*/');
-            let tempColor='blue';
-            if(tempSplit[0]!=200) tempColor='red'
-            [extractDataSection[compt][0],extractDataSection[compt][1],extractDataSection[compt][2]]=['<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>'
-                ,tempSplit[1]
-                ,tempSplit[2]];    
+        for(var compt=0;compt<argData.length;compt++){ 
+            extractData[compt]=new Array(3); 
+            let tempData=argData[compt].split('/*/'); 
+            extractData[compt][0]=tempData[0]; 
+            extractData[compt][1]=tempData[1]; 
+            extractData[compt][2]=tempData[2];  
         }
         for(var compt=0;compt<argHeaderSection[0].length;compt++){
             extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';
