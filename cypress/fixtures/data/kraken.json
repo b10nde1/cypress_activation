@@ -1,13 +1,19 @@
 {
     "runPageSpeed":false,
-    "runScreenShot":true,
+    "runScreenShot":false,
+    "runMetaVerification":false,
+    "useBaseUrl":true,
     "openNavMenu":"0",
     "closeBanner":false,
-    "verifySitemapXML":true,
-    "downloadSitemapXML":true,
-    "onlyStatus200":true,
-    "getStatusCodeReport":true,
+    "verifySitemapXML":false,
+    "downloadSitemapXML":false,
+    "getAllUrlInSiteMap":false,
+    "getAllLinkInCurrentPage":"[a_href:true],[script:true],[link:true]",
+    "onlyStatus200":false,
+    "getStatusCodeReport":false,
     "device":"[1600,1200],[320,480]",
-    "urls":"[fr01/*/https://www.pampers.fr],[us01/*/https://www.pampers.com],[es01/*/https://www.dodot.es]",
-    "pageSpeed":""
+    "baseUrl":"https://www.pampers.fr/",
+    "urls":"[grossesse_accouchement/*/grossesse/accouchement],[home_page/*/]",
+    "pageSpeed":"",
+    "metaInfo":""
 }
