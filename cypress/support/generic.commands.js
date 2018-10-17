@@ -1,14 +1,3 @@
-//Excel column
-/*
-TestCase
-TestStep
-Scenario
-Test
-Run
-Action
-Value
-Data
-*/
 /***************************************************************/
 //Object 
 const objGeneric=(arg_testCase: string, arg_testStep: string, arg_scenario: string, arg_test: string
