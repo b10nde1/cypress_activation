@@ -12,12 +12,13 @@ Cypress.Commands.add('genericRunTest',(arg_data: Array)=>{
             let track_action=new Array(arg_data.length);
             arg_data.forEach(data_row=>{
                 if(arg_data.indexOf(data_row)!=0){
-                    let temp_obj=new ObjGeneric(Element[0],Element[1],Element[2],Element[3],Element[4],
-                        Element[5],Element[6],Element[7]);
-                    if(temp_obj.run){
+                    let temp_obj=new ObjGeneric(data_row[0],data_row[1],data_row[2],data_row[3],data_row[4],
+                        data_row[5],data_row[6],data_row[7]);
+                    cy.checkUtilConsole(['TestCase','TestStep','Scenario','Test','RUN','Action','Value','Data']
+                        ,[temp_obj.testCase,temp_obj.testStep,temp_obj.scenario,temp_obj.test
+                        ,temp_obj.run,temp_obj.action,temp_obj.value,temp_obj.data]);
+                    if(String(temp_obj.run)=='true'){
                         //verify what the action 
-                        cy.checkUtilConsole(['TestCase','TestStep','Scenario','Test']
-                            ,[temp_obj.testCase,temp_obj.testStep,temp_obj.scenario,temp_obj.test]);
                         temp_obj[temp_obj.action]([temp_obj.value,temp_obj.data,temp_obj.testCase,temp_obj.testStep]);
                     }
                     //track all action

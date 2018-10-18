@@ -3,29 +3,28 @@
 class ObjGeneric{
     //constructor
     constructor (arg_testCase: string, arg_testStep: string, arg_scenario: string, arg_test: string,arg_run: boolean, arg_action: string, arg_value: string, arg_data: string){
-        this.testCase=arg_testCase;
-        this.testStep=arg_testStep;
-        this.scenario=arg_scenario;
-        this.test=arg_test;
-        this.run=arg_run;
-        this.action=arg_action;
-        this.value=arg_value;
-        this.data=arg_data;
+        this.testCase=String(arg_testCase);
+        this.testStep=String(arg_testStep);
+        this.scenario=String(arg_scenario);
+        this.test=String(arg_test);
+        this.run=String(arg_run);
+        this.action=String(arg_action);
+        this.value=String(arg_value);
+        this.data=String(arg_data);
     }
     //list of generic commands
     //arg=[value][data][testCase][testStep]
-    let cy=require('../support/generic.commands');
-    viewport=(arg: Array)=>{cy.cmViewport(arg);}
-    openUrl=(arg: Array)=>{cy.cmOpenUrl(arg);}
-    wait=(arg: Array)=>{cy.cmWait(arg);}
-    scrollTo=(arg: Array)=>{cy.cmScrollTo(arg);}
-    click=(arg: Array)=>{cy.cmClick(arg);}
-    verifyAttr=(arg: Array)=>{cy.cmVerifyAttr(arg);}
-    verifyTextContains=(arg: Array)=>{cy.cmVerifyTextContains(arg);}
-    verifyElementPresent=(arg: Array)=>{cy.cmVerifyElementPresent(arg);}
-    download_xml=(arg: Array)=>{cy.cmDownloadXml(arg);}
-    capture=(arg: Array)=>{cy.cmCapture(arg);}
-    googlePageSpeed=(arg: Array)=>{cy.cmGooglePageSpeed(arg);}
-    getLinks=(arg: Array)=>{cy.cmGetLinks(arg);}
+    viewport(arg: Array){cy.cyViewport(arg[0],arg[1]);}//tested
+    openUrl(arg: Array){cy.cyOpenUrl(arg[1]);}//tested
+    wait(arg: Array){cy.cyWait(arg[1]);}//tested
+    scrollTo(arg: Array){cy.cyScrollTo(arg[0]);}//tested
+    click(arg: Array){cy.cyClick(arg[0],arg[1]);}//tested
+    verifyAttr(arg: Array){cy.cyVerifyAttr(arg[0],arg[1]);}//tested
+    verifyTextContains(arg: Array){cy.cyVerifyTextContains(arg[0],arg[1]);}//tested
+    verifyElementPresent(arg: Array){cy.cyVerifyElementPresent(arg[0]);}//tested
+    download_xml(arg: Array){cy.cyDownloadXml(arg[1]);}
+    capture(arg: Array){cy.cyCapture(arg[0],arg[1],arg[2],arg[3]);}
+    googlePageSpeed(arg: Array){cy.cyGooglePageSpeed(arg[1],arg[2],arg[3]);}
+    getLinks(arg: Array){cy.cyGetLinks(arg[1],arg[2],arg[3]);}
 }
 module.exports=ObjGeneric;

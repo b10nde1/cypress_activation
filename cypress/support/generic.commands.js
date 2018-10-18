@@ -116,12 +116,6 @@ Cypress.Commands.add('cyCapture',(arg_value: string, arg_data: string, arg_testC
 Cypress.Commands.add('cyDownloadXml',(arg_data: string)=>{
     try{
         util_commands.verifyNoNaOrBlank(arg_data);
-        if(arg_data.split('/')[0].toLowerCase()!='https:' ||
-            arg_data.split('/')[0].toLowerCase()!='http:'){
-                console.log('generic.commands => download_xml :: MISSING HTTP / HTTPS');
-                console.warn('generic.commands => download_xml :: SYSTEM ADD HTTP / HTTPS');
-                arg_data='http://'+arg_data;
-        }
         let xml_commands= require('./xml.commands');
         cy.checkUtilConsole(['INFO','generic.commands => cyDownloadXml']
             ,['Download sitemap.xml','Element => '+arg_data]);
@@ -233,17 +227,12 @@ Cypress.Commands.add('cyWait',(arg_data: string)=>{
 Cypress.Commands.add('cyOpenUrl',(arg_data: string)=>{
     try{
         util_commands.verifyNoNaOrBlank(arg_data);
-        let temp_https_fix=arg_data;
-        if(arg_data.split('/')[0]!='http:' || arg_data.split('/')[0]!='https:'){
-            console.log('generic.commands => cyOpenUrl :: MISSING HTTP / HTTPS IN URL');
-            console.warn('generic.commands => download_xml :: SYSTEM ADD HTTP / HTTPS');
-            arg_data='http://'+arg_data;
-        }
+        arg_data=String(arg_data);
         cy.checkUtilConsole(['INFO','generic.commands => cyOpenUrl'],['Open URL',arg_data]);
         cy.visit(arg_data);
     }
     catch(ex){
-        cy.checkUtilConsole(['generic.commands => cyViewport'],[ex]);
+        cy.checkUtilConsole(['generic.commands => cyOpenUrl'],[ex]);
     }
 });
 //viewport
@@ -263,8 +252,8 @@ Cypress.Commands.add('cyViewport',(arg_value: string, arg_data: string)=>{
             util_commands.verifyNoNaOrBlank('cyViewport',arg_value);
             list_device.forEach(Element=>{
                 if(Element==arg_value.toLowerCase()){
-                    conf_width=device_dimension[list_device.indexOf(Element)[0]];
-                    conf_height=device_dimension[list_device.indexOf(Element)[1]];
+                    conf_width=device_dimension[list_device.indexOf(Element)][0];
+                    conf_height=device_dimension[list_device.indexOf(Element)][1];
                 }
             })
         }

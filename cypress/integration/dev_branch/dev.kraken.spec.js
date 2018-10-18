@@ -87,6 +87,45 @@ describe('Screenshot', () => {
                 ,dataFromJson.runMetaVerification, dataFromJson.useBaseUrl
                 ,confGetUrlFromSiteMap,confGetAllLinkInCurrentPage]);
     });
+    /* */
+    it('TEST-DEV',()=>{
+        let test_dev_data=new Array(2);
+        
+        test_dev_data[0]=new Array(8);
+        test_dev_data[1]=[
+            ['1'],
+            ['1'],
+            ['test open URL'],
+            ['test'],
+            [true],
+            ['openUrl'],
+            ['n/a'],
+            ['https://www.pampers.fr']
+        ];
+        test_dev_data[2]=[
+            ['1'],
+            ['2'],
+            ['test viewport'],
+            ['test'],
+            [true],
+            ['viewport'],
+            ['desktop'],
+            ['n/a']
+        ];
+        test_dev_data[3]=[
+            ['1'],
+            ['3'],
+            ['verifyElementPresent'],
+            ['test'],
+            [true],
+            ['verifyElementPresent'],
+            ['li.menu__option__item:nth-child(1) > a:nth-child(1)'],
+            ['n/a']
+        ];
+
+        cy.genericRunTest(test_dev_data);
+    });
+    /* */
     if(conf_run_screen_shot){
         console.log('conf_run_screen_shot :: Start');
         let temp_indice_for_runMeta=0;
