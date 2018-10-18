@@ -32,9 +32,19 @@ let util_commands=require('./util.commands');
 //Cypress Commands
 //track test
 //record all action for each step
-Cypress.Commands.add('cyTrackTest',(arg_obj:any,arg_id: string)=>{
+Cypress.Commands.add('cyTrackTest',(arg_obj: array,arg_id: string)=>{
     try{
-
+        let data_track_action='';
+        arg_obj.forEach(data_row=>{
+            data_track_action+=
+                'Test Case :: '+data_row[0]+'\n'+
+                'Test Step :: '+data_row[1]+'\n'+
+                'Scenario :: '+data_row[2]+'\n'+
+                'Test :: '+data_row[3]+'\n'+
+                'Run Status :: '+data_row[4]+'\n'+
+                '\n/***************************************************************/\n\n';
+        })
+        cy.writeFile('cypress/report/track_action/trackReport-'+arg_id+'.txt',data_track_action);
     }
     catch(ex){
         cy.checkUtilConsole(['generic.commands => cyTrackTest'],[ex]);
