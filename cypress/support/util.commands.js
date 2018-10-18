@@ -330,3 +330,20 @@ Cypress.Commands.add('checkUtilOpenNavMenu',(argIdNavMenu: Int16Array)=>{
 Cypress.Commands.add('checkUtilDownloadUrlsFromSiteMapXml',(argUrl: string)=>{
     cy.xmlDownloadListOfUrls(argUrl);
 });
+
+/***************************************************************/
+//utilitary
+//Verify if blank or n/a
+const verifyNoNaOrBlank=(arg_function: string, arg_element: any)=>{
+    if(arg_element=='n/a')throw ('generic.commands => '+arg_function+' :: ALL DATA N/A')
+    if(arg_element==' ')throw ('generic.commands => '+arg_function+' :: ALL DATA BLANK')
+}
+//generate title with report id (based on getTime)
+const generateTitle=(arg_title: string)=>{
+    let date_report=new Date();let report_id=date_report.getTime();
+    return arg_title+'-'+report_id;
+}
+
+//export
+module.exports.verifyNoNaOrBlank=verifyNoNaOrBlank;
+module.exports.generateTitle=generateTitle;
