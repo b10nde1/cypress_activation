@@ -105,22 +105,12 @@ describe('Screenshot', () => {
         test_dev_data[2]=[
             ['1'],
             ['2'],
-            ['test viewport'],
+            ['test getLinks'],
             ['test'],
             [true],
-            ['viewport'],
-            ['desktop'],
-            ['n/a']
-        ];
-        test_dev_data[3]=[
-            ['1'],
-            ['3'],
-            ['verifyElementPresent'],
-            ['test'],
-            [true],
-            ['verifyElementPresent'],
-            ['li.menu__option__item:nth-child(1) > a:nth-child(1)'],
-            ['n/a']
+            ['getLinks'],
+            ['n/a'],
+            ['https://www.pampers.fr/selection-du-pays']
         ];
 
         cy.genericRunTest(test_dev_data);

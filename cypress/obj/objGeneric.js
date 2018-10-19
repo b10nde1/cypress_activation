@@ -14,14 +14,14 @@ class ObjGeneric{
     }
     //list of generic commands
     //arg=[value][data][testCase][testStep]
-    viewport(arg: Array){cy.cyViewport(arg[0],arg[1]);}//tested
-    openUrl(arg: Array){cy.cyOpenUrl(arg[1]);}//tested
-    wait(arg: Array){cy.cyWait(arg[1]);}//tested
-    scrollTo(arg: Array){cy.cyScrollTo(arg[0]);}//tested
-    click(arg: Array){cy.cyClick(arg[0],arg[1]);}//tested
-    verifyAttr(arg: Array){cy.cyVerifyAttr(arg[0],arg[1]);}//tested
-    verifyTextContains(arg: Array){cy.cyVerifyTextContains(arg[0],arg[1]);}//tested
-    verifyElementPresent(arg: Array){cy.cyVerifyElementPresent(arg[0]);}//tested
+    viewport(arg: Array){cy.cyViewport(arg[0],arg[1]);}
+    openUrl(arg: Array){cy.cyOpenUrl(arg[1]);}
+    wait(arg: Array){cy.cyWait(arg[1]);}
+    scrollTo(arg: Array){cy.cyScrollTo(arg[0]);}
+    click(arg: Array){cy.cyClick(arg[0],arg[1]);}
+    verifyAttr(arg: Array){cy.cyVerifyAttr(arg[0],arg[1]);}
+    verifyTextContains(arg: Array){cy.cyVerifyTextContains(arg[0],arg[1]);}
+    verifyElementPresent(arg: Array){cy.cyVerifyElementPresent(arg[0]);}
     download_xml(arg: Array){cy.cyDownloadXml(arg[1]);}
     capture(arg: Array){cy.cyCapture(arg[0],arg[1],arg[2],arg[3]);}
     googlePageSpeed(arg: Array){cy.cyGooglePageSpeed(arg[1],arg[2],arg[3]);}

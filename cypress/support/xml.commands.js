@@ -183,7 +183,7 @@ Cypress.Commands.add('utilGetAllLinksOfCurrentPage',(argTitle: string,argUrl: st
         cy.reportListUrlsInCurrentPage(argTitle,finalResult,new Date().getTime());
      }
     catch(ex){
-        cy.checkUtilConsole(['util.commands -> utilGetAllLinksOfCurrentPage'],[ex]);
+        cy.checkUtilConsole(['xml.commands -> utilGetAllLinksOfCurrentPage'],[ex]);
     }
 });
 

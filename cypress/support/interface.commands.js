@@ -2,7 +2,7 @@ const writeFile=(argFileTitle: string,argReportId: Date,argFileExt: string,argDa
     try{
         let col=null;
         if(argCol1!=null && argCol2!=null)col=[argCol1,argCol2];
-        let htmlContent=createHtml(argFileTitle,argData,'',copyElement(),col);
+        let htmlContent=createHtml(argFileTitle,argData,'//no js',copyElement(),col);
         if(argFileExt!='html')throw('Interface commands -> write file :: Error expect html | actual :'+argFileExt);
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
@@ -142,28 +142,26 @@ const createHtml=(argTitle: string,argBody: Array,argCss: string,argJs: string,a
         let data_table='';
         if(argCol!=null)data_table=createTable(argTitle,argBody,argCol[0],argCol[1]);
         else data_table=createTable(argTitle,argBody,null,null);
-        return listBalise[0]/*html*/
-                    +listBalise[2]/*head*/
-                        +listBalise[6]+argTitle+listBalise[7]/*title*/
-                        +listBalise[8]/*style*/
-                        +'body{margin:auto;width:80%;padding:10px;}'
-                        +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 100px;text-align: center;border-collapse: collapse;}'
-                        +'table.tableCss td, table.tableCss th {border: 1px solid #FFFFFF;}'
-                        +'table.tableCss tbody td {font-size: 14px;}'
-                        +'table.tableCss tr:nth-child(even) {background: #D0E4F5;}'
-                        +'table.tableCss thead {background: #0B6FA4;border-bottom: 5px solid #FFFFFF;}'
-                        +'table.tableCss thead th {font-size: 16px;font-weight: bold;color: #FFFFFF;text-align: center;border-left: 2px solid #FFFFFF;}'
-                        +'table.tableCss thead th:first-child {border-left: none;}'
-                        +'table.tableCss tfoot td { font-size: 14px;}'
-                        +listBalise[9]
-                        +listBalise[8]+argCss+listBalise[9]/*style*/
-                    +listBalise[3]
-                    +listBalise[4]/*body*/
+        return '<html>'
+                    +'<head>'+'<title>'+argTitle+'</title>'
+                        +'<style>'
+                            +'body{margin:auto;width:80%;padding:10px;}'
+                            +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 100px;text-align: center;border-collapse: collapse;}'
+                            +'table.tableCss td, table.tableCss th {border: 1px solid #FFFFFF;}'
+                            +'table.tableCss tbody td {font-size: 14px;}'
+                            +'table.tableCss tr:nth-child(even) {background: #D0E4F5;}'
+                            +'table.tableCss thead {background: #0B6FA4;border-bottom: 5px solid #FFFFFF;}'
+                            +'table.tableCss thead th {font-size: 16px;font-weight: bold;color: #FFFFFF;text-align: center;border-left: 2px solid #FFFFFF;}'
+                            +'table.tableCss thead th:first-child {border-left: none;}'
+                            +'table.tableCss tfoot td { font-size: 14px;}'
+                        +'</style>'
+                    +'</head>'
+                    +'<body>'/*body*/
                         +'<div>'+data_table
-                        +listBalise[10]+argJs+listBalise[11]/*script*/
+                            +'<script type="text/javascript">'+argJs+'</script>'/*script*/
                         +'</div>'
-                    +listBalise[5]
-                +listBalise[1];
+                    +'</body>'
+                +'</html>';
     }
     catch(ex){
          cy.checkUtilConsole(['interface.commands => interface commands -> createHtml'],[ex]);

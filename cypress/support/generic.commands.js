@@ -50,7 +50,7 @@ Cypress.Commands.add('cyTrackTest',(arg_obj: array,arg_id: string)=>{
         cy.checkUtilConsole(['generic.commands => cyTrackTest'],[ex]);
     }
 })
-//Get all links in the page
+//getLinks (Get all links in the page)
 //n/a | url (only 1 url per test)
 //Cypress.Commands.add('utilGetAllLinksOfCurrentPage',(argTitle: string,argUrl: string,argReportId: Date,argRunStatus: Array)
 Cypress.Commands.add('cyGetLinks',(arg_data: string, arg_testCase: string, arg_testStep: string)=>{
@@ -65,7 +65,7 @@ Cypress.Commands.add('cyGetLinks',(arg_data: string, arg_testCase: string, arg_t
                 title,
                 arg_url,
                 report_id,
-                [['a_href:false'],['script:false'],['link:false']]
+                ['a_href:true','script:true','link:true']
             );
         }
         else if(arg_url==' ')console.warn('generic.commands => cyGetLinks :: arg_url is EMPTY')
@@ -74,7 +74,7 @@ Cypress.Commands.add('cyGetLinks',(arg_data: string, arg_testCase: string, arg_t
         cy.checkUtilConsole(['generic.commands => cyGetLinks'],[ex]);
     }
 })
-//PageSpeed Result
+//googlePageSpeed(PageSpeed Result)
 //n/a | url
 //use pagespeed.commands.js => cy.pageSpeed(arg_data : Array[title][Url])
 Cypress.Commands.add('cyGooglePageSpeed',(arg_data: string, arg_testCase: string, arg_testStep: string)=>{
@@ -90,14 +90,14 @@ Cypress.Commands.add('cyGooglePageSpeed',(arg_data: string, arg_testCase: string
         cy.checkUtilConsole(['INFO','generic.commands => cyGooglePageSpeed']
             ,['Google Page Speed','Title => '+title]);
         //if url_to_scan is setted, run the test else don't throw an exception but just show an warning information
-        if(url_to_scan!='')cy.pageSpeed([[title],[url_to_scan]]);
+        if(url_to_scan!='')cy.pageSpeed([[title,url_to_scan]]);
         else console.warn('WARN generic.commands/cyGooglePageSpeed => url_to_scan :: "EMPTY" ');
     }
     catch(ex){
         cy.checkUtilConsole(['generic.commnands => cyGooglePageSpeed'],[ex]);
     }
 })
-//take screenshot 
+//capture (take screenshot) 
 //css section (not mandatory) | title (not mandatory)
 Cypress.Commands.add('cyCapture',(arg_value: string, arg_data: string, arg_testCase: string, arg_testStep: string)=>{
     try{
@@ -105,13 +105,14 @@ Cypress.Commands.add('cyCapture',(arg_value: string, arg_data: string, arg_testC
         let title=util_commands.generateTitle(arg_data+'-'+arg_testCase+'-'+arg_testStep);
         cy.checkUtilConsole(['INFO','generic.commands => cyCapture']
             ,['Take screenshot','Title => '+title]);
-        cy.checkVortexOpenAndTakeScreenShot(title,arg_value);
+        if(arg_value==' ' || arg_value =='n/a')cy.checkVortexOpenAndTakeScreenShot(title);
+        else cy.checkVortexOpenAndTakeScreenShot(title,arg_value);
     }
     catch(ex){
         cy.checkUtilConsole(['generic.commands => cyCapture'],[ex]);
     }
 })
-//Download sitemap.xml
+//download_xml
 //n/a | base_url
 Cypress.Commands.add('cyDownloadXml',(arg_data: string)=>{
     try{
@@ -119,7 +120,7 @@ Cypress.Commands.add('cyDownloadXml',(arg_data: string)=>{
         let xml_commands= require('./xml.commands');
         cy.checkUtilConsole(['INFO','generic.commands => cyDownloadXml']
             ,['Download sitemap.xml','Element => '+arg_data]);
-        cy.checkUtilDownloadSitemapXML(xml_commands.getSiteMapUrl(getBaseUrl(arg_data)),'sitemap_xml');
+        cy.checkUtilDownloadSitemapXML(xml_commands.getSiteMapUrl(xml_commands.getBaseUrl(arg_data)),'sitemap_xml');
     }
     catch(ex){
         cy.checkUtilConsole(['generic.commands => download_xml'],[ex]);
