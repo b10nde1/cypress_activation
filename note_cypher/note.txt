@@ -1,0 +1,71 @@
+<******>
+create testdata from php webapp 
+save testdata -> postgresql
+export testdata -> json file
+run testdata -> 
+	run pg-dbtestdata from php webapp
+	use exec('C:/cmd.cmd') from php webapp to run cypress cmd file
+
+<***Node JS***>
+Connect to pgsql
+
+<***PHP***>
+front
+	login
+	testdata dashboard (view, activate, modify, delete, export json)
+		testdata
+		run btn
+	new testdata - update testdata
+	view testdata (+export to json)
+back
+	when run(testdata)
+		run exec for cypress
+		-> logic : get pg-dbtestdata (group by active user), check pg-dbtestdata.activate(true / false) and get data if true
+		note : activate status can be true for 1 testdata per user
+	login session
+	CRUD
+	export json
+
+<***PG***>
+pg-dbaccess
+	pgid
+	access(read modify create remove admin-modify_access)
+	
+pg-dbuser
+	pgid
+	username
+	password
+	pgid-dbaccess
+
+pg-dbtestdata
+	pgid
+	project
+	environment
+	market
+	date
+	pgid-dbuser
+	lock(true / false)
+	activate(true / false)
+	comment
+
+pg-dbuseraction
+	pgid
+	pgid-dbuser
+	date
+	action
+
+pg-dbtest
+	pgid
+	testcase
+	teststep
+	scenario
+	test
+	run
+	action
+	value
+	data
+	pgid-dbtestdata
+	
+pg-viewtestdata (use dbtest group by pgid-dbtestdata)
+
+pg-viewuseraction (use dbuseraction group by pgid-dbuseraction)
