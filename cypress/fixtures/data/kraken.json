@@ -1,7 +1,7 @@
 {
     "runPageSpeed":false,
     "runScreenShot":false,
-    "runMetaVerification":true,
+    "runMetaVerification":false,
     "useBaseUrl":true,
     "openNavMenu":"0",
     "closeBanner":false,

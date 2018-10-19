@@ -119,7 +119,7 @@ Cypress.Commands.add('xmlGetListOfUrlsAndVerify',(argUrl: string,argListData: Ar
 Cypress.Commands.add('checkArticleV2DownloadSitemapXML',(argListData)=>{
     try{
         let baseUrl=getSiteMapUrl(argListData[0][1]);
-        cy.checkUtilDownloadSitemapXML(baseUrl,'articleV2');
+        cy.checkUtilDownloadSitemapXML(baseUrl,'sitemap_xml');
     }
     catch(ex){
         console.log('xml.commands => checkArticleV2DownloadSitemapXML ::'+ex);
@@ -183,6 +183,10 @@ Cypress.Commands.add('utilGetAllLinksOfCurrentPage',(argTitle: string,argUrl: st
         cy.reportListUrlsInCurrentPage(argTitle,finalResult,new Date().getTime());
      }
     catch(ex){
-        cy.checkUtilConsole(['util.commands -> utilGetAllLinksOfCurrentPage'],[ex]);
+        cy.checkUtilConsole(['xml.commands -> utilGetAllLinksOfCurrentPage'],[ex]);
     }
 });
+
+//export
+module.exports.getBaseUrl = getBaseUrl;
+module.exports.getSiteMapUrl=getSiteMapUrl;
