@@ -2,7 +2,7 @@ const writeFile=(argFileTitle: string,argReportId: Date,argFileExt: string,argDa
     try{
         let col=null;
         if(argCol1!=null && argCol2!=null)col=[argCol1,argCol2];
-        let htmlContent=createHtml(argFileTitle,argData,'',copyElement(),col);
+        let htmlContent=createHtml(argFileTitle,argData,'//no js',copyElement(),col);
         if(argFileExt!='html')throw('Interface commands -> write file :: Error expect html | actual :'+argFileExt);
         cy.writeFile('cypress/report/'+argFileTitle+'-'+argReportId+'/report'+argFileTitle+'-'+argReportId+'.'+argFileExt+'',''+htmlContent+'');
     }
@@ -38,27 +38,27 @@ const createBalise=(argListBalise: Array,argOption: Array,argMultipleOption: boo
         //case argMultipleOption true
         if(argMultipleOption){
             let tableOfOption=new Array(argOption.length);
-            for(var compt=0;compt<argOption.length;compt++){
-                tableOfOption[compt]=new Array(3);
-                tableOfOption[compt]=getBaliseOption(argOption[compt]);
-            }
-            for(var compt=0;compt<argListBalise.length;compt++){
-                option=getBaliseOption(tableOfOption[compt]);
+            argOption.forEach(element=>{
+                tableOfOption[argOption.indexOf(element)]=new Array(3);
+                tableOfOption[argOption.indexOf(element)]=getBaliseOption(element);
+            });
+            argListBalise.forEach(element=>{
+                option=getBaliseOption(tableOfOption[argListBalise.indexOf(element)]);
                 let optionBalise=' '+option[1]+'="'+option[2]+'"';
                 if(option[1]=='')optionBalise='';
-                if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>'
-                else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-            }
+                if(argAligned)resultAligned+='<'+option[0]+''+element+''+optionBalise+'>'
+                else resultNotAligned[argListBalise.indexOf(element)]='<'+option[0]+''+element+''+optionBalise+'>';
+            });
         }
         //case argMultipleOption false
         else {
             option=getBaliseOption(argOption);
             let optionBalise=' '+option[1]+'="'+option[0]+'"';
             if(option[1]=='')optionBalise='';
-            for(var compt;compt<argListBalise.length;compt++){
-                if(argAligned)resultAligned+='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-                else resultNotAligned[compt]='<'+option[0]+''+argListBalise[compt]+''+optionBalise+'>';
-            }
+            argListBalise.forEach(element=>{
+                if(argAligned)resultAligned+='<'+option[0]+''+element+''+optionBalise+'>';
+                else resultNotAligned[argListBalise.indexOf(element)]='<'+option[0]+''+element+''+optionBalise+'>';
+            });
         }
         if(argAligned)return resultAligned;
         else return resultNotAligned;
@@ -142,28 +142,26 @@ const createHtml=(argTitle: string,argBody: Array,argCss: string,argJs: string,a
         let data_table='';
         if(argCol!=null)data_table=createTable(argTitle,argBody,argCol[0],argCol[1]);
         else data_table=createTable(argTitle,argBody,null,null);
-        return listBalise[0]/*html*/
-                    +listBalise[2]/*head*/
-                        +listBalise[6]+argTitle+listBalise[7]/*title*/
-                        +listBalise[8]/*style*/
-                        +'body{margin:auto;width:80%;padding:10px;}'
-                        +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 100px;text-align: center;border-collapse: collapse;}'
-                        +'table.tableCss td, table.tableCss th {border: 1px solid #FFFFFF;}'
-                        +'table.tableCss tbody td {font-size: 14px;}'
-                        +'table.tableCss tr:nth-child(even) {background: #D0E4F5;}'
-                        +'table.tableCss thead {background: #0B6FA4;border-bottom: 5px solid #FFFFFF;}'
-                        +'table.tableCss thead th {font-size: 16px;font-weight: bold;color: #FFFFFF;text-align: center;border-left: 2px solid #FFFFFF;}'
-                        +'table.tableCss thead th:first-child {border-left: none;}'
-                        +'table.tableCss tfoot td { font-size: 14px;}'
-                        +listBalise[9]
-                        +listBalise[8]+argCss+listBalise[9]/*style*/
-                    +listBalise[3]
-                    +listBalise[4]/*body*/
+        return '<html>'
+                    +'<head>'+'<title>'+argTitle+'</title>'
+                        +'<style>'
+                            +'body{margin:auto;width:80%;padding:10px;}'
+                            +'table.tableCss {border: 1px solid #FFFFFF;background-color: #EEEEEE;width: 95%;height: 100px;text-align: center;border-collapse: collapse;}'
+                            +'table.tableCss td, table.tableCss th {border: 1px solid #FFFFFF;}'
+                            +'table.tableCss tbody td {font-size: 14px;}'
+                            +'table.tableCss tr:nth-child(even) {background: #D0E4F5;}'
+                            +'table.tableCss thead {background: #0B6FA4;border-bottom: 5px solid #FFFFFF;}'
+                            +'table.tableCss thead th {font-size: 16px;font-weight: bold;color: #FFFFFF;text-align: center;border-left: 2px solid #FFFFFF;}'
+                            +'table.tableCss thead th:first-child {border-left: none;}'
+                            +'table.tableCss tfoot td { font-size: 14px;}'
+                        +'</style>'
+                    +'</head>'
+                    +'<body>'/*body*/
                         +'<div>'+data_table
-                        +listBalise[10]+argJs+listBalise[11]/*script*/
+                            +'<script type="text/javascript">'+argJs+'</script>'/*script*/
                         +'</div>'
-                    +listBalise[5]
-                +listBalise[1];
+                    +'</body>'
+                +'</html>';
     }
     catch(ex){
          cy.checkUtilConsole(['interface.commands => interface commands -> createHtml'],[ex]);
@@ -187,15 +185,13 @@ Cypress.Commands.add('interfaceGooglePageSpeed',(argTitle: string,argData: Array
 
 Cypress.Commands.add('interfaceStatusCodeReport',(argTitle: string,argReportId: Date,argHeaderSection: Array,argDataSection: Array)=>{
     try{
-        let extractHeaderSection='';let extractDataSection=new Array(argDataSection.length);
-        for(var compt=0;compt<argDataSection.length;compt++){
-            extractDataSection[compt]=new Array(3);
-            let tempSplit=argDataSection[compt].split('/*/');
-            let tempColor='blue';
-            if(tempSplit[0]!=200) tempColor='red'
-            [extractDataSection[compt][0],extractDataSection[compt][1],extractDataSection[compt][2]]=['<button style="color=white;background-color:'+tempColor+'">'+tempSplit[0]+'</button>'
-                ,tempSplit[1]
-                ,tempSplit[2]];    
+        let extractDataSection=new Array(argDataSection.length);
+        for(var compt=0;compt<argData.length;compt++){ 
+            extractData[compt]=new Array(3); 
+            let tempData=argData[compt].split('/*/'); 
+            extractData[compt][0]=tempData[0]; 
+            extractData[compt][1]=tempData[1]; 
+            extractData[compt][2]=tempData[2];  
         }
         for(var compt=0;compt<argHeaderSection[0].length;compt++){
             extractHeaderSection+='<div id='+argHeaderSection[0][compt]+'><p>'+argHeaderSection[0][compt]+' :: '+argHeaderSection[1][compt]+'</p></div>';

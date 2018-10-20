@@ -1,7 +1,7 @@
 //Object Meta
 const objMeta=(temp_title: string,temp_description: string,temp_h1: string,temp_canonical: string,temp_breadcrumbs: string)=>{
     let temp_obj={
-        title:temp_title
+        pageTitle:temp_title
         ,description:temp_description
         ,h1:temp_h1
         ,canonical:temp_canonical
@@ -9,6 +9,24 @@ const objMeta=(temp_title: string,temp_description: string,temp_h1: string,temp_
     };
     return temp_obj;
 };
+
+/*Call unknow method*/
+let obj_method=new Object;
+obj_method.metaPageTitle=(arg_value: string)=>{
+    if(arg_value!='n/a')cy.metaPageTitle(arg_value);
+}
+obj_method.metaDescription=(arg_value: string)=>{
+    if(arg_value!='n/a')cy.metaDescription(arg_value);
+}
+obj_method.metaH1=(arg_value: string)=>{
+    if(arg_value!='n/a')cy.metaH1(arg_value);
+}
+obj_method.metaCanonical=(arg_value: string)=>{
+    if(arg_value!='n/a')cy.metaCanonical(arg_value);
+}
+obj_method.metaBreadcrumbs=(arg_value: string)=>{
+    if(arg_value!='n/a')cy.metaBreadcrumbs(arg_value);
+}
 
 //Page Title
 Cypress.Commands.add('metaPageTitle',(arg_title: string)=>{
@@ -116,11 +134,10 @@ const getDataFromJson=(arg_list_after_split: string)=>{
 const verifyMeta=(arg_obj: objMeta)=>{
     try{
         console.log('verifyMeta');
-        cy.metaPageTitle(arg_obj.title);
-        cy.metaDescription(arg_obj.description);
-        cy.metaH1(arg_obj.h1);
-        cy.metaCanonical(arg_obj.canonical);
-        cy.metaBreadcrumbs(arg_obj.breadcrumbs);
+        let list_value_obj=Object.entries(arg_obj);
+        list_value_obj.forEach(element=>{
+            obj_method[element[1].split(':=')[0]](element[1].split(':=')[1]);
+        });
     }
     catch(ex){
         cy.checkUtilConsole(['meta.commands => verifyMeta'],[ex]);
@@ -140,11 +157,11 @@ Cypress.Commands.add('metaVerification',(arg_list: string)=>{
                 //verify if value is !=''
                 if(element_after_split[1]=='')throw('ERROR! NO VALUE FOR '+temp_indicator+' ID '+get_data.indexOf(get_data[compt_element])+' ');
                 //init value for obj
-                if(temp_indicator=='title')temp_title=element_after_split[1]
-                if(temp_indicator=='description')temp_description=element_after_split[1]
-                if(temp_indicator=='h1')temp_h1=element_after_split[1]
-                if(temp_indicator=='canonical')temp_canonical=element_after_split[1]
-                if(temp_indicator=='breadcrumbs')temp_breadcrumbs=element_after_split[1]
+                if(temp_indicator=='metaPageTitle')temp_title=get_data[compt_element][compt]
+                if(temp_indicator=='metaDescription')temp_description=get_data[compt_element][compt]
+                if(temp_indicator=='metaH1')temp_h1=get_data[compt_element][compt]
+                if(temp_indicator=='metaCanonical')temp_canonical=get_data[compt_element][compt]
+                if(temp_indicator=='metaBreadcrumbs')temp_breadcrumbs=get_data[compt_element][compt]
             }
             let temp_obj=objMeta(temp_title,temp_description,temp_h1,temp_canonical,temp_breadcrumbs);
             verifyMeta(temp_obj);
