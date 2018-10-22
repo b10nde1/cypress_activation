@@ -112,8 +112,8 @@ describe('Screenshot', () => {
             ['n/a'],
             ['https://www.pampers.fr/selection-du-pays']
         ];
-
-        cy.genericRunTest(test_dev_data);
+        cy.test();
+        //cy.genericRunTest(test_dev_data);
     });
     /* */
     if(conf_run_screen_shot){
