@@ -37,6 +37,7 @@
                     <select name="action" id="row-0-action" onchange="actionInstruction('0',this.options[this.selectedIndex].getAttribute('datainstruction'))">
                         <option value="openUrl" datainstruction="value : n/a | data : url">Open URL</option>
                         <option value="viewport" datainstruction="value : desktop - mobile - n/a | data : n/a - n/a - 500x500 (custom dimension)">Change width x height</option>
+                        <option value="typeText" datainstruction="value : css section | data : Text">Type Text</option>
                         <option value="click" datainstruction="value : css location | data : next (text in the section if applicable) - n/a (if not applicable)">Click on</option>
                         <option value="scrollTo" datainstruction="value : footer (balise section) | data : n/a">Scroll To</option>
                         <option value="wait" datainstruction="value : n/a | data : 8 (value in second)">Pause</option>
@@ -89,6 +90,7 @@
                     +'<select name="action" id="'+div_id+'-action" onchange="actionInstruction(\''+node_id+'\',this.options[this.selectedIndex].getAttribute(\'datainstruction\'))">'
                         +'<option value="openUrl" datainstruction="value : n/a | data : url">Open URL</option>'
                         +'<option value="viewport" datainstruction="value : desktop - mobile - n/a | data : n/a - n/a - 500x500 (custom dimension)">Change width x height</option>'
+                        +'<option value="typeText" datainstruction="value : css section | data : Text">Type Text</option>'
                         +'<option value="click" datainstruction="value : css location | data : next (text in the section if applicable) - n/a (if not applicable)">Click on</option>'
                         +'<option value="scrollTo" datainstruction="value : footer (balise section) | data : n/a">Scroll To</option>'
                         +'<option value="wait" datainstruction="value : n/a | data : 8 (value in second)">Pause</option>'
