@@ -5,7 +5,6 @@
     <body>
         <!--Here html-->
         <!--Element : 
-            Test Title (json file name)
             Test Case 
             Test Step
             Scenario
@@ -17,8 +16,6 @@
         -->
         <div class="body">
             <div class="header">
-                <!--Field in the left top corner for Test Title-->
-                <input type="text" name="title" id="title" placeholder="Test Title">
                 <!--Btn in the right top corner to run program-->
                 <input type="button" value="Generate JSON" onclick="runProgram()">
             </div>
@@ -80,8 +77,41 @@
             }
             //here js function json export - run program
             const runProgram=()=>{
-                let row_length=Number(ocument.getElementById('row-id').innerText);
-                
+                let testCase='', testStep='',scenario='',test='',run='',action='',value='',data='';
+                //use getTime() for different json_page id
+                let page_id=new Date();
+                //get total of row
+                //note :: this is for all row (data-row-status="ON" and data-row-status="OFF")
+                let row_length=Number(document.getElementById('row-id').innerText);
+                //get data and transform it to data1/*/data2 for each input
+                for(var compt=0;compt<row_length;compt++){
+                    let temp_data_status=document.getElementById('row-'+compt).getAttribute('data-row-status');
+                    if(temp_data_status=='ON'){
+                        testCase+='/*/'+document.getElementById('row-'+compt+'-testCase').value;
+                        testStep+='/*/'+document.getElementById('row-'+compt+'-testStep').value;
+                        scenario+='/*/'+document.getElementById('row-'+compt+'-scenario').value;
+                        test+='/*/'+document.getElementById('row-'+compt+'-test').value;
+                        run+='/*/'+document.getElementById('row-'+compt+'-run').value;
+                        action+='/*/'+document.getElementById('row-'+compt+'-action').value;
+                        value+='/*/'+document.getElementById('row-'+compt+'-value').value;
+                        data+='/*/'+document.getElementById('row-'+compt+'-data').value;
+                    }
+                }
+                //create JSON Object
+                let json_result=JSON.stringify({ 
+                    testCase:testCase.substring(3),
+                    testStep:testStep.substring(3),
+                    scenario:scenario.substring(3),
+                    test:test.substring(3),
+                    run:run.substring(3),
+                    action:action.substring(3),
+                    value:value.substring(3),
+                    data:data.substring(3)
+                });
+                //prepare new window for result
+                let json_page = window.open("", "JSON_"+page_id.getTime()+"", "width=600,height=800");
+                //send result to the new window
+                json_page.document.write(json_result);
             }
         </script>
     </body>
