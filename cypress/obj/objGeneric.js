@@ -26,5 +26,6 @@ class ObjGeneric{
     capture(arg: Array){cy.cyCapture(arg[0],arg[1],arg[2],arg[3]);}
     googlePageSpeed(arg: Array){cy.cyGooglePageSpeed(arg[1],arg[2],arg[3]);}
     getLinks(arg: Array){cy.cyGetLinks(arg[1],arg[2],arg[3]);}
+    typeText(arg: Array){cy.cyTypeText(arg[0],arg[1]);}
 }
 module.exports=ObjGeneric;

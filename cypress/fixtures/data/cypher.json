@@ -1,0 +1,10 @@
+{
+    "testCase":"1/*/1",
+    "testStep":"1/*/2",
+    "scenario":"test open url/*/test getlinks",
+    "test":"test/*/test",
+    "run":"true/*/false",
+    "action":"openUrl/*/getLinks",
+    "value":"n/a/*/n/a",
+    "data":"https://www.pampers.fr/*/https://www.pampers.fr/selection-du-pays"
+}

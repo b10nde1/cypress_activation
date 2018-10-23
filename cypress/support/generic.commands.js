@@ -12,6 +12,7 @@ const cmDownload_xml=(arg: Array)=>{cy.cyDownloadXml(arg[1]);}
 const cmCapture=(arg: Array)=>{cy.cyCapture(arg[0],arg[1],arg[2],arg[3]);}
 const cmGooglePageSpeed=(arg: Array)=>{cy.cyGooglePageSpeed(arg[1],arg[2],arg[3]);}
 const cmGetLinks=(arg: Array)=>{cy.cyGetLinks(arg[1],arg[2],arg[3]);}
+const cmTypeText=(arg: Array)=>{cy.cyTypeText(arg[0],arg[1]);}
 //export to ObjGeneric
 module.exports.cmViewport=cmViewport;
 module.exports.cmOpenUrl=cmOpenUrl;
@@ -25,6 +26,7 @@ module.exports.cmDownload_xml=cmDownload_xml;
 module.exports.cmCapture=cmCapture;
 module.exports.cmGooglePageSpeed=cmGooglePageSpeed;
 module.exports.cmGetLinks=cmGetLinks;
+module.exports.cmTypeText=cmTypeText;
 /***************************************************************/
 //Import util
 let util_commands=require('./util.commands');
@@ -48,6 +50,18 @@ Cypress.Commands.add('cyTrackTest',(arg_obj: array,arg_id: string)=>{
     }
     catch(ex){
         cy.checkUtilConsole(['generic.commands => cyTrackTest'],[ex]);
+    }
+})
+//typeText
+//css section | text
+Cypress.Commands.add('cyTypeText',(arg_value : string, arg_data: string)=>{
+    try{
+        util_commands.verifyNoNaOrBlank(arg_value);
+        util_commands.verifyNoNaOrBlank(arg_data);
+        cy.get(arg_value).type(arg_data);
+    }
+    catch(ex){
+        cy.checkUtilConsole(['generic.commands => cyTypeText'],[ex]);
     }
 })
 //getLinks (Get all links in the page)
