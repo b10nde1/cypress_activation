@@ -1,0 +1,38 @@
+generate cypher.json for test
+value for run : true (run) / false (not run)
+list of action :
+    getLinks (Get all links in the page)
+        n/a | url (only 1 url per test)
+    googlePageSpeed(PageSpeed Result)
+        n/a | url
+    capture (take screenshot) 
+        css section (not mandatory) | title (not mandatory)
+    download_xml
+        n/a | base_url
+    verifyElementPresent
+        element | n/a
+    verifyTextContains
+        element | expected text
+    verifyAttr => href, alt,...
+        css location | [href][expected data]
+    click
+        value (css location) | next (text in the section if applicable) - n/a (if not applicable)
+    scrollTo
+        footer (balise section) | n/a
+    wait
+        n/a | 8 (value in second)
+    openUrl 
+        n/a | url
+    viewport
+        desktop - mobile - n/a | n/a - n/a - 500x500 (custom dimension)
+e.g:
+{
+    "testCase":"1/*/1",
+    "testStep":"1/*/2",
+    "scenario":"test open url/*/test getlinks",
+    "test":"test/*/test",
+    "run":"true/*/false",
+    "action":"openUrl/*/getLinks",
+    "value":"n/a/*/n/a",
+    "data":"https://www.pampers.fr/*/https://www.pampers.fr/selection-du-pays"
+}
