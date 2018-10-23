@@ -1,6 +1,6 @@
-import dataconf from '../../fixtures/dataconf.json';
-import cypher from '../../fixtures/data/cypher.json';
-import dataFromJson from '../../fixtures/data/kraken.json';
+import dataconf from '../fixtures/dataconf.json';
+import cypher from '../fixtures/data/cypher.json';
+import dataFromJson from '../fixtures/data/kraken.json';
 
 describe('RUN_TEST', () => {
     const alignTableFromJson=(argSplit)=>{
@@ -29,7 +29,7 @@ describe('RUN_TEST', () => {
     console.warn('RUN :: '+data_source);
     if(data_source=='')throw 'ERROR dataconf.data_source empty';
     if(data_source=='cypher'){
-        let xlsxCommands=require('../../support/xlsx.commands');
+        let xlsxCommands=require('../support/xlsx.commands');
         it('RUN CYPHER',()=>{
             cy.cyCypher(xlsxCommands.getDataFromCypherArray(
                 xlsxCommands.getDataFromCypherJson(cypher.testCase),
