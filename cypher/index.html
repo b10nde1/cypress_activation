@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>CyPher</title>
+    </head>
+    <body>
+        <!--Here html-->
+        <!--Element : 
+            Test Title (json file name)
+            Test Case 
+            Test Step
+            Scenario
+            Test
+            Run
+            Action
+            Value
+            Data
+        -->
+        <div class="body">
+            <div class="header">
+                <!--Field in the left top corner for Test Title-->
+                <input type="text" name="title" id="title" placeholder="Test Title">
+                <!--Btn in the right top corner to run program-->
+                <input type="button" value="Generate JSON" onclick="runProgram()">
+            </div>
+            <div id="data-row">
+                <!--Totla of test / row, !IMPORTANT! js use this total of row for new row-id !IMPORTANT!-->
+                <i id="row-id" style="display:none">1</i>
+                <div id="row-0" data-row-status="ON">
+                    <!--By default 1 row is present in the front-->
+                    <input type="text" id="row-0-testCase" name="testCase" id="testCase" placeholder="test case">
+                    <input type="text" id="row-0-testStep" name="testStep" id="testStep" placeholder="test step">
+                    <input type="text" id="row-0-scenario" name="scenario" id="scenario" placeholder="scenario">
+                    <input type="text" id="row-0-test" name="test" id="test" placeholder="test">
+                    <input type="text" id="row-0-run" name="run" id="run" placeholder="run">
+                    <input type="text" id="row-0-action" name="action" id="action" placeholder="action">
+                    <input type="text" id="row-0-value" name="value" id="value" placeholder="value">
+                    <input type="text" id="row-0-data" name="data" id="data" placeholder="data">
+                    <!--Btn at the end of the row for removing it-->
+                    <input type="button" value="remove-row" onclick="removeRow('row-0')">
+                </div>
+            </div>
+            <div class="footer">
+                <!--Btn below the last row to add another one-->
+                <input type="button" value="add-row" onclick="addRow()">
+            </div>
+        </div>
+        <!--JS Function section-->
+        <script>
+            //Here js function add row
+            const addRow=()=>{
+                //get next id
+                let node_id=document.getElementById('row-id').innerText;
+                //set div id
+                let div_id='row-'+node_id;
+                //create div element+id
+                let node_div=document.createElement('div');
+                node_div.setAttribute('id',div_id);
+                node_div.setAttribute('data-row-status','ON');
+                //create row
+                let new_row='<input type="text" id="'+div_id+'-testCase" name="testCase" id="testCase" placeholder="test case">'
+                    +'<input type="text" id="'+div_id+'-testStep" name="testStep" id="testStep" placeholder="test step">'
+                    +'<input type="text" id="'+div_id+'-scenario" name="scenario" id="scenario" placeholder="scenario">'
+                    +'<input type="text" id="'+div_id+'-test" name="test" id="test" placeholder="test">'
+                    +'<input type="text" id="'+div_id+'-run" name="run" id="run" placeholder="run">'
+                    +'<input type="text" id="'+div_id+'-action" name="action" id="action" placeholder="action">'
+                    +'<input type="text" id="'+div_id+'-value" name="value" id="value" placeholder="value">'
+                    +'<input type="text" id="'+div_id+'-data" name="data" id="data" placeholder="data">'
+                    +'<input type="button" value="remove-row" onclick="removeRow(\''+div_id+'\')">';
+                //add div in data-row
+                document.getElementById("data-row").appendChild(node_div);
+                document.getElementById(div_id).innerHTML=new_row;
+                //change next id in front
+                document.getElementById('row-id').innerHTML=Number(node_id)+1;
+            }
+            //Here js function remove row
+            const removeRow=(arg)=>{
+                let element=document.getElementById(arg);
+                element.setAttribute('data-row-status','OFF');
+                element.style.display='none';
+            }
+            //here js function json export - run program
+            const runProgram=()=>{
+                let row_length=Number(ocument.getElementById('row-id').innerText);
+                
+            }
+        </script>
+    </body>
+</html>
