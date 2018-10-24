@@ -5,4 +5,4 @@
     ,"run":"true/*/true/*/true/*/false/*/true/*/false/*/false/*/true/*/true/*/true/*/true"
     ,"action":"openUrl/*/scrollTo/*/wait/*/click/*/typeText/*/click/*/click/*/typeText/*/typeText/*/typeText/*/click"
     ,"value":"/*/footer/*//*/div.adoric_element:nth-child(5) > button:nth-child(1)/*/#firstName/*/#dependentBirthday/*/#dependentBirthday_table > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(2) > div:nth-child(1)/*/#emailAddress/*/#newPassword/*/#addressPostalCode/*/.button.js-register-button.event_profile_register_submit",
-    "data":"https://www.pampers.com/en-us/registration/*//*/5/*//*/Jean/*//*//*/jeantestsprint478109@gmail.com/*/Testing123/*/15948/*/n/a"}
+    "data":"https://www.pampers.com/en-us/registration/*//*/5/*//*/Jean/*//*//*/@email/*/@password/*/15948/*/n/a"}

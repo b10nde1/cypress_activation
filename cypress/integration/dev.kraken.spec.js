@@ -54,21 +54,31 @@ describe('RUN_TEST', () => {
         });
         list_action.forEach(element=>{
             let temp_obj=element;
+            let temp_user_for_mail='alfred' ;let random_id=Math.random();
+            let scenario_for_tracker=temp_obj.scenario;
             if(String(temp_obj.run)=='true'){
                 it('RUN CYPHER ACTION '+temp_obj.action,()=>{
+                    if(temp_obj.action=='typeText' && temp_obj.data=='@email'){
+                        temp_obj.data=temp_user_for_mail+random_id+'@gmail.com';
+                        scenario_for_tracker+=' || '+temp_obj.data;
+                    }
+                    if(temp_obj.action=='typeText' && temp_obj.data=='@password'){
+                        temp_obj.data='Testing'+random_id;
+                        scenario_for_tracker+=' || '+temp_obj.data;
+                    }
                     temp_obj[temp_obj.action]([temp_obj.value,temp_obj.data,temp_obj.testCase,temp_obj.testStep]);
+                    //track all action
+                    //alloc 5 slots per row for track_action
+                    //testCase, testStep, scenario, test and run
+                    track_action[list_action.indexOf(element)]=[
+                        [temp_obj.testCase]
+                        ,[temp_obj.testStep]
+                        ,[scenario_for_tracker]
+                        ,[temp_obj.test]
+                        ,[temp_obj.run]
+                    ];
                 })
             }
-            //track all action
-            //alloc 5 slots per row for track_action
-            //testCase, testStep, scenario, test and run
-            track_action[list_action.indexOf(element)]=[
-                [temp_obj.testCase]
-                ,[temp_obj.testStep]
-                ,[temp_obj.scenario]
-                ,[temp_obj.test]
-                ,[temp_obj.run]
-            ];
         })
         it('RUN CYPHER ACTION TRACK ACTION REPORT',()=>{
             //send track action
