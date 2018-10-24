@@ -1,5 +1,5 @@
 import dataconf from '../fixtures/dataconf.json';
-import cypher from '../fixtures/data/cypher.json';
+import cypher from '../../cypher/data.json';
 import dataFromJson from '../fixtures/data/kraken.json';
 
 describe('RUN_TEST', () => {
