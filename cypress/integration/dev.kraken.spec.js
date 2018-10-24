@@ -28,27 +28,54 @@ describe('RUN_TEST', () => {
     let data_source=dataconf.data_source;
     console.warn('RUN :: '+data_source);
     if(data_source=='')throw 'ERROR dataconf.data_source empty';
+    //Kraken V2
     if(data_source=='cypher'){
         let xlsxCommands=require('../support/xlsx.commands');
+        let mainCommands=require('../support/main.commands');
+        let objGeneric=require('../obj/objGeneric');
+        let list_action=mainCommands.genericRunTest(xlsxCommands.getDataFromCypherArray(
+            xlsxCommands.getDataFromCypherJson(cypher.testCase),
+            xlsxCommands.getDataFromCypherJson(cypher.testStep),
+            xlsxCommands.getDataFromCypherJson(cypher.scenario),
+            xlsxCommands.getDataFromCypherJson(cypher.test),
+            xlsxCommands.getDataFromCypherJson(cypher.run),
+            xlsxCommands.getDataFromCypherJson(cypher.action),
+            xlsxCommands.getDataFromCypherJson(cypher.value),
+            xlsxCommands.getDataFromCypherJson(cypher.data),
+        ));
+        let track_action=new Array(list_action.length);
+        let util_commands=require('../support/util.commands');
+        let report_id=util_commands.generateTitle('Run_test-id');
         beforeEach(() => {
             Cypress.on('uncaught:exception', (err, runnable)=> {
                 return false
             })
             cy.viewport(1600,1200);
         });
-        it('RUN CYPHER',()=>{
-            cy.cyCypher(xlsxCommands.getDataFromCypherArray(
-                xlsxCommands.getDataFromCypherJson(cypher.testCase),
-                xlsxCommands.getDataFromCypherJson(cypher.testStep),
-                xlsxCommands.getDataFromCypherJson(cypher.scenario),
-                xlsxCommands.getDataFromCypherJson(cypher.test),
-                xlsxCommands.getDataFromCypherJson(cypher.run),
-                xlsxCommands.getDataFromCypherJson(cypher.action),
-                xlsxCommands.getDataFromCypherJson(cypher.value),
-                xlsxCommands.getDataFromCypherJson(cypher.data),
-            ));
+        list_action.forEach(element=>{
+            let temp_obj=element;
+            if(String(temp_obj.run)=='true'){
+                it('RUN CYPHER ACTION '+temp_obj.action,()=>{
+                    temp_obj[temp_obj.action]([temp_obj.value,temp_obj.data,temp_obj.testCase,temp_obj.testStep]);
+                })
+            }
+            //track all action
+            //alloc 5 slots per row for track_action
+            //testCase, testStep, scenario, test and run
+            track_action[list_action.indexOf(element)]=[
+                [temp_obj.testCase]
+                ,[temp_obj.testStep]
+                ,[temp_obj.scenario]
+                ,[temp_obj.test]
+                ,[temp_obj.run]
+            ];
+        })
+        it('RUN CYPHER ACTION TRACK ACTION REPORT',()=>{
+            //send track action
+            cy.cyTrackTest(track_action,report_id);
         })
     }
+    //Kraken V1
     if(data_source=='kraken'){
         let conf_run_screen_shot=dataFromJson.runScreenShot;
         let confDevice='';let listMarkets='';let data_page_speed='';let temp_list_markets='';let temp_page_speed_urls='';
