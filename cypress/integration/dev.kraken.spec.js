@@ -30,6 +30,12 @@ describe('RUN_TEST', () => {
     if(data_source=='')throw 'ERROR dataconf.data_source empty';
     if(data_source=='cypher'){
         let xlsxCommands=require('../support/xlsx.commands');
+        beforeEach(() => {
+            Cypress.on('uncaught:exception', (err, runnable)=> {
+                return false
+            })
+            cy.viewport(1600,1200);
+        });
         it('RUN CYPHER',()=>{
             cy.cyCypher(xlsxCommands.getDataFromCypherArray(
                 xlsxCommands.getDataFromCypherJson(cypher.testCase),

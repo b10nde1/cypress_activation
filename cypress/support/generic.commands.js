@@ -56,8 +56,8 @@ Cypress.Commands.add('cyTrackTest',(arg_obj: array,arg_id: string)=>{
 //css section | text
 Cypress.Commands.add('cyTypeText',(arg_value : string, arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_value);
-        util_commands.verifyNoNaOrBlank(arg_data);
+        //util_commands.verifyNoNaOrBlank(arg_value);
+        //util_commands.verifyNoNaOrBlank(arg_data);
         cy.get(arg_value).type(arg_data);
     }
     catch(ex){
@@ -71,7 +71,7 @@ Cypress.Commands.add('cyGetLinks',(arg_data: string, arg_testCase: string, arg_t
     try{
         let title='getLinks-'+arg_testCase+'-'+arg_testStep;
         let date_report=new Date();let report_id=date_report.getTime();
-        util_commands.verifyNoNaOrBlank(arg_data);
+        //util_commands.verifyNoNaOrBlank(arg_data);
         let arg_url=' ';
         if(arg_data.split('//')[0]=='http:' || arg_data.split('//')[0]=='https:')arg_url=arg_data
         if(arg_url!=' '){
@@ -93,14 +93,14 @@ Cypress.Commands.add('cyGetLinks',(arg_data: string, arg_testCase: string, arg_t
 //use pagespeed.commands.js => cy.pageSpeed(arg_data : Array[title][Url])
 Cypress.Commands.add('cyGooglePageSpeed',(arg_data: string, arg_testCase: string, arg_testStep: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_data);
+        //util_commands.verifyNoNaOrBlank(arg_data);
         /* 
         Verify if this on ProdCD
         check if url start with www.
         */
         let url_to_scan='';
         if(arg_data.split('.')[0]=='https://www' || arg_data.split('.')[0]=='http://www')url_to_scan=arg_data
-        let title=util_commands.generateTitle('googlePageSpeed-'+arg_testCase+arg_testStep);
+        let title=//util_commands.generateTitle('googlePageSpeed-'+arg_testCase+arg_testStep);
         cy.checkUtilConsole(['INFO','generic.commands => cyGooglePageSpeed']
             ,['Google Page Speed','Title => '+title]);
         //if url_to_scan is setted, run the test else don't throw an exception but just show an warning information
@@ -116,7 +116,7 @@ Cypress.Commands.add('cyGooglePageSpeed',(arg_data: string, arg_testCase: string
 Cypress.Commands.add('cyCapture',(arg_value: string, arg_data: string, arg_testCase: string, arg_testStep: string)=>{
     try{
         if(arg_data==' ' || arg_data=='n/a') arg_data='title';
-        let title=util_commands.generateTitle(arg_data+'-'+arg_testCase+'-'+arg_testStep);
+        let title=//util_commands.generateTitle(arg_data+'-'+arg_testCase+'-'+arg_testStep);
         cy.checkUtilConsole(['INFO','generic.commands => cyCapture']
             ,['Take screenshot','Title => '+title]);
         if(arg_value==' ' || arg_value =='n/a')cy.checkVortexOpenAndTakeScreenShot(title);
@@ -130,7 +130,7 @@ Cypress.Commands.add('cyCapture',(arg_value: string, arg_data: string, arg_testC
 //n/a | base_url
 Cypress.Commands.add('cyDownloadXml',(arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_data);
+        //util_commands.verifyNoNaOrBlank(arg_data);
         let xml_commands= require('./xml.commands');
         cy.checkUtilConsole(['INFO','generic.commands => cyDownloadXml']
             ,['Download sitemap.xml','Element => '+arg_data]);
@@ -144,7 +144,7 @@ Cypress.Commands.add('cyDownloadXml',(arg_data: string)=>{
 //element | n/a
 Cypress.Commands.add('cyVerifyElementPresent',(arg_value: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_value);
+        //util_commands.verifyNoNaOrBlank(arg_value);
         cy.checkUtilConsole(['INFO','generic.commands => cyVerifyElementPresent']
             ,['Verify if element is present','Element => '+arg_value]);
         cy.get(arg_value);
@@ -157,8 +157,8 @@ Cypress.Commands.add('cyVerifyElementPresent',(arg_value: string)=>{
 //element | expected text
 Cypress.Commands.add('cyVerifyTextContains',(arg_value: string, arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_value);
-        util_commands.verifyNoNaOrBlank(arg_data);
+        //util_commands.verifyNoNaOrBlank(arg_value);
+        //util_commands.verifyNoNaOrBlank(arg_data);
         cy.checkUtilConsole(['INFO','generic.commands => cyVerifyTextContains'],['Verify text','Get => '+arg_value+' Contains => '+arg_data]);
         cy.get(arg_value).contains(arg_data);
     }
@@ -170,8 +170,8 @@ Cypress.Commands.add('cyVerifyTextContains',(arg_value: string, arg_data: string
 //css location | [href][expected data]
 Cypress.Commands.add('cyVerifyAttr',(arg_value: string, arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_value);
-        util_commands.verifyNoNaOrBlank(arg_data);
+        //util_commands.verifyNoNaOrBlank(arg_value);
+        //util_commands.verifyNoNaOrBlank(arg_data);
         //get both attribute and value from arg_data field 
         let arg_data_attr=arg_data.split('][');
         arg_data_attr[0]=arg_data_attr[0].replace("[","");
@@ -191,9 +191,9 @@ Cypress.Commands.add('cyVerifyAttr',(arg_value: string, arg_data: string)=>{
 //value (css location) | next (text in the section if applicable) - n/a (if not applicable)
 Cypress.Commands.add('cyClick',(arg_value: string, arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_value);
+        //util_commands.verifyNoNaOrBlank(arg_value);
         if(arg_data!='n/a'){
-            util_commands.verifyNoNaOrBlank(arg_data);
+            //util_commands.verifyNoNaOrBlank(arg_data);
             cy.checkUtilConsole(['INFO','generic.commands => cyClick'],['Click','Get => '+arg_value+' Contains => '+arg_data]);
             cy.get(arg_value).contains(arg_data).click();
         }
@@ -210,7 +210,7 @@ Cypress.Commands.add('cyClick',(arg_value: string, arg_data: string)=>{
 //footer (balise section) | n/a
 Cypress.Commands.add('cyScrollTo',(arg_value: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_value);
+        //util_commands.verifyNoNaOrBlank(arg_value);
         cy.checkUtilConsole(['INFO','generic.commands => cyScrollTo'],['Scroll To',arg_value]);
         cy.get(arg_value).scrollIntoView();
     }
@@ -222,7 +222,7 @@ Cypress.Commands.add('cyScrollTo',(arg_value: string)=>{
 //n/a | 8 (value in second)
 Cypress.Commands.add('cyWait',(arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_data);
+        ////util_commands.verifyNoNaOrBlank(arg_data);
         let value_number=0;
         try{
             value_number=(Number(arg_data))*1000;
@@ -241,7 +241,7 @@ Cypress.Commands.add('cyWait',(arg_data: string)=>{
 //n/a | url
 Cypress.Commands.add('cyOpenUrl',(arg_data: string)=>{
     try{
-        util_commands.verifyNoNaOrBlank(arg_data);
+        ////util_commands.verifyNoNaOrBlank(arg_data);
         arg_data=String(arg_data);
         cy.checkUtilConsole(['INFO','generic.commands => cyOpenUrl'],['Open URL',arg_data]);
         cy.visit(arg_data);
@@ -258,13 +258,13 @@ Cypress.Commands.add('cyViewport',(arg_value: string, arg_data: string)=>{
         let list_device=['desktop','mobile'];
         let conf_width=0;let conf_height=0;
         if(arg_value=='n/a'){
-            util_commands.verifyNoNaOrBlank('cyViewport',arg_data);
+            //util_commands.verifyNoNaOrBlank('cyViewport',arg_data);
             let new_dimension=arg_data.split('x');
             conf_width=Number(new_dimension[0]);
             conf_height=Number(new_dimension[1]);
         }
         else{
-            util_commands.verifyNoNaOrBlank('cyViewport',arg_value);
+            //util_commands.verifyNoNaOrBlank('cyViewport',arg_value);
             list_device.forEach(Element=>{
                 if(Element==arg_value.toLowerCase()){
                     conf_width=device_dimension[list_device.indexOf(Element)][0];

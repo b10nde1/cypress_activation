@@ -1,10 +1,8 @@
-{
-    "testCase":"1/*/1",
-    "testStep":"1/*/2",
-    "scenario":"test open url/*/test getlinks",
-    "test":"test/*/test",
-    "run":"true/*/false",
-    "action":"openUrl/*/getLinks",
-    "value":"n/a/*/n/a",
-    "data":"https://www.pampers.fr/*/https://www.pampers.fr/selection-du-pays"
-}
+{"testCase":"1/*/1/*/1/*/1/*/2/*/2/*/2/*/2/*/2/*/2/*/2/*/2"
+    ,"testStep":"1/*/2/*/3/*/4/*/1/*/2/*/3/*/4/*/5/*/6/*/7/*/8",
+    "scenario":"open pampers us-en/*/scroll to footer/*/wait/*/close prom banner/*/open registration popin/*/complete first name/*/select Child DOB - open calendar/*/child DOB - select date/*/complete email/*/complete password/*/complete zip code/*/submit form"
+    ,"test":"sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4"
+    ,"run":"true/*/true/*/true/*/false/*/true/*/true/*/false/*/false/*/true/*/true/*/true/*/true"
+    ,"action":"openUrl/*/scrollTo/*/wait/*/click/*/click/*/typeText/*/click/*/click/*/typeText/*/typeText/*/typeText/*/click"
+    ,"value":"/*/footer/*//*/div.__ADORIC__2:nth-child(52) > div:nth-child(1) > div:nth-child(7) > span:nth-child(1)/*/a.item---link:nth-child(2)/*/#firstName/*/#dependentBirthday/*/html.modal-fix-helper body.ajs-no-overflow div.alertify.ajs-basic.ajs-closable.ajs-pinnable.ajs-pulse div.ajs-modal div.ajs-dialog div.ajs-body div.ajs-content form#FormPh div.js-vortex-container div.vortex.janrain div.vortex__container div.vortex--register.js-register-form div.vortex__content--small div.js-date-picker-janrain-container div#dependentBirthday_root.picker.picker--opened.picker--focused div.picker__holder div.picker__frame div.picker__wrap div.picker__box table#dependentBirthday_table.picker__table tbody tr td div.picker__day.picker__day--infocus/*/#emailAddress/*/#newPassword/*/#addressPostalCode/*/.button"
+    ,"data":"https://www.pampers.com/en-us/*//*/5/*//*//*/Jean/*//*//*/jeantestsprint4789@gmail.com/*/Testing123/*/15948/*/"}
