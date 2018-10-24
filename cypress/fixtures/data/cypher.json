@@ -1,8 +1,0 @@
-{"testCase":"1/*/1/*/1/*/1/*/2/*/2/*/2/*/2/*/2/*/2/*/2/*/2"
-    ,"testStep":"1/*/2/*/3/*/4/*/1/*/2/*/3/*/4/*/5/*/6/*/7/*/8",
-    "scenario":"open pampers us-en/*/scroll to footer/*/wait/*/close prom banner/*/open registration popin/*/complete first name/*/select Child DOB - open calendar/*/child DOB - select date/*/complete email/*/complete password/*/complete zip code/*/submit form"
-    ,"test":"sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4/*/sprint 4"
-    ,"run":"true/*/true/*/true/*/false/*/true/*/true/*/true/*/true/*/true/*/true/*/true/*/true"
-    ,"action":"openUrl/*/scrollTo/*/wait/*/click/*/click/*/typeText/*/click/*/click/*/typeText/*/typeText/*/typeText/*/click"
-    ,"value":"/*/footer/*//*/div.__ADORIC__2:nth-child(52) > div:nth-child(1) > div:nth-child(7) > span:nth-child(1)/*/a.item---link:nth-child(2)/*/#firstName/*/.has-icon-left.js-date-picker-janrain.picker__input/*/#dependentBirthday_table > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(2) > div:nth-child(1)/*/#emailAddress/*/#newPassword/*/#addressPostalCode/*/.button.js-register-button.event_profile_register_submit"
-    ,"data":"https://www.pampers.com/en-us/*//*/5/*//*//*/Jean/*/n/a/*/n/a/*/@email/*/@password/*/15948/*/n/a"}
