@@ -47,7 +47,8 @@
                         <option value="verifyAttr" datainstruction="value : css location | data : [href][expected data]">Verify Attribute Value<//option>
                         <option value="getLinks" datainstruction="value : n/a | data : url (only 1 url per test)">Get All Links</option>
                         <option value="download_xml" datainstruction="value : n/a | data : base_url">Download sitemap.xml</option>
-                        <option value="googlePageSpeed" datainstruction="value : value : n/a | data : url">Run Page Speed</option>
+                        <option value="googlePageSpeed" datainstruction="value : n/a | data : url">Run Page Speed</option>
+                        <option value="sourceCode" datainstruction="value : n/a | data : [head][link][hreflang][value]">Verify view source</option>
                     </select>
                     <input type="text" id="row-0-value" name="value" id="value" placeholder="value">
                     <input type="text" id="row-0-data" name="data" id="data" placeholder="data">
@@ -101,6 +102,7 @@
                         +'<option value="getLinks" datainstruction="value : n/a | data : url (only 1 url per test)">Get All Links</option>'
                         +'<option value="download_xml" datainstruction="value : n/a | data : base_url">Download sitemap.xml</option>'
                         +'<option value="googlePageSpeed" datainstruction="value : n/a | data : url">Run Page Speed</option>'
+                        +'<option value="sourceCode" datainstruction="value : n/a | data : [head][link][hreflang][value]">Verify view source</option>'
                     +'</select>'
                     +' <input type="text" id="'+div_id+'-value" name="value" id="value" placeholder="value">'
                     +' <input type="text" id="'+div_id+'-data" name="data" id="data" placeholder="data">'

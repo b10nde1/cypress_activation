@@ -13,6 +13,7 @@ const cmCapture=(arg: Array)=>{cy.cyCapture(arg[0],arg[1],arg[2],arg[3]);}
 const cmGooglePageSpeed=(arg: Array)=>{cy.cyGooglePageSpeed(arg[1],arg[2],arg[3]);}
 const cmGetLinks=(arg: Array)=>{cy.cyGetLinks(arg[1],arg[2],arg[3]);}
 const cmTypeText=(arg: Array)=>{cy.cyTypeText(arg[0],arg[1]);}
+const cmSourceCode=(arg: array)=>{cy.cySourceCode(arg[1]);}
 //export to ObjGeneric
 module.exports.cmViewport=cmViewport;
 module.exports.cmOpenUrl=cmOpenUrl;
@@ -27,6 +28,7 @@ module.exports.cmCapture=cmCapture;
 module.exports.cmGooglePageSpeed=cmGooglePageSpeed;
 module.exports.cmGetLinks=cmGetLinks;
 module.exports.cmTypeText=cmTypeText;
+module.exports.cmSourceCode=cmSourceCode;
 /***************************************************************/
 //Import util
 let util_commands=require('./util.commands');
@@ -52,6 +54,20 @@ Cypress.Commands.add('cyTrackTest',(arg_obj: array,arg_id: string)=>{
         cy.checkUtilConsole(['generic.commands => cyTrackTest'],[ex]);
     }
 })
+//sourceCode
+//n/a | [head][link][hreflang][value]
+Cypress.Commands.add('cySourceCode',(arg_data: string)=>{
+    try{
+        let split_data=arg_data.split('][');
+        split_data[0]=split_data[0].replace('[','');
+        split_data[split_data.length]=split_data[split_data.length].replace(']','');
+        cy.get(''+split_data[0]+' '+split_data[1]+'['+split_data[2]+'="'+split_data[3]+'"]');
+    }
+    catch(ex){
+        cy.checkUtilConsole(['generic.commands -> '],[ex]);
+    }
+})
+
 //typeText
 //css section | text
 Cypress.Commands.add('cyTypeText',(arg_value : string, arg_data: string)=>{
