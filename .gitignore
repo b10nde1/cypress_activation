@@ -38,3 +38,5 @@ cypress/screenshots/
 cypress/report/kraken-statusCode/
 
 cypress/report/kraken-statusCodeReport/
+
+node_modules/
