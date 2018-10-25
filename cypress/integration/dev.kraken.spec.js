@@ -57,7 +57,7 @@ describe('RUN_TEST', () => {
             let temp_user_for_mail='alfred' ;let random_id=Math.random();
             let scenario_for_tracker=temp_obj.scenario;
             if(String(temp_obj.run)=='true'){
-                it('ACTION '+temp_obj.testCase+'-'+temp_obj.testStep+'-'+temp_obj.scenario,()=>{
+                it(''+temp_obj.test+'-'+temp_obj.testCase+'-'+temp_obj.testStep+'-'+temp_obj.scenario,()=>{
                     if(temp_obj.action=='typeText' && temp_obj.data=='@email'){
                         temp_obj.data=temp_user_for_mail+random_id+'@gmail.com';
                         scenario_for_tracker+=' || '+temp_obj.data;
